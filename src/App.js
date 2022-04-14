@@ -2,7 +2,7 @@ import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="h-screen m-0 bg-[#8DD4C3]">
+    <div className="auto0 h-screen p-4 bg-[#8DD4C3]">
       {/* <h1>This is our School App</h1> */}
 
       <Header />

@@ -1,20 +1,4 @@
 @tailwind base;
-
-blockquote,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-figure,
-p,
-pre, body {
-  @apply p-0 m-0 box-border;
-}
-
 @tailwind components;
 @tailwind utilities;
 
