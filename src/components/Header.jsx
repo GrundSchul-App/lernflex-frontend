@@ -3,11 +3,11 @@ import logo from "../assets/images/Logo.png";
 
 const Header = () => {
   return (
-    <header className="h-[75px] bg-gray-200">
-      <div className="">
-        <img src={logo} alt="Logo" />
+    <div className="flex max-w-[1420px] mt-0 mx-auto bg-gray-200 h-[80px] shadow-gray-500/50 items-center">
+      <div>
+        <img className="h-[70px]" src={logo} />
       </div>
-    </header>
+    </div>
   );
 };
 
