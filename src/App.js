@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
 import CalendarComponent from "./components/CalendarComponent";
+// import {Routes, Route} from 'react-router-dom'
 
 function App() {
   return (
@@ -15,10 +16,9 @@ function App() {
           <CalendarComponent />
           <EventsList />
         </div>
-        {/* <Sidebar /> */}
+       
       </div>
-      {/* calendar */}
-      {/* Main */}
+      
     </div>
   );
 }
