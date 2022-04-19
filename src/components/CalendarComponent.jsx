@@ -7,7 +7,7 @@ import Calendar from 'react-calendar';
     const onChange=date=>{ setDate(date);}
 
     return (
-        <div className="bg-white rounded-xl  w-[296px]">
+        <div className="bg-white rounded-xl  w-[317px] mt-4 py-[25px] px-[25px]">
          <Calendar onChange={onChange} value={date}/> 
         </div>
     )
