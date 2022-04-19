@@ -2,7 +2,7 @@ import EventsList from "./components/EventsList";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
-import CalendarComponent from "./components/CalendarComponent";
+import CalendarComponents from "./components/CalendarComponent";
 // import {Routes, Route} from 'react-router-dom'
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
         <Sidebar />
         <Main />
         <div>
-          <CalendarComponent />
+          <CalendarComponents />
           <EventsList />
         </div>
        
