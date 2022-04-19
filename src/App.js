@@ -1,9 +1,9 @@
-import Calendar from "./components/Calendar";
+
 import EventsList from "./components/EventsList";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
-import Calendar from './components/CalendarComponent'
+import CalendarComponent from './components/CalendarComponent'
 
 function App() {
   return (
@@ -13,14 +13,14 @@ function App() {
         <Sidebar />
         <Main />
         <div>
-          <Calendar />
+          <CalendarComponent />
           <EventsList />
         </div>
         {/* <Sidebar /> */}
       </div>
       {/* calendar */}
       {/* Main */}
-      <Calendar/>
+    
     </div>
   );
 }
