@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="h-screen p-4 bg-[#8DD4C3] max-w-[1420px] mx-auto">
       <Header />
-      <div className="flex justify-start">
+      <div className="flex justify-start h-screen">
         <Sidebar />
         <Main />
         <div>
