@@ -1,26 +1,24 @@
-import Calendar from "./components/Calendar";
 import EventsList from "./components/EventsList";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
-import Calendar from './components/CalendarComponent'
+import CalendarComponent from "./components/CalendarComponent";
+// import {Routes, Route} from 'react-router-dom'
 
 function App() {
   return (
-    <div className="h-screen p-4 bg-[#8DD4C3] max-w-[1420px]">
+    <div className="h-screen p-4 bg-[#8DD4C3] max-w-[1420px] mx-auto">
       <Header />
       <div className="flex justify-start">
         <Sidebar />
         <Main />
         <div>
-          <Calendar />
+          <CalendarComponent />
           <EventsList />
         </div>
-        {/* <Sidebar /> */}
+       
       </div>
-      {/* calendar */}
-      {/* Main */}
-      <Calendar/>
+      
     </div>
   );
 }
