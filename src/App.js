@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
@@ -6,7 +7,7 @@ function App() {
       {/* <h1>This is our School App</h1> */}
 
       <Header />
-      {/* Sidebar */}
+      <Sidebar />
       {/* calendar */}
       {/* Main */}
     </div>
