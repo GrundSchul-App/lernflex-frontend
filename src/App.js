@@ -1,9 +1,8 @@
-
 import EventsList from "./components/EventsList";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
-import CalendarComponent from './components/CalendarComponent'
+import CalendarComponent from "./components/CalendarComponent";
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
       </div>
       {/* calendar */}
       {/* Main */}
-    
     </div>
   );
 }
