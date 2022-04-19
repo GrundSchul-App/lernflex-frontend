@@ -3,6 +3,7 @@ import EventsList from "./components/EventsList";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
+import Calendar from './components/CalendarComponent'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       </div>
       {/* calendar */}
       {/* Main */}
+      <Calendar/>
     </div>
   );
 }
