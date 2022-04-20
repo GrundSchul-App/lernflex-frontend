@@ -2,7 +2,7 @@ import React from 'react'
 
 const EventsList = () => {
   return (
-    <div className="bg-white mt-4 rounded-xl h-[585px] w-[317px] p-[25px]">EventsList</div>
+    <div className="bg-white mt-4 rounded-xl h-[480px] w-[317px] p-[25px]">EventsList</div>
   )
 }
 
