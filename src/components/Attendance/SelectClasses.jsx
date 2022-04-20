@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { IoIosPeople } from "react-icons/io";
+import { Context } from "../../context/context";
 
-const SelectClasses = ({ data, getClassId, getClassName }) => {
+const SelectClasses = () => {
+
+const {classes,getClassId,getClassName}=useContext(Context)
+
+
+
+
   const getClassIdAndName = (e) => {
     console.log({
       classId: e.target.value,
@@ -43,10 +50,10 @@ const SelectClasses = ({ data, getClassId, getClassName }) => {
         onChange={getClassIdAndName}
       >
         {/* <option selected>Klassen...</option> */}
-        {data.map((data, index) => {
+        {classes.map((classes, index) => {
           return (
-            <option className="p-2" key={index} value={data._id}>
-              {data.className}
+            <option className="p-2" key={index} value={classes._id}>
+              {classes.className}
             </option>
           );
         })}

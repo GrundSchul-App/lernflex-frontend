@@ -54,10 +54,6 @@ const MainTable = ({ studentsList, subjectName, className }) => {
                 <tbody>
                   {studentsList.map((data, index) => {
                     return (
-<<<<<<< HEAD
-                      <tr key={index} className="bg-gray-100 border-b">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-=======
                       <tr
                         key={index}
                         className={
@@ -67,7 +63,6 @@ const MainTable = ({ studentsList, subjectName, className }) => {
                         }
                       >
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
->>>>>>> main
                           {index + 1}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

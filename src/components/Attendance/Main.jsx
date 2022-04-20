@@ -13,27 +13,27 @@ import { Context } from "../../context/context";
 const Main = () => {
   const { getAllClasses,
     getAllSubjects,
-    getStudentsByClassId } = useContext(Context);
+    getStudentsByClassId,setClasses,classId,setSubjects,className,subjectName } = useContext(Context);
 
-  const dataArray = [
-    {
-      firstName: "pepe",
-      lastName: "perez",
-      birthDate: "2012-04-03",
-      gender: "M",
-    },
-    { firstName: "Rosa", lastName: "Lu", birthDate: "2012-05-03", gender: "F" },
-    { firstName: "Lola", lastName: "Li", birthDate: "2012-06-03", gender: "F" },
-  ];
+  // const dataArray = [
+  //   {
+  //     firstName: "pepe",
+  //     lastName: "perez",
+  //     birthDate: "2012-04-03",
+  //     gender: "M",
+  //   },
+  //   { firstName: "Rosa", lastName: "Lu", birthDate: "2012-05-03", gender: "F" },
+  //   { firstName: "Lola", lastName: "Li", birthDate: "2012-06-03", gender: "F" },
+  // ];
   //const classes = "1a";
   //const subject = "Englisch";
 
-  const [classes, setClasses] = useState([]);
-  const [subjects, setSubjects] = useState([]);
-  const [classId, setClassId] = useState("");
-  const [className, setClassName] = useState("");
-  const [subjectId, setSubjectId] = useState("");
-  const [subjectName, setSubjectName] = useState("");
+  // const [classes, setClasses] = useState([]);
+  // const [subjects, setSubjects] = useState([]);
+  // const [classId, setClassId] = useState("");
+  // const [className, setClassName] = useState("");
+  // const [subjectId, setSubjectId] = useState("");
+  // const [subjectName, setSubjectName] = useState("");
   const [studentsList, setStudentsList] = useState([]);
 
   useEffect(() => {
@@ -52,21 +52,21 @@ const Main = () => {
     });
   }, []);
 
-  function getClassId(classId) {
-    setClassId(classId);
-  }
+  // function getClassId(classId) {
+  //   setClassId(classId);
+  // }
 
-  function getClassName(className) {
-    setClassName(className);
-  }
+  // function getClassName(className) {
+  //   setClassName(className);
+  // }
 
-  function getSubjectId(subjectId) {
-    setSubjectId(subjectId);
-  }
+  // function getSubjectId(subjectId) {
+  //   setSubjectId(subjectId);
+  // }
 
-  function getSubjectName(subjectName) {
-    setSubjectName(subjectName);
-  }
+  // function getSubjectName(subjectName) {
+  //   setSubjectName(subjectName);
+  // }
 
   const onClickButton = () => {
     getStudentsByClassId(classId).then((res) => {
@@ -81,14 +81,14 @@ const Main = () => {
     <div className="flex-col w-full mr-0 sm:w-[100%] sm:mr-4 mt-4">
       <div className="flex justify-between ml-4  gap-4 flex-wrap">
         <SelectClasses
-          data={classes}
-          getClassId={getClassId}
-          getClassName={getClassName} /* getClass={getClass} */
+          // data={classes}
+          // getClassId={getClassId}
+          // getClassName={getClassName} /* getClass={getClass} */
         />
         <SelectSubjects
-          data={subjects}
-          getSubjectId={getSubjectId}
-          getSubjectName={getSubjectName}
+          // data={subjects}
+          // getSubjectId={getSubjectId}
+          // getSubjectName={getSubjectName}
         />
 
         <button
@@ -101,7 +101,7 @@ const Main = () => {
           Abwesendheitsliste generieren
         </button>
       </div>
-     {/*  { studentsList.length > 0 && <MainTable studentList={studentsList} className={className} subjectName={subjectName} /> } */}
+      {/* { studentsList.length > 0 && <MainTable studentList={studentsList} className={className} subjectName={subjectName} /> } */}
     </div>
   );
 };
