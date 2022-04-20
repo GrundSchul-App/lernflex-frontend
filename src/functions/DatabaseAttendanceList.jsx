@@ -14,6 +14,18 @@ export async function getAllClasses() {
   return body;
 }
 
+export async function getAllSubjects() {
+  const res = await fetch(`${BACKEND_URL}/subject`, {
+    headers: {
+      Accept: "application/json",
+     // Authorization: `Bearer ${token}`,
+    },
+  });
+  const body = await res.json();
+
+  return body;
+}
+
 export async function getStudentsByClassId(classId) {
   const res = await fetch(`${BACKEND_URL}/students/class/${classId}`, {
     headers: {
@@ -21,7 +33,7 @@ export async function getStudentsByClassId(classId) {
     },
   });
   const body = await res.json();
-
+ 
   return body;
 }
 
