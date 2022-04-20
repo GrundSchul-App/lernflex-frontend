@@ -13,29 +13,34 @@ import Subjects from "./pages/TeacherFolder/Subjects";
 import Classes from "./pages/TeacherFolder/Classes";
 import Events from "./pages/TeacherFolder/Events";
 import Settings from "./pages/TeacherFolder/Settings";
+import ContextProvider from "./context/context";
 
 function App() {
   return (
     <div className="p-4 bg-[#8DD4C3] max-w-[1420px] mx-auto">
-      <Header />
-      <div className="flex justify-between">
-        <Sidebar />
+      <ContextProvider>
+        <Header />
+        <div className="flex justify-between">
+          <Sidebar />
 
-        {/* <Main /> */}
-        <Routes>
-          <Route path="/attendance" element={<AttendanceList />} />
+          {/* <Main /> */}
 
-          <Route path="/remote" element={<RemoteCourse />} />
-          <Route path="/students" element={<Students />} />
-          <Route path="/homeworks" element={<Homeworks />} />
-          <Route path="/teachers" element={<Teachers />} />
-          <Route path="/subjects" element={<Subjects />} />
-          <Route path="/classes" element={<Classes />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
-        <div>{/* <EventsList /> */}</div>
-      </div>
+          <Routes>
+            <Route path="/attendance" element={<AttendanceList />} />
+
+            <Route path="/remote" element={<RemoteCourse />} />
+            <Route path="/students" element={<Students />} />
+            <Route path="/homeworks" element={<Homeworks />} />
+            <Route path="/teachers" element={<Teachers />} />
+            <Route path="/subjects" element={<Subjects />} />
+            <Route path="/classes" element={<Classes />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+
+          <div>{/* <EventsList /> */}</div>
+        </div>
+      </ContextProvider>
     </div>
   );
 }
