@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { FaRegListAlt } from "react-icons/fa";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -11,7 +11,7 @@ import { RiCalendarEventLine } from "react-icons/ri";
 import { FiSettings } from "react-icons/fi";
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(true);
+  // const [open, setOpen] = useState(true);
 
   return (
     <aside className="bg-white w-[20%] rounded-xl mt-4 py-12 px-6 relative min-h-[892px]">
@@ -23,50 +23,50 @@ const Sidebar = () => {
           </a>
         </li>
         <li className="">
-          <a href="" className="hover:text-teal-400 flex items-center">
+          <a href="#" className="hover:text-teal-400 flex items-center">
             <AiOutlineCalendar />
             <span className="ml-2 hidden sm:flex">Remote Unterricht</span>
           </a>
         </li>
         <li className="">
-          <a href="" className="hover:text-teal-400 flex items-center">
+          <a href="#" className="hover:text-teal-400 flex items-center">
             <IoIosPeople />
             <span className="ml-2 hidden sm:flex">Schüler/innen</span>
           </a>
         </li>
         <li className="">
-          <a href="" className="hover:text-teal-400 flex items-center">
+          <a href="#" className="hover:text-teal-400 flex items-center">
             <CgCopy />
             <span className="ml-2 hidden sm:flex">HA/Dateien</span>
           </a>
         </li>
 
         <li className="">
-          <a href="" className="hover:text-teal-400 flex items-center">
+          <a href="#" className="hover:text-teal-400 flex items-center">
             <GiTeacher />
             <span className="ml-2 hidden sm:flex">Lehrkräfte</span>
           </a>
         </li>
         <li className="">
-          <a href="" className="hover:text-teal-400 flex items-center">
+          <a href="#" className="hover:text-teal-400 flex items-center">
             <ImBooks />
             <span className="ml-2 hidden sm:flex">Fächer</span>
           </a>
         </li>
         <li className="">
-          <a href="" className="hover:text-teal-400 flex items-center">
+          <a href="#" className="hover:text-teal-400 flex items-center">
             <SiGoogleclassroom />
             <span className="ml-2 hidden sm:flex">Klassen</span>
           </a>
         </li>
         <li className="">
-          <a href="" className="hover:text-teal-400 flex items-center">
+          <a href="#" className="hover:text-teal-400 flex items-center">
             <RiCalendarEventLine />
             <span className="ml-2 hidden sm:flex">Events</span>
           </a>
         </li>
         <li className="">
-          <a href="" className="hover:text-teal-400 flex items-center">
+          <a href="#" className="hover:text-teal-400 flex items-center">
             <FiSettings />
             <span className="ml-2 hidden sm:flex">Einstellungen</span>
           </a>

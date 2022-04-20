@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ImBooks } from "react-icons/im";
 
 const SelectSubjects = ({data, getSubjectId, getSubjectName}) => {

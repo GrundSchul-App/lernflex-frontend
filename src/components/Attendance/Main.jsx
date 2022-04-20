@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import SelectClasses from "./SelectClasses";
 import SelectSubjects from "./SelectSubjects";
-import MainTable from "./MainTable";
+// import MainTable from "./MainTable";
 import { Context } from "../../context/context";
 /* import {
   getAllClasses,
@@ -15,16 +15,16 @@ const Main = () => {
     getAllSubjects,
     getStudentsByClassId } = useContext(Context);
 
-  const dataArray = [
-    {
-      firstName: "pepe",
-      lastName: "perez",
-      birthDate: "2012-04-03",
-      gender: "M",
-    },
-    { firstName: "Rosa", lastName: "Lu", birthDate: "2012-05-03", gender: "F" },
-    { firstName: "Lola", lastName: "Li", birthDate: "2012-06-03", gender: "F" },
-  ];
+  // const dataArray = [
+  //   {
+  //     firstName: "pepe",
+  //     lastName: "perez",
+  //     birthDate: "2012-04-03",
+  //     gender: "M",
+  //   },
+  //   { firstName: "Rosa", lastName: "Lu", birthDate: "2012-05-03", gender: "F" },
+  //   { firstName: "Lola", lastName: "Li", birthDate: "2012-06-03", gender: "F" },
+  // ];
   //const classes = "1a";
   //const subject = "Englisch";
 
@@ -43,7 +43,7 @@ const Main = () => {
         setClasses(res.data);
         console.log(res.data);
       }
-    });
+    },[]);
     getAllSubjects().then((res) => {
       if (res.message === "success") {
         setSubjects(res.data);
