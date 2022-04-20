@@ -3,27 +3,48 @@ export const Context = createContext();
 
 
 const ContextProvider = (props) => {
-const [teacher,setTeacher]=useState([]);
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  async function getAllClasses() {
+    const res = await fetch(`${BACKEND_URL}/classes`, {
+      headers: {
+        Accept: "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    const body = await res.json();
 
+    return body;
+  }
 
+  async function getAllSubjects() {
+    const res = await fetch(`${BACKEND_URL}/subject`, {
+      headers: {
+        Accept: "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    const body = await res.json();
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL 
+    return body;
+  }
 
-  // useEffect(()=>{
-  //   fetch(`${backendUrl}/teacher`)
-  //   .then(res=>res.json())
-  //   .then(json=>console.log(setTeacher(json)))
-  // },[])
+  async function getStudentsByClassId(classId) {
+    const res = await fetch(`${BACKEND_URL}/students/class/${classId}`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    const body = await res.json();
 
+    return body;
+  }
 
-function loadTeachers(){
-  fetch(`${backendUrl}/teacher`)
-  .then(res=>res.json())
-  .then(json=>console.log(setTeacher(json)))
-}
-
-
-
-  return <Context.Provider value={{teacher,setTeacher,loadTeachers}}>{props.children}</Context.Provider>;
+  return (
+    <Context.Provider
+      value={{ getStudentsByClassId, getAllSubjects, getAllClasses }}
+    >
+      {props.children}
+    </Context.Provider>
+  );
 };
 export default ContextProvider;
