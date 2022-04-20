@@ -12,7 +12,7 @@ function App() {
       <div className="flex justify-start h-screen">
         <Sidebar />
         <Main />
-        <div>
+        <div className="w-[15%]">
           <CalendarComponent />
           <EventsList />
         </div>
