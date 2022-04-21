@@ -13,6 +13,8 @@ import Subjects from "./pages/TeacherFolder/Subjects";
 import Classes from "./pages/TeacherFolder/Classes";
 import Events from "./pages/TeacherFolder/Events";
 import Settings from "./pages/TeacherFolder/Settings";
+
+import EventCalendar from "./components/calendar/EventCalendar";
 import ContextProvider from "./context/context";
 
 function App() {
@@ -20,14 +22,12 @@ function App() {
     <div className="p-4 bg-[#8DD4C3] max-w-[1420px] mx-auto">
       <ContextProvider>
         <Header />
-        <div className="flex justify-between">
+        <div className="flex justify-start ">
           <Sidebar />
 
           {/* <Main /> */}
-
           <Routes>
             <Route path="/attendance" element={<AttendanceList />} />
-
             <Route path="/remote" element={<RemoteCourse />} />
             <Route path="/students" element={<Students />} />
             <Route path="/homeworks" element={<Homeworks />} />
@@ -35,10 +35,9 @@ function App() {
             <Route path="/subjects" element={<Subjects />} />
             <Route path="/classes" element={<Classes />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/calendar" element={<EventCalendar />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
-
-          <div>{/* <EventsList /> */}</div>
         </div>
       </ContextProvider>
     </div>

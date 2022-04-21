@@ -64,7 +64,7 @@ const MainTable = ({ studentsList }) => {
                             : "bg-gray-100 border-b"
                         }
                       >
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {index + 1}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
