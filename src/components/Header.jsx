@@ -20,7 +20,7 @@ const Header = () => {
         "
       >
         <div>
-          <a href="#">
+          <a href="">
             <img className="h-auto -ml-4" src={logo} />
           </a>
         </div>

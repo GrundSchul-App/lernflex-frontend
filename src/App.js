@@ -13,6 +13,7 @@ import Subjects from "./pages/TeacherFolder/Subjects";
 import Classes from "./pages/TeacherFolder/Classes";
 import Events from "./pages/TeacherFolder/Events";
 import Settings from "./pages/TeacherFolder/Settings";
+
 import EventCalendar from "./components/calendar/EventCalendar";
 import ContextProvider from "./context/context";
 
@@ -27,7 +28,6 @@ function App() {
           {/* <Main /> */}
           <Routes>
             <Route path="/attendance" element={<AttendanceList />} />
-
             <Route path="/remote" element={<RemoteCourse />} />
             <Route path="/students" element={<Students />} />
             <Route path="/homeworks" element={<Homeworks />} />
@@ -38,7 +38,6 @@ function App() {
             <Route path="/calendar" element={<EventCalendar />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
-          <Sidebar />
         </div>
       </ContextProvider>
     </div>

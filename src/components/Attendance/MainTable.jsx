@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import {Context} from '../../context/context'
 
-const MainTable = ({ classes, subject, dataArray }) => {
+const MainTable = ({ studentsList }) => {
+  const {subjectName, className} =useContext(Context)
   const createAttendanceList = () => {};
 
   const handleChange = (e) => {
@@ -24,7 +26,7 @@ const MainTable = ({ classes, subject, dataArray }) => {
   return (
     <div className="rounded-2xl m-4 p-4 bg-white">
       <p className="font-semibold">
-        {classes} - {subject}
+        {className} - {subjectName}
       </p>
 
       <div className="flex flex-col">
@@ -52,7 +54,7 @@ const MainTable = ({ classes, subject, dataArray }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {dataArray.map((data, index) => {
+                  {studentsList.map((data, index) => {
                     return (
                       <tr
                         key={index}

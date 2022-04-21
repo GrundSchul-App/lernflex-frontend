@@ -1,12 +1,18 @@
-import React from 'react'
+import React from "react";
+import EventsList from "../../components/Attendance/EventsList";
+import Main from "../../components/Attendance/Main";
+import CalendarComponent from "../../components/CalendarComponent";
 
-function AttendanceList(props) {
-    
+const AttendanceList = () => {
+  return (
+    <div className="flex flex-row w-full justify-between">
+      <Main />
+      <div className="hidden flex-col md:flex">
+        <CalendarComponent />
+        <EventsList />
+      </div>
+    </div>
+  );
+};
 
-    return (
-        <>
-            
-        </>
-    )
-}
-export  default AttendanceList
+export default AttendanceList;

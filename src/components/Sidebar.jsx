@@ -11,7 +11,6 @@ import { RiCalendarEventLine } from "react-icons/ri";
 import { FiSettings } from "react-icons/fi";
 
 const Sidebar = () => {
-
   return (
     <aside className="bg-white w-[20%] rounded-xl mt-4 py-12 px-6 relative min-h-[892px]">
       <ul className="list-none text-lg font-semibold text-gray-500 hover:cursor-pointer space-y-10 overflow-hidden">
@@ -25,6 +24,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li className="">
+
           <a
             href="www.google.com"
             className="hover:text-teal-400 flex items-center"
@@ -38,6 +38,7 @@ const Sidebar = () => {
             href="www.google.com"
             className="hover:text-teal-400 flex items-center"
           >
+
             <IoIosPeople />
             <span className="ml-2 hidden sm:flex">Schüler/innen</span>
           </a>
@@ -57,6 +58,7 @@ const Sidebar = () => {
             href="www.google.com"
             className="hover:text-teal-400 flex items-center"
           >
+
             <GiTeacher />
             <span className="ml-2 hidden sm:flex">Lehrkräfte</span>
           </a>
