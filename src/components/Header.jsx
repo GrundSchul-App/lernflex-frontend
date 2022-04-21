@@ -48,7 +48,7 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <div class="m-1 w-12 h-12 relative rounded-full bg-gray-500 ">
+              <div className="m-1 w-12 h-12 relative rounded-full bg-gray-500 ">
                 <img
                   src="http://source.unsplash.com/50x50/?girl"
                   alt="avatar"
