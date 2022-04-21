@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ImBooks } from "react-icons/im";
+import { Context } from "../../context/context";
 
-const SelectSubjects = ({data, getSubjectId, getSubjectName}) => {
+const SelectSubjects = () => {
+const {subjects,getSubjectId,getSubjectName}=useContext(Context)
+
 
   const getSubjectIdAndName = (e) => {
     console.log(e.target.value);
@@ -33,10 +36,10 @@ const SelectSubjects = ({data, getSubjectId, getSubjectName}) => {
       focus:text-gray-700 focus:bg-white focus:border-green-600
        focus:outline-none"
         name="" id="" onChange={getSubjectIdAndName}>
-        {data.map((data, index) => {
+        {subjects.map((subject, index) => {
           return (
-            <option className="p-2" key={index} value={data._id}>
-              {data.subject_title}
+            <option className="p-2" key={index} value={subject._id}>
+              {subject.subject_title}
             </option>
           )
         })}
