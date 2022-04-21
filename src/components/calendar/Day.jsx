@@ -11,6 +11,13 @@ export default function Day({ day, rowIdx }) {
     setSelectedEvent,
   } = useContext(Context);
 
+  
+  function getCurrentDayClass() {
+    return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
+    ? "bg-blue-600 text-white rounded-full w-7"
+    : "";
+  }
+
   useEffect(() => {
     const events = filteredEvents.filter(
       (evt) =>
@@ -19,11 +26,6 @@ export default function Day({ day, rowIdx }) {
     setDayEvents(events);
   }, [filteredEvents, day]);
 
-  function getCurrentDayClass() {
-    return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
-      ? "bg-blue-600 text-white rounded-full w-7"
-      : "";
-  }
   return (
     <div className="border border-gray-200 flex flex-col">
       <header className="flex flex-col items-center">
