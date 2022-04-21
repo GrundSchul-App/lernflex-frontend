@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import {Context} from '../../context/context'
 
-const MainTable = ({ studentsList, subjectName, className }) => {
+const MainTable = ({ studentsList }) => {
+  const {subjectName, className} =useContext(Context)
   const createAttendanceList = () => {};
 
   const handleChange = (e) => {

@@ -4,10 +4,8 @@ import {Context} from '../../context/context'
 
 
 function TeacherTable(props) {
-const {teacher,setTeacher,loadTeachers}=useContext(Context)
-useEffect(()=>{
-    loadTeachers()
-},[])
+const {teachers,setTeachers,getAllTeachers}=useContext(Context)
+
   return (
     <div className="rounded-2xl m-4 p-4 bg-white">
       <div className="flex flex-col">
@@ -51,7 +49,32 @@ useEffect(()=>{
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="bg-gray-100 border-b">
+                      {teachers.map((teacher,index)=>{
+                        //  {console.log('FirstName', teacher.classes[0].className);}
+                         
+
+                          return(
+                            <tr key={index} className="bg-gray-100 border-b">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900">{teacher.firstName} </td>
+                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{teacher.lastName} </td>
+                            <td className="text-left text-gray-900 font-light px-6 py-4 ">{teacher.email}</td>
+                            <td className="text-center text-gray-900 font-light px-6 py-4 ">{teacher.classes[0].className}/</td>
+      
+                            <td className="text-center text-green-600">
+                              <button  type="button" >
+                                <AiFillEdit className="w-7 h-7 "/>
+                              </button>
+                              <button  type="button" className="text-red-600">
+                                <AiFillDelete className="w-7 h-7 text-red ml-3 "/>
+                              </button>
+                            </td>
+                          </tr>
+                          
+
+                          )
+                         ; 
+                      })}
+                    {/* <tr className="bg-gray-100 border-b">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900">Maria </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Schmidt </td>
                       <td className="text-left text-gray-900 font-light px-6 py-4 ">test@hotmail.com</td>
@@ -65,7 +88,7 @@ useEffect(()=>{
                           <AiFillDelete className="w-7 h-7 text-red ml-3 "/>
                         </button>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
               </form>

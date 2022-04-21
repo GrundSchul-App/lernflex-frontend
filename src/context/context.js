@@ -25,7 +25,7 @@ const ContextProvider = (props) => {
   function getSubjectId() {
     setSubjectId(subjectId);
   }
-  function getSubjectName(subjectName) {
+  function getSubjectName() {
     setSubjectName(subjectName);
   }
 
