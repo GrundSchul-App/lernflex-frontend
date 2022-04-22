@@ -3,18 +3,18 @@ import { IoIosPeople } from "react-icons/io";
 import { Context } from "../../context/context";
 
 const SelectClasses = () => {
-  const { classes, setClassId, setClassName } = useContext(Context);
+  const { classes,getClassIdAndName  } = useContext(Context);
 
-  const getClassIdAndName = (e) => {
-    console.log({
-      classId: e.target.value,
-      className: e.target.options[e.target.selectedIndex].text,
-    });
-    console.log(e.target.value);
-    console.log(e.target.options[e.target.selectedIndex].text);
-    setClassId(e.target.value);
-    setClassName(e.target.options[e.target.selectedIndex].text);
-  };
+  // const getClassIdAndName = (e) => {
+  //   console.log({
+  //     classId: e.target.value,
+  //     className: e.target.options[e.target.selectedIndex].text,
+  //   });
+  //   console.log(e.target.value);
+  //   console.log(e.target.options[e.target.selectedIndex].text);
+  //   setClassId(e.target.value);
+  //   setClassName(e.target.options[e.target.selectedIndex].text);
+  // };
 
   return (
     <div className="flex grow  p-2 rounded-2xl bg-white  h-[75px] items-center justify-center">

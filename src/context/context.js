@@ -54,6 +54,7 @@ const ContextProvider = (props) => {
   const [studentsList, setStudentsList] = useState([]);
 
   const [teachers, setTeachers] = useState([]);
+  
 
   const [messageBackend, setMessageBackend] = useState("");
 
@@ -85,6 +86,13 @@ const ContextProvider = (props) => {
     const body = await res.json();
     return body;
   }
+
+  const getClassIdAndName = (e) => {
+    
+    setClassId(e.target.value);
+    setClassName(e.target.options[e.target.selectedIndex].text);
+  };
+
 
   async function getAllClasses() {
     const res = await fetch(`${BACKEND_URL}/classes`, {
@@ -183,12 +191,14 @@ const ContextProvider = (props) => {
   return (
     <Context.Provider
       value={{
-        //async functions
+        getClassIdAndName ,
         getStudentsByClassId,
         getAllSubjects,
         getAllClasses,
         addAttendanceList,
         getTeacherByClassIdAndSubjectId,
+        //URL 
+        BACKEND_URL,
         //useState
         classes,
         setClasses,
@@ -223,6 +233,7 @@ const ContextProvider = (props) => {
         labels,
         updateLabel,
         filteredEvents,
+
       }}
     >
       {props.children}
