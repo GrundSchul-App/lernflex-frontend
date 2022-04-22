@@ -1,17 +1,45 @@
-import React, { useContext } from "react";
-import {Context} from '../../context/context'
+import { useEffect } from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../../context/context";
 
-const MainTable = ({ studentsList }) => {
-  const {subjectName, className} =useContext(Context)
-  const createAttendanceList = () => {};
+const MainTable = ({ classAndSubjectName }) => {
+  const {
+    studentsList,
+    classId,
+    subjectId,
+    addAttendanceList,
+    getTeacherByClassIdAndSubjectId,
+    messageBackend,
+    setMessageBackend,
+  } = useContext(Context);
+
+  //const [checked, setChecked] = useState(false);
+  const [absentStudentsIdList, setAbsentStudentsIdList] = useState([]);
+  const [data, setData] = useState([]);
+
+  console.log("**", studentsList);
+
+  
 
   const handleChange = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     console.log(e.target.value);
+    //setChecked(!checked);
+
+    const isChecked = e.target.checked;
+    console.log("isChecked", isChecked);
+    if (isChecked) {
+      setAbsentStudentsIdList([...absentStudentsIdList, e.target.value]);
+    } else {
+      setAbsentStudentsIdList(
+        absentStudentsIdList.filter((id) => id !== e.target.value)
+      );
+    }
   };
 
   const getAge = (date) => {
-    const dateArr = date.split("-");
+    const dateOnly = date.split("T")[0];
+    const dateArr = dateOnly.split("-");
     const dateString = dateArr.join();
     const today = new Date();
     const birthDate = new Date(dateString);
@@ -23,11 +51,35 @@ const MainTable = ({ studentsList }) => {
     return age;
   };
 
+  const createAttendanceList = () => {
+    console.log("absentStudentsIdList", absentStudentsIdList);
+
+    getTeacherByClassIdAndSubjectId(classId, subjectId)
+      .then((res) => {
+        if (res.message === "success") {
+          console.log("res.data", res.data);
+        }
+        setData({
+          classId: classId,
+          subject: subjectId,
+          teacher: res.data._id,
+          absent: absentStudentsIdList,
+        });       
+      }).catch((err) => {
+        console.log("err", err);
+      } );      
+  };
+
+  useEffect(() => {
+    if (data.length !== 0) {
+    addAttendanceList(data).then((res) => {
+      setMessageBackend(res.message);
+    });}
+  }, [data]);
+
   return (
-    <div className="rounded-2xl m-4 p-4 bg-white">
-      <p className="font-semibold">
-        {className} - {subjectName}
-      </p>
+    <div className="rounded-2xl m-4 p-4 bg-white w-full mr-4">
+      <p className="font-semibold">{classAndSubjectName}</p>
 
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -38,19 +90,19 @@ const MainTable = ({ studentsList }) => {
                   <tr>
                     <th
                       scope="col"
-                      className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                      className="font-medium text-gray-900 px-6 py-4 text-left"
                     >
                       #
                     </th>
                     <th
                       scope="col"
-                      className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                      className="font-medium text-gray-900 px-6 py-4 text-left"
                     >
                       Name
                     </th>
-                    <th className="text-left">Alter</th>
-                    <th className="text-left">Geschlecht</th>
-                    <th className="text-left">Anwesend</th>
+                    <th className="text-center">Alter</th>
+                    <th className="text-center">Geschlecht</th>
+                    <th className="text-center">Abwesend</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -63,22 +115,30 @@ const MainTable = ({ studentsList }) => {
                             ? "border-b"
                             : "bg-gray-100 border-b"
                         }
-                       >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      >
+                        <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
                           {index + 1}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-gray-900  px-6 py-4 whitespace-nowrap">
                           {data.firstName}&nbsp;{data.lastName}
                         </td>
-                        <td className="text-left">{getAge(data.birthDate)}</td>
-                        <td className="text-left">{data.gender}</td>
-                        <td>
-                          <input
-                            className="check"
-                            type="checkbox"
-                            id="myCheck"
-                            onClick={handleChange}
-                          ></input>
+                        <td className="text-center">
+                          {getAge(data.birthDate)}
+                        </td>
+                        <td className="text-center">{data.gender}</td>
+                        <td className="text-center">
+                          <div className="form-check">
+                            <input
+                              className="form-check-input
+                             h-4 w-4 border border-gray-300 rounded-sm
+                              bg-white checked:bg-orange-500 checked:border-orange-500
+                               focus:outline-none transition duration-200 mt-1 align-top 
+                               bg-no-repeat bg-center bg-contain  mr-2 cursor-pointer"
+                              type="checkbox"
+                              onChange={handleChange}
+                              value={data._id}
+                            ></input>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -89,12 +149,14 @@ const MainTable = ({ studentsList }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <p className=" m-4 text-orange-500">{messageBackend}</p>
         <button
-          className="flex mt-4 py-[25px] px-[45px] rounded-2xl bg-green-200 max-w-[32%] h-[75px] items-center justify-center transition-all hover:bg-green-300"
+          className="flex mt-4 p-4 rounded-2xl bg-green-200 max-w-[32%]
+           h-[75px] items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"
           onClick={createAttendanceList}
         >
-          Anwesendheitsliste generieren
+          Abwesendheitsliste speichern
         </button>
       </div>
     </div>

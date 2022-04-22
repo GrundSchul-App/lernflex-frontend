@@ -50,7 +50,7 @@ export default function Day({ day, rowIdx }) {
             className={`bg-gray-200 p-1 mr-3 text-gray-600 text-sm rounded mb-1 truncate pl-4`}
           >
             <h2 className="text-lg">{evt.title} </h2>
-            <p>{evt.description}</p>
+            <p>{evt.beschreibung}</p>
           </div>
         ))}
       </div>
