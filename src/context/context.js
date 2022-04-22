@@ -58,6 +58,26 @@ const ContextProvider = (props) => {
 
   const [messageBackend, setMessageBackend] = useState("");
 
+  // Toggle modal teacher 
+  const [toggleModale, setToggleModale] = useState(false);
+  const [editToggleModale, setEditToggleModale] = useState(false);
+
+  const closeModale=()=>{
+    setToggleModale(false);
+  }
+  const openModale=()=>{
+    setToggleModale(true);
+  }
+// Toggle modal edit teacher modal
+
+
+   const closeEditModale=()=>{
+     setEditToggleModale(false);
+  }
+   const openEditModale=()=>{
+     setEditToggleModale(true);
+  }
+
   // Zaki Context + Hooks Events
 
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
@@ -197,6 +217,10 @@ const ContextProvider = (props) => {
         getAllClasses,
         addAttendanceList,
         getTeacherByClassIdAndSubjectId,
+        closeModale,
+        openModale,
+        closeEditModale,
+        openEditModale,
         //URL 
         BACKEND_URL,
         //useState
@@ -219,6 +243,11 @@ const ContextProvider = (props) => {
         setStudentsList,
         messageBackend,
         setMessageBackend,
+        toggleModale,
+        setToggleModale,
+        editToggleModale,
+        setEditToggleModale,
+        
         // Events
         monthIndex,
         setMonthIndex,

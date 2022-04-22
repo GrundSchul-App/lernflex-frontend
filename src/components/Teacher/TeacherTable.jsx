@@ -1,10 +1,20 @@
-import React, {useContext} from "react";
+import React, {useContext,useState} from "react";
 import { AiFillDelete ,AiFillEdit} from "react-icons/ai";
 import {Context} from '../../context/context'
+import EditTeacherModal from "./EditTeacherModal";
 
 
 function TeacherTable(props) {
-const {teachers}=useContext(Context)
+  const [editToggleModale, setEditToggleModale] = useState(false);
+ const {teachers,openEditModale}=useContext(Context)
+
+
+//    const closeEditModale=()=>{
+//      setEditToggleModale(false);
+//   }
+//    const openEditModale=()=>{
+//      setEditToggleModale(true);
+//   }
 
   return (
     <div className="rounded-2xl m-4 mt-0 p-4 bg-white ">
@@ -69,7 +79,7 @@ const {teachers}=useContext(Context)
                             <td className="text-center text-gray-900 font-light px-6 py-4 ">not found</td>
                             {/* {teacher.classes[0].className} */}
                             <td className="text-center text-green-600">
-                              <button  type="button" >
+                              <button onClick={openEditModale} type="button" >
                                 <AiFillEdit className="w-7 h-7 "/>
                               </button>
                               <button  type="button" className="text-red-600">
@@ -100,6 +110,7 @@ const {teachers}=useContext(Context)
                   </tbody>
                 </table>
               </form>
+      {/* {editToggleModale ? <EditTeacherModal closeFunction={props.closeEditModale}/>:''} */}
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {  useEffect ,useContext ,useState} from "react";
 import TeacherTable from "../../components/Teacher/TeacherTable";
 import CalendarComponents from "../../components/CalendarComponent";
 // import TeacherForm from "../../components/Teacher/TeacherForm";
@@ -6,19 +6,23 @@ import TeacherMain from "../../components/Teacher/TeacherMain";
 import { Context } from "../../context/context";
 import EventsList from "../../components/Attendance/EventsList";
 import TeacherModale from '../../components/Teacher/TeacherModale'
-import {GrUserAdd} from "react-icons/gr"
+import EditTeacherModal from "../../components/Teacher/EditTeacherModal";
+// import {GrUserAdd} from "react-icons/gr"
+
+
 
 function Teachers(props) {
-  const [toggleModale, setToggleModale] = useState(false);
+  const {openModale,toggleModale,getAllTeachers,setTeachers,editToggleModale} =useContext(Context)
+  //  const [editToggleModale, setEditToggleModale] = useState(false);
 
-  const closeModale=()=>{
-    setToggleModale(false);
-  }
-  const openModale=()=>{
-    setToggleModale(true);
-  }
+  //  const closeEditModale=()=>{
+  //    setEditToggleModale(false);
+  // }
+  //  const openEditModale=()=>{
+  //    setEditToggleModale(true);
+  // }
 
-  const { getAllTeachers, setTeachers } = useContext(Context);
+  
 
   useEffect(() => {
     getAllTeachers().then((res) => {
@@ -50,7 +54,8 @@ function Teachers(props) {
         <EventsList />
       </div>
 
-      {toggleModale ? <TeacherModale closeFunk={closeModale}/>: ''}
+      {toggleModale ? <TeacherModale />: ''}
+      {editToggleModale ? <EditTeacherModal />:''}
     </div>
   );
 }
