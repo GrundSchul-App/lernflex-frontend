@@ -48,6 +48,7 @@ const ContextProvider = (props) => {
   const [subjectName, setSubjectName] = useState("");
 
   const [teachers, setTeachers] = useState([]);
+  
 
   // Zaki Context + Hooks Events
 
@@ -88,6 +89,18 @@ const ContextProvider = (props) => {
     const body = await res.json();
     return body;
   }
+
+  const getClassIdAndName = (e) => {
+    console.log({
+      classId: e.target.value,
+      className: e.target.options[e.target.selectedIndex].text,
+    });
+    console.log("classresult1", e.target.value);
+    console.log("classresult1", e.target.options[e.target.selectedIndex].text);
+    getClassId(e.target.value);
+    getClassName(e.target.options[e.target.selectedIndex].text);
+  };
+
 
   async function getAllClasses() {
     const res = await fetch(`${BACKEND_URL}/classes`, {
@@ -164,6 +177,7 @@ const ContextProvider = (props) => {
   return (
     <Context.Provider
       value={{
+        getClassIdAndName ,
         getStudentsByClassId,
         getAllSubjects,
         getAllClasses,
@@ -182,6 +196,8 @@ const ContextProvider = (props) => {
         getSubjectName,
         subjectName,
         className,
+        //URL 
+        BACKEND_URL,
         // Events
         monthIndex,
         setMonthIndex,

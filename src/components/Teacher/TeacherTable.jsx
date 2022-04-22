@@ -1,21 +1,27 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import { AiFillDelete ,AiFillEdit} from "react-icons/ai";
 import {Context} from '../../context/context'
 
 
 function TeacherTable(props) {
-const {teachers,setTeachers,getAllTeachers}=useContext(Context)
+const {teachers}=useContext(Context)
 
   return (
-    <div className="rounded-2xl m-4 p-4 bg-white">
+    <div className="rounded-2xl m-4 mt-0 p-4 bg-white ">
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
+          <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 ">
+            <div className="overflow-hidden ">
               <form>
-                <table className="min-w-full">
+                <table className="min-w-full ">
                   <thead className="bg-white border-b">
                     <tr>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    >
+                      #
+                    </th>
                       <th
                         scope="col"
                         className=" font-medium text-gray-900 px-6 py-4 "
@@ -51,15 +57,17 @@ const {teachers,setTeachers,getAllTeachers}=useContext(Context)
                   <tbody>
                       {teachers.map((teacher,index)=>{
                         //  {console.log('FirstName', teacher.classes[0].className);}
-                         
-
+                        
                           return(
                             <tr key={index} className="bg-gray-100 border-b">
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          {index + 1}
+                        </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900">{teacher.firstName} </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{teacher.lastName} </td>
                             <td className="text-left text-gray-900 font-light px-6 py-4 ">{teacher.email}</td>
-                            <td className="text-center text-gray-900 font-light px-6 py-4 ">{teacher.classes[0].className}/</td>
-      
+                            <td className="text-center text-gray-900 font-light px-6 py-4 ">not found</td>
+                            {/* {teacher.classes[0].className} */}
                             <td className="text-center text-green-600">
                               <button  type="button" >
                                 <AiFillEdit className="w-7 h-7 "/>

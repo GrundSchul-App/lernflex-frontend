@@ -63,7 +63,7 @@ const MainTable = ({ studentsList }) => {
                             ? "border-b"
                             : "bg-gray-100 border-b"
                         }
-                      >
+                       >
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {index + 1}
                         </td>
