@@ -1,40 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
 import SelectClasses from "./SelectClasses";
 import SelectSubjects from "./SelectSubjects";
-// import MainTable from "./MainTable";
+import MainTable from "./MainTable";
 import { Context } from "../../context/context";
-/* import {
-  getAllClasses,
-  getAllSubjects,
-  getStudentsByClassId,
-  createAttendanceList,
-} from "../../functions/DatabaseAttendanceList"; */
 
 const Main = () => {
-  const { getAllClasses,
+  const {
+    getAllClasses,
     getAllSubjects,
-    getStudentsByClassId,setClasses,classId,setSubjects,className,subjectName } = useContext(Context);
+    getStudentsByClassId,
+    setClasses,
+    classId,
+    setSubjects,
+    studentsList,
+    setStudentsList,
+    className,
+    subjectName,
+    setMessageBackend 
+  } = useContext(Context);
 
-  // const dataArray = [
-  //   {
-  //     firstName: "pepe",
-  //     lastName: "perez",
-  //     birthDate: "2012-04-03",
-  //     gender: "M",
-  //   },
-  //   { firstName: "Rosa", lastName: "Lu", birthDate: "2012-05-03", gender: "F" },
-  //   { firstName: "Lola", lastName: "Li", birthDate: "2012-06-03", gender: "F" },
-  // ];
-  //const classes = "1a";
-  //const subject = "Englisch";
-
-  // const [classes, setClasses] = useState([]);
-  // const [subjects, setSubjects] = useState([]);
-  // const [classId, setClassId] = useState("");
-  // const [className, setClassName] = useState("");
-  // const [subjectId, setSubjectId] = useState("");
-  // const [subjectName, setSubjectName] = useState("");
-  const [studentsList, setStudentsList] = useState([]);
+  const [ classAndSubjectName, setClassAndSubjectName] = useState("");
 
   useEffect(() => {
     // getAllClasses(token, userId)
@@ -43,65 +28,52 @@ const Main = () => {
         setClasses(res.data);
         console.log(res.data);
       }
-    },[]);
+    }).catch((err) => {
+      console.log(err);
+    });
     getAllSubjects().then((res) => {
       if (res.message === "success") {
         setSubjects(res.data);
         console.log(res.data);
       }
+    }).catch((err) => {
+        console.log(err);
     });
   }, []);
 
-  // function getClassId(classId) {
-  //   setClassId(classId);
-  // }
-
-  // function getClassName(className) {
-  //   setClassName(className);
-  // }
-
-  // function getSubjectId(subjectId) {
-  //   setSubjectId(subjectId);
-  // }
-
-  // function getSubjectName(subjectName) {
-  //   setSubjectName(subjectName);
-  // }
-
   const onClickButton = () => {
+    setStudentsList([]);
+
+    
+
     getStudentsByClassId(classId).then((res) => {
       if (res.message === "success") {
+        
         setStudentsList(res.data);
-        console.log(res.data);
+        console.log("*", res.data);
+        setClassAndSubjectName(`${className} - ${subjectName}`);
+        setMessageBackend("")
       }
     });
   };
 
   return (
-    <div className="flex-col w-full mr-0 sm:w-[100%] sm:mr-4 mt-4">
-      <div className="flex justify-between ml-4  gap-4 flex-wrap">
-        <SelectClasses
-          // data={classes}
-          // getClassId={getClassId}
-          // getClassName={getClassName} /* getClass={getClass} */
-        />
-        <SelectSubjects
-          // data={subjects}
-          // getSubjectId={getSubjectId}
-          // getSubjectName={getSubjectName}
-        />
+    <div className="flex-col w-full mr-4 sm:w-[100%] mt-4">
+      <div className="flex justify-between ml-4 gap-4 flex-wrap w-full">
+        <SelectClasses />
+        <SelectSubjects />
 
         <button
           className="flex grow  p-2
         rounded-2xl bg-green-200 h-[75px] 
         items-center justify-center transition-all
-         hover:bg-white "
+         hover:bg-white hover:shadow-xl"
           onClick={onClickButton}
         >
           Abwesendheitsliste generieren
         </button>
       </div>
-      {/* { studentsList.length > 0 && <MainTable studentList={studentsList} className={className} subjectName={subjectName} /> } */}
+      {studentsList.length !== 0 && <MainTable classAndSubjectName={classAndSubjectName}/>}
     </div>
   );
 };
