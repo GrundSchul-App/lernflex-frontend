@@ -7,7 +7,7 @@ const AttendanceList = () => {
   return (
     <div className="flex flex-row w-full justify-between">
       <Main />
-      <div className="hidden flex-col md:flex md:w-1/4 w-1/4">
+      <div className="hidden flex-col xl:flex xl:w-1/4  ml-4">
         <CalendarComponent />
         <EventsList />
       </div>
