@@ -75,7 +75,7 @@ function Teachers(props) {
       {toggleModale ? <TeacherModale />: ''}
       {editToggleModale ? <EditTeacherModal />:''}
 
-      {toggleModale ? <TeacherModale closeFunk={closeModale}/>: ''}
+      {/* {toggleModale ? <TeacherModale closeFunk={closeModale}/>: ''} */}
 
 
     </div>
