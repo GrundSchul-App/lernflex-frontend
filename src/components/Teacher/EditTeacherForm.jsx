@@ -1,79 +1,87 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
+import SelectClasses from "../Attendance/SelectClasses";
+import SelectSubjects from "../Attendance/SelectSubjects";
 import { Context } from "../../context/context";
-// import SelectClasses from "../Attendance/SelectClasses";
-// import SelectSubjects from "../Attendance/SelectSubjects";
 import { IoIosPeople } from "react-icons/io";
 import { ImBooks } from "react-icons/im";
 
-function TeacherForm(props) {
-  const [modules, setModules] = useState([{}]);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+export function EditTeacherForm(props) {
+  const [editTeacher, setEditTeacher] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    // modules: [{}],
+  });
+  const [editFirstNameTeacher,setEditFirstNameTeacher]=useState('')
+  const [editLastNameTeacher,setEditLastNameTeacher]=useState('')
+  const [editEmailTeacher,setEditEmailTeacher]=useState('')
+
   const {
-    classId,
+    getClassIdAndName,
+    BACKEND_URL,
     setClassId,
     setClassName,
-    className,
-    teachers,
-    setTeachers,
-    BACKEND_URL,
-    classes,
-    getClassIdAndName,subjects,
     setSubjectId,
-    subjectId,
+    teacherId,
     setSubjectName,
-    closeModale,
+    classes,
+    subjects,
+    editExistTeacher,
+    teachers,
     setRefDataBase,
     refDataBase
   } = useContext(Context);
 
   const getClassIdWithName = (e) => {
     setClassId(e.target.value);
-    // console.log(e.target.value);
+    //  console.log(e.target.value);
     setClassName(e.target.options[e.target.selectedIndex].text);
-    // console.log(e.target.options[e.target.selectedIndex].text);
+    //  console.log(e.target.options[e.target.selectedIndex].text);
   };
 
   const getSubjectIdWithName = (e) => {
-    // console.log(e.target.value);
+    //  console.log(e.target.value);
     // console.log(e.target.options[e.target.selectedIndex].text);
     setSubjectId(e.target.value);
     setSubjectName(e.target.options[e.target.selectedIndex].text);
   };
 
-  async function addTeacher(e) {
-    
+  async function updateTeacher(e) {
     e.preventDefault();
+    //  editExistTeacher(teacherId);
+    console.log("Id:", teacherId);
+   console.log("result target put", e.target.firstName);
+    //openModaleAdd()
+    // const data= {
 
-    const response = await fetch(`${BACKEND_URL}/addTeacher`, {
-      method: "POST",
+    // }
+    const response = await fetch(`${BACKEND_URL}/update/${teacherId._id} `, {
+      method: "PUT",
       headers: {
         Accept: "application/json",
+
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        modules: [{ classes: `${classId}`,subjects:`${subjectId}` }],
-        // students:[{}]
+        firstName: editFirstNameTeacher || teacherId.firstName ,
+        lastName: editLastNameTeacher || teacherId.lastName,
+        email: editEmailTeacher || teacherId.email
+        // modules: editTeacher.modules,
       }),
     });
     const content = await response.json();
-    console.log("content result", content);
-    console.log(content);
-    setTeachers([...teachers, content.data]);
-    console.log("data:", content.data);
-     closeModale();
-    //  window.location.reload();
+    console.log("content:", content);
     setRefDataBase(!refDataBase)
-
+    // setRefDataBase((prevData) => {
+    //  return  prevData = !prevData
+    // })
+   
   }
+
   return (
     <div className="flex flex-col justify-center mt-4 border-solid border-2 w-[90%] h-[75%]">
-      <form onSubmit={addTeacher}>
-        <h1 className="text-3xl m-5"> Lehrer hinzufügen</h1>
+      <form>
+        <h1 className="text-3xl m-5"> Änderung der Lehrerdaten</h1>
         <div className="m-4 flex">
           <div className="flex grow  p-2 rounded-2xl bg-white  h-[75px] items-center justify-center">
             <IoIosPeople className="w-8 h-8 mr-2" />
@@ -117,16 +125,14 @@ function TeacherForm(props) {
               })}
             </select>
           </div>
-
           {/* <SelectClasses /> */}
-          {/* <SelectSubjects /> */}
 
           <div className="flex grow p-2 rounded-2xl bg-white  h-[75px] items-center justify-center">
-      <ImBooks className="w-7 h-7 mr-2" />
-      <h3 className="mr-2">Fächer</h3>
+            <ImBooks className="w-7 h-7 mr-2" />
+            <h3 className="mr-2">Fächer</h3>
 
-      <select
-        className="form-select 
+            <select
+              className="form-select 
       block
       
       px-3
@@ -143,70 +149,62 @@ function TeacherForm(props) {
       m-0
       focus:text-gray-700 focus:bg-white focus:border-green-600
        focus:outline-none"
-        name=""
-        id=""
-        onChange={getSubjectIdWithName}
-        defaultValue={"default"}
-      >
-        <option value={"default"} disabled>
-          ...
-        </option>
-        {subjects.map((subject, index) => {
-          return (
-            <option className="p-2" key={index} value={subject._id}>
-              {subject.subject_title}
-            </option>
-          );
-        })}
-      </select>
-    </div>
-
-
+              name=""
+              id=""
+              onChange={getSubjectIdWithName}
+              defaultValue={"default"}
+            >
+              <option value={"default"} disabled>
+                ...
+              </option>
+              {subjects.map((subject, index) => {
+                return (
+                  <option className="p-2" key={index} value={subject._id}>
+                    {subject.subject_title}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          {/* <SelectSubjects /> */}
         </div>
         <div className="m-4 ">
           <label className="mr-5">Vorname</label>
           <input
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
+          onChange={(e) => {setEditFirstNameTeacher(e.target.value)}}
             className="border border-black rounded-md"
             name="firstName"
+            defaultValue={teacherId.firstName}
             type="text"
           />
         </div>
         <div className="m-4">
           <label className="mr-2">Nachname</label>
           <input
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
+          onChange={(e)=>{setEditLastNameTeacher(e.target.value)}}
             className="border border-black rounded-md"
             name="lastName"
             type="text"
+            defaultValue={teacherId.lastName}
           />
         </div>
         <div className="m-4">
           <label className="mr-11">Email</label>
           <input
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+          onChange={(e)=>{setEditEmailTeacher(e.target.value)}}
             className="border border-black rounded-md"
             name="email"
             type="email"
+            defaultValue={teacherId.email}
           />
         </div>
 
         <div className="flex justify-center">
-          <button
-            onClick={addTeacher}
-            className="bg-cyan-500 hover:bg-cyan-600  font-bold text-white px-2 py-1 rounded-xl mt-5 "
-          >
-            Hinzufügen
+          <button onClick={updateTeacher} type='button' className="bg-cyan-500 hover:bg-cyan-600  font-bold text-white px-2 py-1 rounded-xl mt-5 ">
+            Speichern
           </button>
         </div>
       </form>
     </div>
   );
 }
-export default TeacherForm;

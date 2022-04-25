@@ -1,11 +1,8 @@
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  useReducer,
-  useMemo,
-} from "react";
-import dayjs from "dayjs";
+
+import React, { createContext, useState, useEffect, useReducer, useMemo } from "react";
+import dayjs from 'dayjs';
+import "dayjs/locale/de";
+
 
 export const Context = createContext({
   monthIndex: 0,
@@ -55,10 +52,42 @@ const ContextProvider = (props) => {
 
   const [teachers, setTeachers] = useState([]);
 
+
+  const[teacherId,setTeacherId]=useState('');
+  const [refDataBase,setRefDataBase]=useState(false);
+  const [justTeacherId,setJustTeacherId]=useState('')
+
+
   const [messageBackend, setMessageBackend] = useState("");
   const [databaseUpdated, setDatabaseUpdated] = useState(false);
   const [searchInput, setSearchInput] = useState("");
 
+
+  // Toggle modal teacher
+  const [toggleModale, setToggleModale] = useState(false);
+  const [editToggleModale, setEditToggleModale] = useState(false);
+  const [toggleAddSubClassModale, setToggleAddSubClassModale] = useState(false);
+
+  const closeModale = () => {
+    setToggleModale(false);
+  };
+  const openModale = () => {
+    setToggleModale(true);
+  };
+  // Toggle modal edit teacher modal
+
+  const closeEditModale = () => {
+    setEditToggleModale(false);
+  };
+  const openEditModale = () => {
+    setEditToggleModale(true);
+  };
+  const openModaleAdd=()=>{
+    setToggleAddSubClassModale(true);
+  };
+  const closeModaleAdd=()=>{
+    setToggleAddSubClassModale(false);
+  }
   // Zaki Context + Hooks Events
 
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
@@ -90,7 +119,10 @@ const ContextProvider = (props) => {
 
   const getClassIdAndName = (e) => {
     setClassId(e.target.value);
+     console.log(e.target.value);
     setClassName(e.target.options[e.target.selectedIndex].text);
+    console.log(e.target.options[e.target.selectedIndex].text)
+   
   };
 
   async function getAllClasses() {
@@ -200,6 +232,23 @@ const ContextProvider = (props) => {
     );
   }, [savedEvents, labels]);
 
+
+// neu Fach und klasse zu teacher hinzufügen
+   function editTeacherModules(id){
+    console.log('Id:', id);
+    setJustTeacherId( id);
+  openModaleAdd()
+  
+
+ }
+ // edit Teacher modale open 
+ function editExistTeacher(teacher,id){
+   console.log("id Teacher edit:", teacher)
+   setTeacherId(teacher)
+   openEditModale()
+ }
+
+
   function updateLabel(label) {
     setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
   }
@@ -238,6 +287,12 @@ const ContextProvider = (props) => {
         deleteSubjectById,
         addSubjectToDatabase,
         updateSubjectToDatabase,
+        closeModale,
+        openModale,
+        closeEditModale,
+        openEditModale,
+        editTeacherModules,
+
         //URL
         BACKEND_URL,
         //useState
@@ -260,10 +315,29 @@ const ContextProvider = (props) => {
         setStudentsList,
         messageBackend,
         setMessageBackend,
+
         databaseUpdated,
         setDatabaseUpdated,
         searchInput,
         setSearchInput,
+
+        toggleModale,
+        setToggleModale,
+        editToggleModale,
+        setEditToggleModale,
+        toggleAddSubClassModale,
+        setToggleAddSubClassModale,
+        openModaleAdd,
+        closeModaleAdd,
+        teacherId,
+        editExistTeacher,
+        refDataBase,
+        setRefDataBase,
+        setJustTeacherId,
+        justTeacherId,
+
+
+
         // Events
         monthIndex,
         setMonthIndex,
