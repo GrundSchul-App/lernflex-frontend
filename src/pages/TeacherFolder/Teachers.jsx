@@ -33,7 +33,7 @@ function Teachers(props) {
     <div className="flex flex-row w-full justify-between">
 
       <div className="relative w-full">
-        <div className="flex ">
+        <div className="flex justify-between">
           <TeacherMain />
 
         </div>
@@ -45,11 +45,10 @@ function Teachers(props) {
         <TeacherTable />
       </div>
 
-      <div className="hidden flex-col md:flex">
+      <div className="hidden flex-col md:flex md:w-1/4 w-1/4">
         <CalendarComponents />
         <EventsList />
       </div>
-
       {toggleModale ? <TeacherModale closeFunk={closeModale}/>: ''}
     </div>
   );
