@@ -9,7 +9,7 @@ const Subjects = () => {
   return (
     <div className="flex flex-row w-full justify-between">
       <SubjectsMain />
-      <div className="hidden flex-col xl:flex xl:ml-4">
+      <div className="hidden flex-col lg:flex lg:ml-4 lg:w-1/4 ">
         <CalendarComponent />
         <EventsList />
       </div>
