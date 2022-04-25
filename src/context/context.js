@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect, useReducer, useMemo } from "
 import dayjs from 'dayjs';
 import "dayjs/locale/de";
 
+
 export const Context = createContext({
   monthIndex: 0,
   setMonthIndex: (index) => {},
@@ -30,7 +31,6 @@ function savedEventsReducer(state, { type, payload }) {
   }
 }
 
-
 function initEvents() {
   const storageEvents = localStorage.getItem("savedEvents");
   const parsedEvents = storageEvents ? JSON.parse(storageEvents) : [];
@@ -48,7 +48,12 @@ const ContextProvider = (props) => {
   const [subjectId, setSubjectId] = useState("");
   const [subjectName, setSubjectName] = useState("");
 
+  const [studentsList, setStudentsList] = useState([]);
+
   const [teachers, setTeachers] = useState([]);
+  
+
+  const [messageBackend, setMessageBackend] = useState("");
 
   // Zaki Context + Hooks Events
 
@@ -65,18 +70,7 @@ const ContextProvider = (props) => {
 
   // zaki hooks end
 
-  function getClassId() {
-    setClassId(classId);
-  }
-  function getClassName() {
-    setClassName(className);
-  }
-  function getSubjectId() {
-    setSubjectId(subjectId);
-  }
-  function getSubjectName() {
-    setSubjectName(subjectName);
-  }
+  // FUNCTIONS BACKEND
 
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -89,6 +83,13 @@ const ContextProvider = (props) => {
     const body = await res.json();
     return body;
   }
+
+  const getClassIdAndName = (e) => {
+    
+    setClassId(e.target.value);
+    setClassName(e.target.options[e.target.selectedIndex].text);
+  };
+
 
   async function getAllClasses() {
     const res = await fetch(`${BACKEND_URL}/classes`, {
@@ -114,7 +115,7 @@ const ContextProvider = (props) => {
     return body;
   }
 
-  async function getStudentsByClassId(classId) {
+  async function getStudentsByClassId() {
     const res = await fetch(`${BACKEND_URL}/students/class/${classId}`, {
       headers: {
         Accept: "application/json",
@@ -122,6 +123,30 @@ const ContextProvider = (props) => {
     });
     const body = await res.json();
 
+    return body;
+  }
+
+  async function getTeacherByClassIdAndSubjectId() {
+    const res = await fetch(`${BACKEND_URL}/teacher/${classId}/${subjectId}`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    const body = await res.json();
+
+    return body;
+  }
+
+  async function addAttendanceList(data) {
+    const res = await fetch(`${BACKEND_URL}/attendanceList/add`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
     return body;
   }
 
@@ -160,14 +185,18 @@ const ContextProvider = (props) => {
     }
   }, [showEventModal]);
 
-  
-
   return (
     <Context.Provider
       value={{
+        getClassIdAndName ,
         getStudentsByClassId,
         getAllSubjects,
         getAllClasses,
+        addAttendanceList,
+        getTeacherByClassIdAndSubjectId,
+        //URL 
+        BACKEND_URL,
+        //useState
         classes,
         setClasses,
         teachers,
@@ -175,14 +204,18 @@ const ContextProvider = (props) => {
         getAllTeachers,
         classId,
         setClassId,
-        getClassId,
-        getClassName,
         setSubjects,
         subjects,
-        getSubjectId,
-        getSubjectName,
         subjectName,
+        setSubjectName,
         className,
+        setClassName,
+        subjectId,
+        setSubjectId,
+        studentsList,
+        setStudentsList,
+        messageBackend,
+        setMessageBackend,
         // Events
         monthIndex,
         setMonthIndex,
@@ -197,6 +230,7 @@ const ContextProvider = (props) => {
         labels,
         updateLabel,
         filteredEvents,
+
       }}
     >
       {props.children}

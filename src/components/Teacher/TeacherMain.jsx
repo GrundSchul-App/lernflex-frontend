@@ -1,7 +1,12 @@
 import React,{ useContext,useEffect} from 'react'
 import SelectClasses from '../Attendance/SelectClasses'
 import SelectSubjects from '../Attendance/SelectSubjects'
-import {Context} from '../../context/context'
+import {Context} from '../../context/context';
+import {FcSearch} from "react-icons/fc"
+
+
+
+
  function TeacherMain(props) {
     const { getAllClasses,
         getAllSubjects,
@@ -28,10 +33,10 @@ import {Context} from '../../context/context'
                 <SelectClasses/>
                 <SelectSubjects/>
 
-                <button className="flex grow  p-2
+                <button className="flex grow  
         rounded-2xl bg-green-200 h-[75px] 
         items-center justify-center transition-all
-         hover:bg-white ">+Teacher</button>
+         hover:bg-green-500 text-black-800  text-l "><FcSearch className="m-2"/>Suchen</button>
 
             </div>
             
