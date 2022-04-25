@@ -54,9 +54,10 @@ const ContextProvider = (props) => {
   const [studentsList, setStudentsList] = useState([]);
 
   const [teachers, setTeachers] = useState([]);
-  
 
   const [messageBackend, setMessageBackend] = useState("");
+  const [databaseUpdated, setDatabaseUpdated] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
 
   // Zaki Context + Hooks Events
 
@@ -88,11 +89,9 @@ const ContextProvider = (props) => {
   }
 
   const getClassIdAndName = (e) => {
-    
     setClassId(e.target.value);
     setClassName(e.target.options[e.target.selectedIndex].text);
   };
-
 
   async function getAllClasses() {
     const res = await fetch(`${BACKEND_URL}/classes`, {
@@ -153,6 +152,45 @@ const ContextProvider = (props) => {
     return body;
   }
 
+  async function deleteSubjectById(subjectId) {
+    const res = await fetch(`${BACKEND_URL}/removeSubject/${subjectId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function addSubjectToDatabase(data) {
+    const res = await fetch(`${BACKEND_URL}/addSubject`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function updateSubjectToDatabase(data) {
+    console.log("updata", data);
+    const res = await fetch(`${BACKEND_URL}/updateSubject/${data._id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
   const filteredEvents = useMemo(() => {
     return savedEvents.filter((evt) =>
       labels
@@ -191,13 +229,16 @@ const ContextProvider = (props) => {
   return (
     <Context.Provider
       value={{
-        getClassIdAndName ,
+        getClassIdAndName,
         getStudentsByClassId,
         getAllSubjects,
         getAllClasses,
         addAttendanceList,
         getTeacherByClassIdAndSubjectId,
-        //URL 
+        deleteSubjectById,
+        addSubjectToDatabase,
+        updateSubjectToDatabase,
+        //URL
         BACKEND_URL,
         //useState
         classes,
@@ -219,6 +260,10 @@ const ContextProvider = (props) => {
         setStudentsList,
         messageBackend,
         setMessageBackend,
+        databaseUpdated,
+        setDatabaseUpdated,
+        searchInput,
+        setSearchInput,
         // Events
         monthIndex,
         setMonthIndex,
@@ -233,7 +278,6 @@ const ContextProvider = (props) => {
         labels,
         updateLabel,
         filteredEvents,
-
       }}
     >
       {props.children}
