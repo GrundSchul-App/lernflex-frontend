@@ -51,30 +51,38 @@ const ContextProvider = (props) => {
   const [studentsList, setStudentsList] = useState([]);
 
   const [teachers, setTeachers] = useState([]);
-  
+  const[teacherId,setTeacherId]=useState('');
+  const [refDataBase,setRefDataBase]=useState(false);
+  const [justTeacherId,setJustTeacherId]=useState('')
 
   const [messageBackend, setMessageBackend] = useState("");
 
-  // Toggle modal teacher 
+
+  // Toggle modal teacher
   const [toggleModale, setToggleModale] = useState(false);
   const [editToggleModale, setEditToggleModale] = useState(false);
+  const [toggleAddSubClassModale, setToggleAddSubClassModale] = useState(false);
 
-  const closeModale=()=>{
+  const closeModale = () => {
     setToggleModale(false);
-  }
-  const openModale=()=>{
+  };
+  const openModale = () => {
     setToggleModale(true);
-  }
-// Toggle modal edit teacher modal
+  };
+  // Toggle modal edit teacher modal
 
-
-   const closeEditModale=()=>{
-     setEditToggleModale(false);
+  const closeEditModale = () => {
+    setEditToggleModale(false);
+  };
+  const openEditModale = () => {
+    setEditToggleModale(true);
+  };
+  const openModaleAdd=()=>{
+    setToggleAddSubClassModale(true);
+  };
+  const closeModaleAdd=()=>{
+    setToggleAddSubClassModale(false);
   }
-   const openEditModale=()=>{
-     setEditToggleModale(true);
-  }
-
   // Zaki Context + Hooks Events
 
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
@@ -105,11 +113,12 @@ const ContextProvider = (props) => {
   }
 
   const getClassIdAndName = (e) => {
-    
     setClassId(e.target.value);
+     console.log(e.target.value);
     setClassName(e.target.options[e.target.selectedIndex].text);
+    console.log(e.target.options[e.target.selectedIndex].text)
+   
   };
-
 
   async function getAllClasses() {
     const res = await fetch(`${BACKEND_URL}/classes`, {
@@ -179,6 +188,23 @@ const ContextProvider = (props) => {
     );
   }, [savedEvents, labels]);
 
+
+// neu Fach und klasse zu teacher hinzufügen
+   function editTeacherModules(id){
+    console.log('Id:', id);
+    setJustTeacherId( id);
+  openModaleAdd()
+  
+
+ }
+ // edit Teacher modale open 
+ function editExistTeacher(teacher,id){
+   console.log("id Teacher edit:", teacher)
+   setTeacherId(teacher)
+   openEditModale()
+ }
+
+
   function updateLabel(label) {
     setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
   }
@@ -208,7 +234,7 @@ const ContextProvider = (props) => {
   return (
     <Context.Provider
       value={{
-        getClassIdAndName ,
+        getClassIdAndName,
         getStudentsByClassId,
         getAllSubjects,
         getAllClasses,
@@ -218,7 +244,8 @@ const ContextProvider = (props) => {
         openModale,
         closeEditModale,
         openEditModale,
-        //URL 
+        editTeacherModules,
+        //URL
         BACKEND_URL,
         //useState
         classes,
@@ -244,7 +271,18 @@ const ContextProvider = (props) => {
         setToggleModale,
         editToggleModale,
         setEditToggleModale,
-        
+        toggleAddSubClassModale,
+        setToggleAddSubClassModale,
+        openModaleAdd,
+        closeModaleAdd,
+        teacherId,
+        editExistTeacher,
+        refDataBase,
+        setRefDataBase,
+        setJustTeacherId,
+        justTeacherId,
+
+
         // Events
         monthIndex,
         setMonthIndex,
@@ -259,7 +297,6 @@ const ContextProvider = (props) => {
         labels,
         updateLabel,
         filteredEvents,
-
       }}
     >
       {props.children}
