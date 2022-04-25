@@ -51,11 +51,16 @@ const ContextProvider = (props) => {
   const [studentsList, setStudentsList] = useState([]);
 
   const [teachers, setTeachers] = useState([]);
+
+
   const[teacherId,setTeacherId]=useState('');
   const [refDataBase,setRefDataBase]=useState(false);
   const [justTeacherId,setJustTeacherId]=useState('')
 
+
   const [messageBackend, setMessageBackend] = useState("");
+  const [databaseUpdated, setDatabaseUpdated] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
 
 
   // Toggle modal teacher
@@ -179,6 +184,45 @@ const ContextProvider = (props) => {
     return body;
   }
 
+  async function deleteSubjectById(subjectId) {
+    const res = await fetch(`${BACKEND_URL}/removeSubject/${subjectId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function addSubjectToDatabase(data) {
+    const res = await fetch(`${BACKEND_URL}/addSubject`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function updateSubjectToDatabase(data) {
+    console.log("updata", data);
+    const res = await fetch(`${BACKEND_URL}/updateSubject/${data._id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
   const filteredEvents = useMemo(() => {
     return savedEvents.filter((evt) =>
       labels
@@ -240,11 +284,15 @@ const ContextProvider = (props) => {
         getAllClasses,
         addAttendanceList,
         getTeacherByClassIdAndSubjectId,
+        deleteSubjectById,
+        addSubjectToDatabase,
+        updateSubjectToDatabase,
         closeModale,
         openModale,
         closeEditModale,
         openEditModale,
         editTeacherModules,
+
         //URL
         BACKEND_URL,
         //useState
@@ -267,6 +315,12 @@ const ContextProvider = (props) => {
         setStudentsList,
         messageBackend,
         setMessageBackend,
+
+        databaseUpdated,
+        setDatabaseUpdated,
+        searchInput,
+        setSearchInput,
+
         toggleModale,
         setToggleModale,
         editToggleModale,
@@ -281,6 +335,7 @@ const ContextProvider = (props) => {
         setRefDataBase,
         setJustTeacherId,
         justTeacherId,
+
 
 
         // Events
