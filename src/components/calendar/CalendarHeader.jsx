@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import "dayjs/locale/de";
+
 import React, { useContext } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Context } from "../../context/context.js";
@@ -13,7 +15,7 @@ export default function CalendarHeader() {
   }
   function handleReset() {
     setMonthIndex(
-      monthIndex === dayjs().month()
+      monthIndex === dayjs().locale("de-DE").month()
         ? monthIndex + Math.random()
         : dayjs().month()
     );
@@ -34,7 +36,9 @@ export default function CalendarHeader() {
         </span>
       </button>
       <h2 className="ml-4 text-xl text-gray-500 font-bold">
-        {dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM YYYY")}
+        {dayjs(new Date(dayjs().year(), monthIndex))
+          .locale("de-DE")
+          .format("MMMM YYYY")}
       </h2>
     </header>
   );
