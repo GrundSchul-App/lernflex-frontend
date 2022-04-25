@@ -1,6 +1,7 @@
 
 import React, { createContext, useState, useEffect, useReducer, useMemo } from "react";
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
+import "dayjs/locale/de";
 
 export const Context = createContext({
   monthIndex: 0,

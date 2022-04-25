@@ -22,22 +22,21 @@ function Teachers(props) {
   }, []);
 
   return (
-    <div className="flex flex-row w-full justify-between">
-
-      <div className="relative">
-        <div className="flex ml-8 justify-center">
+    <div className="flex w-full justify-between">
+      <div className="relative w-full ">
+        <div className="flex justify-between">
           <TeacherMain />
         </div>
 
         <TeacherTable />
       </div>
 
-      <div className="hidden flex-col md:flex">
+      <div className="hidden flex-col md:flex md:w-1/4 w-1/4">
         <CalendarComponents />
         <EventsList />
       </div>
 
-      {toggleModale ? <TeacherModale/>: ''}
+      {toggleModale ? <TeacherModale /> : ""}
     </div>
   );
 }
