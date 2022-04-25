@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import "dayjs/locale/de";
+
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/context";
 
@@ -13,9 +15,9 @@ export default function Day({ day, rowIdx }) {
 
   
   function getCurrentDayClass() {
-    return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
-    ? "bg-blue-600 text-white rounded-full w-7"
-    : "";
+    return day.format("DD-MM-YY") === dayjs().locale("de-DE").format("DD-MM-YY")
+      ? "bg-blue-600 text-white rounded-full w-7"
+      : "";
   }
 
   useEffect(() => {
@@ -27,10 +29,10 @@ export default function Day({ day, rowIdx }) {
   }, [filteredEvents, day]);
 
   return (
-    <div className="border border-gray-200 flex flex-col">
+    <div className="border border-gray-200 flex flex-col px-1">
       <header className="flex flex-col items-center">
         {rowIdx === 0 && (
-          <p className="text-sm mt-1">{day.format("ddd").toUpperCase()}</p>
+          <p className="text-sm mt-1">{day.format("dddd").toUpperCase()}</p>
         )}
         <p className={`text-sm p-1 my-1 text-center  ${getCurrentDayClass()}`}>
           {day.format("DD")}
@@ -47,10 +49,10 @@ export default function Day({ day, rowIdx }) {
           <div
             key={idx}
             onClick={() => setSelectedEvent(evt)}
-            className={`bg-gray-200 p-1 mr-3 text-gray-600 text-sm rounded mb-1 truncate pl-4`}
+            className={`bg-gray-200 p-1 mx-auto text-gray-600 text-sm rounded-lg h-fit overflow-hidden max-h-full`}
           >
             <h2 className="text-lg">{evt.title} </h2>
-            <p>{evt.beschreibung}</p>
+            <p className="truncate h-auto ">{evt.beschreibung}</p>
           </div>
         ))}
       </div>

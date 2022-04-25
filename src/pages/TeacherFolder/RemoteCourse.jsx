@@ -7,18 +7,16 @@ import TableRemotePlan from "../../components/RemoteCourse/TableRemotePlan";
 
 function RemoteCourse(props) {
   return (
-    <div className="flex justify-between ">
-        <div className=" ">
+    <div className="flex justify-between mx-auto ">
+      <div className="px-4 ">
         <TableRemotePlan />
-        <div className="w-[100%]"><DaysPlan/></div>
-        
-        </div>
-      
-
-      <div className="w-[25%]">
+        <DaysPlan />
+      </div>
+      <div className=" md:w-1/4 w-1/4">
         <CalendarComponents />
         <InfosOnlineCurse />
       </div>
+
     </div>
   );
 }
