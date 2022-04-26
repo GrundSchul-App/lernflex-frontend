@@ -5,7 +5,7 @@ import {AiOutlineMinusCircle} from "react-icons/ai"
 import { Context } from "../../context/context";
 
 function TeacherTable(props) {
-  const { teachers, openEditModale, BACKEND_URL, openModaleAdd,classId,subjectId,editTeacherModules , editExistTeacher,setTeachers,setRefDataBase,refDataBase} =
+  const { teachers, BACKEND_URL, openModaleAdd,classId,subjectId,editTeacherModules , editExistTeacher,setTeachers,setRefDataBase,refDataBase} =
     useContext(Context);
 
     
