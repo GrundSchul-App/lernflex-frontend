@@ -83,7 +83,7 @@ const allTeacher=()=>{
         items-center justify-center transition-all
          hover:bg-green-500 text-black-800  text-l "><FcSearch className="m-2"/>Suchen</button>
            <button onClick={allTeacher} className="flex grow  
-        rounded-2xl bg-green-200 h-[75px]  text-s items-center justify-center transition-all">< GiTeacher className="w-6 h-6 mr-2"/>All Teacher</button>
+        rounded-2xl bg-green-200 h-[75px]  text-s items-center justify-center transition-all hover:bg-green-500 ">< GiTeacher className="w-6 h-6 mr-2 "/>All Teacher</button>
             </div>
             
         </div>
