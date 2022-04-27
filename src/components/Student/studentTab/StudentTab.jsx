@@ -1,5 +1,11 @@
 import { useState } from "react";
+
+import StudentTable from "../StudentTable";
+import SearchStudentBar from "../SearchStudentBar";
 import './studentsTab.css'
+import SelectClassesStudent from "../SelectClassesStudent";
+
+import InputSearchStudent from "../InputSearchStudent";
 
 
 function StudentTab(){
@@ -36,13 +42,21 @@ function StudentTab(){
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          <h2>Content 1</h2>
-          <hr />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-            praesentium incidunt quia aspernatur quasi quidem facilis quo nihil
-            vel voluptatum?
-          </p>
+       
+          
+          <div >
+        <div className="flex justify-around bg-[#8DD4C3]  items-center h-24 rounded-md ">
+          <SearchStudentBar />
+          <InputSearchStudent/>
+          <SelectClassesStudent/>
+          <button className="flex  px-4 py-2 rounded-2xl bg-green-200 
+           items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"> Suche</button>
+        </div>
+        
+      </div>
+
+          <StudentTable/>
+          
         </div>
 
         <div
