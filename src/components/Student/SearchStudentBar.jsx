@@ -1,8 +1,43 @@
-import React from "react";
+import React ,{useContext,useState,useEffect} from "react";
 import { BiFilterAlt } from "react-icons/bi";
-
+import {Context} from '../../context/context'
 
 function SearchStudentBar(props) {
+  // const [selectValue, setSelectValue]=useState([])
+  const {getAllStudents,setStudents,setSelectValue}=useContext(Context)
+
+  // const getClassIdWithName = (e) => {
+  //   getAllClasses();
+  //      setClassId(e.target.value);
+  //       console.log(e.target.value);
+  //      setClassName(e.target.options[e.target.selectedIndex].text);
+  //       console.log(e.target.options[e.target.selectedIndex].text);
+  //    };
+const getFilterStudents=(e)=>{
+console.log(e.target.value);
+setSelectValue(e.target.value);
+
+}
+// useEffect(()=>{
+ 
+//     if(selectValue === 'All'){
+//       getAllStudents().then((res) => {
+//         if (res.message === "success") {
+//           setStudents(res.data);
+//           console.log("result", res.data);
+//         }
+//       });
+//     }
+ 
+// },[])
+
+
+
+
+
+
+
+
   return (
     <div className="flex  p-[1%] rounded-xl bg-white max-w-[30%]   justify-center">
     
@@ -30,13 +65,15 @@ function SearchStudentBar(props) {
         name=""
         id=""
         defaultValue={"default"}
+        onChange={getFilterStudents}
       >
         <option value={"default"} disabled>
           ...
         </option>
+        <option value="All">All</option>
         <option value="Name">Name</option>
         <option value="Klasse">Klasse</option>
-        <option value="">Lehrer</option>
+        <option value="Lehrer">Lehrer</option>
       </select>
 
       

@@ -3,7 +3,7 @@ import {Context} from '../../context/context';
 import { IoIosPeople } from "react-icons/io";
 
 function SelectClassesStudent(props) {
-    const {classes,setClassId,setClasses,setClassName, getAllClasses} = useContext(Context)
+    const {classes,setClassId,setClasses,setClassName, getAllClasses,refDataBase} = useContext(Context)
 
     const getClassIdWithName = (e) => {
      getAllClasses();
@@ -21,15 +21,19 @@ function SelectClassesStudent(props) {
           setClasses(res.data);
           console.log(res.data);
         }
+
+        // getAllStudents().then((res) => {
+        //           if (res.message === "success") {
+        //             setStudents(res.data);
+        //             console.log("result", res.data);
+        //           }
+        //         });
+              
+
       });
-      
-
-     
 
 
-
-
-    }, []);
+    }, [refDataBase]);
     
 
     return (

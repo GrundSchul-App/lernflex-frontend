@@ -61,7 +61,7 @@ function TeacherForm(props) {
     });
     const content = await response.json();
     console.log("content result", content);
-    console.log(content);
+    
     setTeachers([...teachers, content.data]);
     console.log("data:", content.data);
      closeModale();
