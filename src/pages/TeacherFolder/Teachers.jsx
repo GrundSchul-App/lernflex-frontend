@@ -41,9 +41,9 @@ function Teachers(props) {
   }, [refDataBase]);
 
   return (
-    <div className="flex flex-row w-full justify-between">
-      <div className="relative w-full">
-        <div className="flex justify-between">
+    <div className="flex flex-row w-full justify-between grow">
+      <div className="relative w-full flex-1">
+        <div className="flex justify-between ">
           <TeacherMain />
         </div>
 

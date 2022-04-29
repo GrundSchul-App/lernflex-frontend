@@ -20,6 +20,7 @@ export default function CalendarHeader() {
         : dayjs().month()
     );
   }
+
   return (
     <header className="px-4 py-2 flex items-center">
       <button onClick={handleReset} className="border rounded py-2 px-4 mr-5">

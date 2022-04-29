@@ -31,7 +31,7 @@ function TeacherTable(props) {
   }
 
   return (
-    <div className="rounded-2xl m-4 mt-0 p-4 bg-white ">
+    <div className="rounded-2xl m-4 mt-0 py-4 bg-white ">
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 ">

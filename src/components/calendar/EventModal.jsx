@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/context";
 import { MdDragHandle } from "react-icons/md";
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
-
 
 export default function EventModal() {
   const {
@@ -10,31 +9,69 @@ export default function EventModal() {
     daySelected,
     dispatchCalEvent,
     selectedEvent,
+    eventToDB,
+    updateEvent,
+    deleteEvent,
   } = useContext(Context);
+
 
   const [title, setTitle] = useState(
     selectedEvent ? selectedEvent.title : ""
   );
-  const [beschreibung, setBeschreibung] = useState(
-    selectedEvent ? selectedEvent.beschreibung : ""
+  const [description, setDescription] = useState(
+    selectedEvent ? selectedEvent.description : ""
   );
+
 
   function handleSubmit(e) {
     e.preventDefault();
     const calendarEvent = {
       title,
-      beschreibung,
-      day: daySelected.valueOf(),
-      id: selectedEvent ? selectedEvent.id : Date.now(),
+      description,
+      date: daySelected.valueOf(),
+      id: selectedEvent ? selectedEvent._id : Date.now(),
     };
-    if (selectedEvent) {
-      dispatchCalEvent({ type: "update", payload: calendarEvent });
+
+    console.log("selectedEvent ", selectedEvent);
+
+    if(selectedEvent) {
+      updateEvent(calendarEvent)
+      .then(() => {
+        dispatchCalEvent({type: "update", payload: calendarEvent});
+      })  
     } else {
-      dispatchCalEvent({ type: "push", payload: calendarEvent });
+      eventToDB(calendarEvent)
+        .then(() => {
+          dispatchCalEvent({ type: "push" , payload: calendarEvent });
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
     }
+
+    // if (selectedEvent) {
+    //   dispatchCalEvent({ type: "update", payload: calendarEvent });
+    // } else {
+    //   dispatchCalEvent({ type: "push", payload: calendarEvent });
+    // }
 
     setShowEventModal(false);
   }
+  async function handleDelete(e) {
+    const calendarEvent = {
+      title,
+      description,
+      date: daySelected.valueOf(),
+      id: selectedEvent ? selectedEvent._id : Date.now(),
+    };
+    e.preventDefault();
+
+    await deleteEvent(calendarEvent);
+    dispatchCalEvent({ type: "delete", payload: calendarEvent});
+    setShowEventModal(false);
+  }
+  
+  
   return (
     <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center">
       <form className="bg-white rounded-lg shadow-2xl w-1/4">
@@ -45,13 +82,8 @@ export default function EventModal() {
           <div className="flex">
             {selectedEvent && (
               <span
-                onClick={() => {
-                  dispatchCalEvent({
-                    type: "delete",
-                    payload: selectedEvent,
-                  });
-                  setShowEventModal(false);
-                }}
+                onClick={
+                  handleDelete}
                 className="text-gray-400 cursor-pointer"
               >
                 <AiOutlineDelete className="hover:text-red-600 text-lg text-bold" />
@@ -79,12 +111,12 @@ export default function EventModal() {
             <p>{daySelected.format("dddd, MMMM DD")}</p>
             <input
               type="text"
-              name="beschreibung"
+              name="description"
               placeholder="Beschreibung Hinzufügen"
-              value={beschreibung}
+              value={description}
               required
               className="pt-3 border-0 text-gray-600 pb-2 w-full border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
-              onChange={(e) => setBeschreibung(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
         </div>

@@ -2,6 +2,7 @@
 import React, { createContext, useState, useEffect, useReducer, useMemo } from "react";
 import dayjs from 'dayjs';
 import "dayjs/locale/de";
+import axios from 'axios';
 
 
 export const Context = createContext({
@@ -18,24 +19,16 @@ export const Context = createContext({
   filteredEvents: [],
 });
 
-function savedEventsReducer(state, { type, payload }) {
-  switch (type) {
-    case "push":
-      return [...state, payload];
-    case "update":
-      return state.map((evt) => (evt.id === payload.id ? payload : evt));
-    case "delete":
-      return state.filter((evt) => evt.id !== payload.id);
-    default:
-      throw new Error();
-  }
-}
 
-function initEvents() {
-  const storageEvents = localStorage.getItem("savedEvents");
-  const parsedEvents = storageEvents ? JSON.parse(storageEvents) : [];
-  return parsedEvents;
-}
+
+// function initEvents() {
+  
+//   const storageEvents = localStorage.getItem("savedEvents");
+//   const parsedEvents = storageEvents ? JSON.parse(storageEvents) : [];
+//   return parsedEvents;
+// }
+
+
 
 const ContextProvider = (props) => {
   // Ghania und Blanca Context
@@ -89,6 +82,36 @@ const ContextProvider = (props) => {
     setToggleAddSubClassModale(false);
   }
   // Zaki Context + Hooks Events
+  // const initEvents = {
+  //   loading: true,
+  //   events: [],
+  //   error: ''
+  // }
+
+  function savedEventsReducer(state, { type, payload }) {
+    switch (type) {
+      case "FETCH_SUCCESS":
+        return payload;
+      case "FETCH_ERROR":
+        return {
+          events: {},
+          error: "fetch not successfull",
+        };
+      case "push":
+        return [...state, payload];
+      case "update":
+        console.log('my state ',state, 'my payload',payload);
+        return [...state.map((evt) => (evt.id === payload.id ? payload : evt))];
+      case "delete":
+        console.log(state, type, payload);
+        return state.filter((evt) => evt.id !== payload.id);
+      default:
+        throw new Error();
+    }
+
+    
+  }
+  
 
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [daySelected, setDaySelected] = useState(dayjs());
@@ -97,8 +120,7 @@ const ContextProvider = (props) => {
   const [labels, setLabels] = useState([]);
   const [savedEvents, dispatchCalEvent] = useReducer(
     savedEventsReducer,
-    [],
-    initEvents
+    []
   );
 
   // zaki hooks end
@@ -106,6 +128,60 @@ const ContextProvider = (props) => {
   // FUNCTIONS BACKEND
 
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      await axios.get(`${BACKEND_URL}/calendar`)
+      .then(response => {
+        dispatchCalEvent({type: 'FETCH_SUCCESS', payload: response.data.data})
+      })
+      .catch(error => {
+        dispatchCalEvent({type: 'FETCH_ERROR'})
+      })
+    }
+    fetchData()
+  }, [savedEvents])
+
+    async function eventToDB(data) {
+      const res = await fetch(`${BACKEND_URL}/calendar`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const body = await res.json();
+      return body;
+    }
+
+    async function updateEvent(data) {
+      const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const body = await res.json();
+      return body;
+    }
+
+    async function deleteEvent(data) {
+      const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const body = await res.json();
+      return body;
+    }
+
 
   async function getAllTeachers() {
     const res = await fetch(`${BACKEND_URL}/teacher`, {
@@ -116,6 +192,7 @@ const ContextProvider = (props) => {
     const body = await res.json();
     return body;
   }
+
 
   const getClassIdAndName = (e) => {
     setClassId(e.target.value);
@@ -233,6 +310,7 @@ const ContextProvider = (props) => {
   }, [savedEvents, labels]);
 
 
+
 // neu Fach und klasse zu teacher hinzufügen
    function editTeacherModules(id){
     console.log('Id:', id);
@@ -249,13 +327,15 @@ const ContextProvider = (props) => {
  }
 
 
-  function updateLabel(label) {
-    setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
-  }
+  // function updateLabel(label) {
+  //   setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
+  // }
 
-  useEffect(() => {
-    localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
-  }, [savedEvents]);
+  
+
+  // useEffect(() => {
+  //   localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
+  // }, [savedEvents]);
 
   useEffect(() => {
     setLabels((prevLabels) => {
@@ -336,8 +416,6 @@ const ContextProvider = (props) => {
         setJustTeacherId,
         justTeacherId,
 
-
-
         // Events
         monthIndex,
         setMonthIndex,
@@ -350,8 +428,12 @@ const ContextProvider = (props) => {
         setSelectedEvent,
         savedEvents,
         labels,
-        updateLabel,
+        // updateLabel,
         filteredEvents,
+        updateEvent,
+        deleteEvent,
+        eventToDB
+        // getAllEvents
       }}
     >
       {props.children}
