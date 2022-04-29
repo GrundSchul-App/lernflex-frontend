@@ -58,13 +58,13 @@ const Main = () => {
   };
 
   return (
-    <div className="flex-col w-full mr-4 sm:w-[100%] mt-4">
-      <div className="flex justify-between ml-4 gap-4 flex-wrap w-full">
+    <div className="flex-col w-full mr-4 sm:w-[100%] mt-4 flex-auto">
+      <div className="flex justify-between ml-4 gap-4  flex-wrap w-full">
         <SelectClasses />
         <SelectSubjects />
 
         <button
-          className="flex grow  p-2
+          className="flex grow  p-2 mr-4
         rounded-2xl bg-green-200 h-[75px] 
         items-center justify-center transition-all
          hover:bg-white hover:shadow-xl"
@@ -73,7 +73,9 @@ const Main = () => {
           Abwesendheitsliste generieren
         </button>
       </div>
-      {studentsList.length !== 0 && <MainTable classAndSubjectName={classAndSubjectName}/>}
+      {studentsList.length !== 0 && (
+        <MainTable classAndSubjectName={classAndSubjectName} />
+      )}
     </div>
   );
 };

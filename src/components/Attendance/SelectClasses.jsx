@@ -17,7 +17,7 @@ const SelectClasses = () => {
   // };
 
   return (
-    <div className="flex grow  p-2 rounded-2xl bg-white  h-[75px] items-center justify-center">
+    <div className="flex grow  p-2 rounded-2xl bg-white  h-[75px] items-center justify-center sm:w-[20%] lg:w-fit">
       <IoIosPeople className="w-8 h-8 mr-2" />
       <h3 className="mr-2">Klassen</h3>
 

@@ -5,7 +5,7 @@ import { AiOutlineMail } from "react-icons/ai";
 
 const Header = () => {
   return (
-    <header className="flex h-[80px] items-center ">
+    <header className="flex h-[80px] items-center">
       <nav
         className="
           flex flex-wrap
@@ -21,7 +21,7 @@ const Header = () => {
       >
         <div>
           <a href="">
-            <img className="h-auto -ml-4" src={logo} />
+            <img className="h-auto -ml-4 object-top" src={logo} />
           </a>
         </div>
 
@@ -39,7 +39,7 @@ const Header = () => {
           >
             <li>
               <a className="md:p-4 py-2 block hover:text-green-400" href="#">
-                <BiMessageDetail className="w-6 h-6" />
+                <BiMessageDetail className="w-6 h-6 " />
               </a>
             </li>
             <li>
