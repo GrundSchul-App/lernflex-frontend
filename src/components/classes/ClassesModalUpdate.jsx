@@ -9,10 +9,10 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
     updateClassToDatabase,
     databaseUpdated,
     setDatabaseUpdated,
-    classTeacher,
+  /*   classTeacher,
     setClassTeacher,
     moduleSubjectTeacher,
-    setModuleSubjectTeacher,
+    setModuleSubjectTeacher, */
     messageBackendModal,
     setMessageBackendModal,
   } = useContext(Context);
@@ -22,21 +22,21 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
   function updateClass(e) {
     e.preventDefault();
     if (
-      (className === "" && classToUpdate.className === "") ||
+      (className === "" && classToUpdate.className === "") /* ||
       (classTeacher === "" && classToUpdate.classTeacher === "") ||
       (moduleSubjectTeacher === [{}] && classToUpdate.mudules === [{}]) ||
-      (moduleSubjectTeacher.length !== 0 && moduleSubjectTeacher.includes({}))
+      (moduleSubjectTeacher.length !== 0 && moduleSubjectTeacher.includes({})) */
     ) {
-      setMessageBackendModal("Bitte füllen Sie alle Felder aus");
+      setMessageBackendModal("Bitte füllen Sie das Feld aus");
 
       return;
     }
 
     const data = {
       _id: classToUpdate._id,
-      className: className || classToUpdate.className,
+      className: className || classToUpdate.className/* ,
       classTeacher: classTeacher || classToUpdate.classTeacher,
-      modules: moduleSubjectTeacher || classToUpdate.modules,
+      modules: moduleSubjectTeacher || classToUpdate.modules, */
     };
    
     if (data.length !== 0) {
@@ -54,10 +54,10 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
         });
     }
     setShowUpdateClassModal(false);
-    setModuleSubjectTeacher([{}]);
+    /* setModuleSubjectTeacher([{}]); */
     setMessageBackend("");
     setClassName("");
-    setClassTeacher("");
+    /* setClassTeacher(""); */
   }
 
   return (
@@ -102,13 +102,13 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
               />
             </div>
           </div>
-
+{/* 
           <ClassTeacherUpdateSelect
             classTeacherData={classToUpdate.classTeacher}
           />
           <ModuleSubjectTeacherUpdateSelect
             subjectTeacherData={classToUpdate.modules}
-          />
+          /> */}
 
           <div className="flex justify-end">
             <button
