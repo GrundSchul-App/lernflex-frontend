@@ -4,7 +4,7 @@ import BodyTable from "./BodyTable";
 import { Context } from "../../context/context";
 
 function StudentTable(props) {
-  const { studentsList, sutStudentList,openModale } = useContext(Context);
+  const { studentsList,openModale } = useContext(Context);
 
   return (
     <div className="rounded-2xl m-4 mt-0 py-4 bg-white ">
@@ -48,7 +48,7 @@ function StudentTable(props) {
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                       >
                         Geschlecht
                       </th>

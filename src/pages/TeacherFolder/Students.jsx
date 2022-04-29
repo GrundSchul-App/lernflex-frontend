@@ -3,6 +3,7 @@ import EventsList from "../../components/Attendance/EventsList";
 
 import CalendarComponent from "../../components/CalendarComponent";
 import AddStudentModal from "../../components/Student/AddStudentModal";
+import EditModalStudents from "../../components/Student/editModalStudents";
 
 import StudentTab from "../../components/Student/studentTab/StudentTab";
 import { Context} from '../../context/context'
@@ -30,6 +31,7 @@ function Students(props) {
         <EventsList />
       </div>
       {toggleModale ? <AddStudentModal/>: ''}
+      {toggleModale ? <EditModalStudents/>: ''}
     </div>
   );
 }

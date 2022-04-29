@@ -51,6 +51,7 @@ const ContextProvider = (props) => {
   const [studentsList, setStudentsList] = useState([]);
   const [students,setStudents]=useState([]);
   const [selectValue, setSelectValue]=useState([])
+  const [studentId,setStudentId]=useState([]);
 
   const [teachers, setTeachers] = useState([]);
 
@@ -262,6 +263,12 @@ const ContextProvider = (props) => {
    setTeacherId(teacher)
    openEditModale()
  }
+ // edit student modale open
+ function editStudent(student,id){
+   console.log("id Student edit", student)
+   setStudentId(student)
+   openModale()
+ }
 
 
   function updateLabel(label) {
@@ -335,6 +342,9 @@ const ContextProvider = (props) => {
         setStudents,
         selectValue,
         setSelectValue,
+        editStudent,
+        studentId,
+        setStudentId,
 
         databaseUpdated,
         setDatabaseUpdated,
