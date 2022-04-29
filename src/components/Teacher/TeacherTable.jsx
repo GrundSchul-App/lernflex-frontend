@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import {AiOutlineMinusCircle} from "react-icons/ai"
 import { Context } from "../../context/context";
 
 function TeacherTable(props) {
@@ -121,10 +122,11 @@ function TeacherTable(props) {
 
                            
                           </td>
-                          <td className="text-center text-gray-900 font-light px-6 py-4 ">
+                          <td className="text-center text-gray-900 font-light px-6 py-4 mx-5 ">
                           <button onClick={()=>editTeacherModules(teacher._id)} type="button">
-                                    <IoIosAddCircleOutline />
+                                    <IoIosAddCircleOutline className="text-green-600" />
                                   </button>
+                                  <button type='button'><AiOutlineMinusCircle className="ml-2 text-red-600"/></button>
                           </td>
 
                           <td className="text-center text-green-600">
