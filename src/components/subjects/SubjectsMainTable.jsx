@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../../context/context";
 import * as AiIcons from "react-icons/ai";
 import SubjectModalDelete from "./SubjectModalDelete";
-import SubjectModalCreate from "./SubjectModalCreate";
+
 import SubjectModalUpdate from "./SubjectModalUpdate";
 
 const SubjectsMainTable = () => {
@@ -11,7 +11,7 @@ const SubjectsMainTable = () => {
   const [ShowDeleteSubjectModal, setShowDeleteSubjectModal] = useState(false);
   const [subjectToDelete, setSubjectToDelete] = useState("");
   const [subjectToUpdate, setSubjectToUpdate] = useState("");
-  const [showCreateSubjectModal, setShowCreateSubjectModal] = useState(false);
+ 
   const [showUpdateSubjectModal, setShowUpdateSubjectModal] = useState(false);
 
   function deleteSubject(subject) {
@@ -26,7 +26,7 @@ const SubjectsMainTable = () => {
 
   return (
     <div className="rounded-2xl m-4 p-4 bg-white w-full mr-4">
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <button
           className="flex  px-4 py-2 rounded-2xl bg-green-200 
            items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"
@@ -39,7 +39,7 @@ const SubjectsMainTable = () => {
             setShowCreateSubjectModal={setShowCreateSubjectModal}
           />
         )}
-      </div>
+      </div> */}
 
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
