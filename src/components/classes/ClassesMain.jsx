@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import ClassesMainTable from "./ClassesMainTable";
 import SearchClasses from "./SearchClasses";
 import { Context } from "../../context/context";
-import FilterClasses from "./FilterClasses";
+/* import FilterClasses from "./FilterClasses"; */
 import ClassesModalCreate from "./ClassesModalCreate";
 
 function ClassesMain() {
@@ -15,13 +15,15 @@ function ClassesMain() {
     databaseUpdated,
     setSearchInput,
     setMessageBackend,
+  
    
   } = useContext(Context);
 
   const [showCreateClassModal, setShowCreateClassModal] = useState(false);
 
+
   useEffect(() => {
-    // getAllClasses(token, userId)
+    
     getAllClasses()
       .then((res) => {
         if (res.message === "success") {
@@ -32,13 +34,16 @@ function ClassesMain() {
       .catch((err) => {
         console.log(err);
       });
-  }, [databaseUpdated]);
+  }, [databaseUpdated]); 
+
+
+
 
   return (
     <div className="flex-col w-full mr-4 sm:w-[100%] mt-4">
       <div className="flex justify-between ml-4 gap-4 flex-wrap w-full">
         <SearchClasses />
-        <FilterClasses />
+        {/* <FilterClasses /> */}
 
         <button
           className="flex grow  p-2
