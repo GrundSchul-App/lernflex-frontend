@@ -1,15 +1,15 @@
 import React, { useContext, useEffect } from "react";
-import SubjectsMainTable from "./SubjectsMainTable";
-import Search from "./Search";
+import ClassesMainTable from "./ClassesMainTable";
+import SearchClasses from "./SearchClasses";
 import { Context } from "../../context/context";
+import FilterClasses from "./FilterClasses";
 
 function ClassesMain() {
   const {
-    getAllSubjects,
     getAllClasses,
-    setSubjects,
+    classes,
     setClasses,
-    subjects,
+    setAllClasses,
     setDatabaseUpdated,
     databaseUpdated,
     setSearchInput,
@@ -18,12 +18,11 @@ function ClassesMain() {
 
   useEffect(() => {
     // getAllClasses(token, userId)
-
     getAllClasses()
       .then((res) => {
         if (res.message === "success") {
           setClasses(res.data);
-          console.log("res.data", res.data);
+          setAllClasses(res.data);
         }
       })
       .catch((err) => {
@@ -34,7 +33,8 @@ function ClassesMain() {
   return (
     <div className="flex-col w-full mr-4 sm:w-[100%] mt-4">
       <div className="flex justify-between ml-4 gap-4 flex-wrap w-full">
-        <Search />
+        <SearchClasses />
+        <FilterClasses />
 
         <button
           className="flex grow  p-2
@@ -47,10 +47,10 @@ function ClassesMain() {
             setMessageBackend("");
           }}
         >
-          Alle Fächer
+          Alle Klassen
         </button>
       </div>
-      {subjects.length !== 0 && <SubjectsMainTable />}
+      {classes.length !== 0 && <ClassesMainTable />}
     </div>
   );
 }
