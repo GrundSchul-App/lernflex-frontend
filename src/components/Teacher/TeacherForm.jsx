@@ -6,7 +6,7 @@ import { IoIosPeople } from "react-icons/io";
 import { ImBooks } from "react-icons/im";
 
 function TeacherForm(props) {
-  const [modules, setModules] = useState([{}]);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,12 +14,11 @@ function TeacherForm(props) {
     classId,
     setClassId,
     setClassName,
-    className,
+    
     teachers,
     setTeachers,
     BACKEND_URL,
-    classes,
-    getClassIdAndName,subjects,
+    classes,subjects,
     setSubjectId,
     subjectId,
     setSubjectName,
@@ -62,7 +61,7 @@ function TeacherForm(props) {
     });
     const content = await response.json();
     console.log("content result", content);
-    console.log(content);
+    
     setTeachers([...teachers, content.data]);
     console.log("data:", content.data);
      closeModale();

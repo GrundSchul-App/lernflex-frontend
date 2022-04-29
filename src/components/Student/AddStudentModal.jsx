@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import TeacherForm from "./TeacherForm";
+import StudentForm from "./StudentForm";
 import { Context } from "../../context/context";
 import { GrFormClose } from "react-icons/gr";
 
-function TeacherModale(props) {
+function AddStudentModal(props) {
   const { closeModale } = useContext(Context);
 
   return (
@@ -17,9 +17,9 @@ function TeacherModale(props) {
           <GrFormClose />
         </button>
 
-        <TeacherForm />
+        <StudentForm />
       </div>
     </div>
   );
 }
-export default TeacherModale;
+export default AddStudentModal;

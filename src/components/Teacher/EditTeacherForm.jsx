@@ -49,8 +49,8 @@ export function EditTeacherForm(props) {
   async function updateTeacher(e) {
     e.preventDefault();
     //  editExistTeacher(teacherId);
-    console.log("Id:", teacherId);
-   console.log("result target put", e.target.firstName);
+  //   console.log("Id:", teacherId);
+  //  console.log("result target put", e.target.firstName);
     //openModaleAdd()
     // const data= {
 

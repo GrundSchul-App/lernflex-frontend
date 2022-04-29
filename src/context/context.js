@@ -47,6 +47,9 @@ const ContextProvider = (props) => {
   const [subjectName, setSubjectName] = useState("");
 
   const [studentsList, setStudentsList] = useState([]);
+  const [students,setStudents]=useState([]);
+  const [selectValue, setSelectValue]=useState([])
+  const [studentId,setStudentId]=useState([]);
 
   const [teachers, setTeachers] = useState([]);
 
@@ -75,6 +78,7 @@ const ContextProvider = (props) => {
     setToggleModale(false);
   };
   const openModale = () => {
+    // console.log("hello modal")
     setToggleModale(true);
   };
   // Toggle modal edit teacher modal
@@ -220,6 +224,16 @@ const ContextProvider = (props) => {
     });
     const body = await res.json();
 
+    return body;
+  }
+
+  async function getAllStudents(){
+    const res = await fetch(`${BACKEND_URL}/students`,{
+      header: {
+        Accept: "application/json",
+      },
+    })
+    const body = await res.json();
     return body;
   }
 
@@ -397,6 +411,12 @@ const ContextProvider = (props) => {
    setTeacherId(teacher)
    openEditModale()
  }
+ // edit student modale open
+ function editStudent(student,id){
+   console.log("id Student edit", student)
+   setStudentId(student)
+   openModale()
+ }
 
   // function updateLabel(label) {
   //   setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
@@ -472,6 +492,14 @@ const ContextProvider = (props) => {
         setStudentsList,
         messageBackend,
         setMessageBackend,
+        getAllStudents,
+        students,
+        setStudents,
+        selectValue,
+        setSelectValue,
+        editStudent,
+        studentId,
+        setStudentId,
 
         databaseUpdated,
         setDatabaseUpdated,

@@ -21,7 +21,7 @@ const getAllTeacherByClassAndSubject=()=>{
   getTeacherByClassIdAndSubjectId(classId, subjectId)
   .then((res) => {
   if (res.message === "success") {
-    console.log("res.data teacher by calss and id", res.data);
+    console.log("res.data teacher by class and id", res.data);
    
     setTeachers(res.data)
 
