@@ -8,7 +8,7 @@ import TableRemotePlan from "../../components/RemoteCourse/TableRemotePlan";
 function RemoteCourse(props) {
   return (
     <div className="flex justify-between mx-auto ">
-      <div className="px-4 ">
+      <div className="px-4">
         <TableRemotePlan />
         <DaysPlan />
       </div>
