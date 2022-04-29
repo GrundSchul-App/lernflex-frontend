@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ClassesMainTable from "./ClassesMainTable";
 import SearchClasses from "./SearchClasses";
 import { Context } from "../../context/context";
 import FilterClasses from "./FilterClasses";
+import ClassesModalCreate from "./ClassesModalCreate";
 
 function ClassesMain() {
   const {
@@ -14,7 +15,10 @@ function ClassesMain() {
     databaseUpdated,
     setSearchInput,
     setMessageBackend,
+   
   } = useContext(Context);
+
+  const [showCreateClassModal, setShowCreateClassModal] = useState(false);
 
   useEffect(() => {
     // getAllClasses(token, userId)
@@ -38,6 +42,20 @@ function ClassesMain() {
 
         <button
           className="flex grow  p-2
+          rounded-2xl bg-green-200 h-[75px] 
+          items-center justify-center transition-all
+           hover:bg-white hover:shadow-xl"
+          onClick={() => setShowCreateClassModal(true)}
+        >
+          + Klasse
+        </button>
+        {showCreateClassModal && (
+          <ClassesModalCreate
+            setShowCreateClassModal={setShowCreateClassModal}          />
+        )}
+
+        <button
+          className="flex grow  p-2
         rounded-2xl bg-green-200 h-[75px] 
         items-center justify-center transition-all
          hover:bg-white hover:shadow-xl"
@@ -49,6 +67,8 @@ function ClassesMain() {
         >
           Alle Klassen
         </button>
+
+      
       </div>
       {classes.length !== 0 && <ClassesMainTable />}
     </div>

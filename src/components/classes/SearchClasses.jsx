@@ -25,7 +25,7 @@ function SearchClasses() {
 
   return (
     <div className="flex grow  p-2 rounded-2xl bg-white  h-[75px] items-center justify-center">
-      <div className=" xl:w-96">
+      <div className=" ">
         <div className="input-group flex items-stretch w-full rounded">
           <span
             className="input-group-text flex items-center px-3 py-1.5 text-base
