@@ -1,8 +1,12 @@
-
-import React, { createContext, useState, useEffect, useReducer, useMemo } from "react";
-import dayjs from 'dayjs';
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useReducer,
+  useMemo,
+} from "react";
+import dayjs from "dayjs";
 import "dayjs/locale/de";
-
 
 export const Context = createContext({
   monthIndex: 0,
@@ -41,6 +45,7 @@ const ContextProvider = (props) => {
   // Ghania und Blanca Context
 
   const [classes, setClasses] = useState([]);
+  const [allClasses, setAllClasses] = useState([]);
   const [classId, setClassId] = useState("");
   const [className, setClassName] = useState("");
 
@@ -52,16 +57,21 @@ const ContextProvider = (props) => {
 
   const [teachers, setTeachers] = useState([]);
 
-
-  const[teacherId,setTeacherId]=useState('');
-  const [refDataBase,setRefDataBase]=useState(false);
-  const [justTeacherId,setJustTeacherId]=useState('')
-
+  const [teacherId, setTeacherId] = useState("");
+  const [refDataBase, setRefDataBase] = useState(false);
+  const [justTeacherId, setJustTeacherId] = useState("");
 
   const [messageBackend, setMessageBackend] = useState("");
+  const [messageBackendModal, setMessageBackendModal] = useState("");
   const [databaseUpdated, setDatabaseUpdated] = useState(false);
   const [searchInput, setSearchInput] = useState("");
 
+  const [classTeacher, setClassTeacher] = useState("");
+  /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([
+    { subject: "", teacher: "" },
+  ]); */
+  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([{}]);
+  const [option, setOption] = useState("");
 
   // Toggle modal teacher
   const [toggleModale, setToggleModale] = useState(false);
@@ -82,12 +92,12 @@ const ContextProvider = (props) => {
   const openEditModale = () => {
     setEditToggleModale(true);
   };
-  const openModaleAdd=()=>{
+  const openModaleAdd = () => {
     setToggleAddSubClassModale(true);
   };
-  const closeModaleAdd=()=>{
+  const closeModaleAdd = () => {
     setToggleAddSubClassModale(false);
-  }
+  };
   // Zaki Context + Hooks Events
 
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
@@ -119,10 +129,9 @@ const ContextProvider = (props) => {
 
   const getClassIdAndName = (e) => {
     setClassId(e.target.value);
-     console.log(e.target.value);
+    console.log(e.target.value);
     setClassName(e.target.options[e.target.selectedIndex].text);
-    console.log(e.target.options[e.target.selectedIndex].text)
-   
+    console.log(e.target.options[e.target.selectedIndex].text);
   };
 
   async function getAllClasses() {
@@ -171,6 +180,31 @@ const ContextProvider = (props) => {
     return body;
   }
 
+  async function getClassesByModule(subjectId, teacherId) {
+    const res = await fetch(
+      `${BACKEND_URL}/classes/module/${subjectId}/${teacherId}`,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+
+  async function getClassesByClassTeacherId() {
+    const res = await fetch(`${BACKEND_URL}/classes/teacher/${classTeacher}`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    const body = await res.json();
+    
+    return body;
+  }
+
   async function addAttendanceList(data) {
     const res = await fetch(`${BACKEND_URL}/attendanceList/add`, {
       method: "POST",
@@ -209,8 +243,21 @@ const ContextProvider = (props) => {
     return body;
   }
 
+  async function addClassToDatabase(data) {
+    const res = await fetch(`${BACKEND_URL}/classes`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
   async function updateSubjectToDatabase(data) {
-    console.log("updata", data);
+   
     const res = await fetch(`${BACKEND_URL}/updateSubject/${data._id}`, {
       method: "PUT",
       headers: {
@@ -218,6 +265,32 @@ const ContextProvider = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function updateClassToDatabase(data) {
+    
+    const res = await fetch(`${BACKEND_URL}/classes/${data._id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function deleteClassById(classId) {
+    const res = await fetch(`${BACKEND_URL}/classes/${classId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     });
     const body = await res.json();
     return body;
@@ -232,22 +305,18 @@ const ContextProvider = (props) => {
     );
   }, [savedEvents, labels]);
 
-
-// neu Fach und klasse zu teacher hinzufügen
-   function editTeacherModules(id){
-    console.log('Id:', id);
-    setJustTeacherId( id);
-  openModaleAdd()
-  
-
- }
- // edit Teacher modale open 
- function editExistTeacher(teacher,id){
-   console.log("id Teacher edit:", teacher)
-   setTeacherId(teacher)
-   openEditModale()
- }
-
+  // neu Fach und klasse zu teacher hinzufügen
+  function editTeacherModules(id) {
+    console.log("Id:", id);
+    setJustTeacherId(id);
+    openModaleAdd();
+  }
+  // edit Teacher modale open
+  function editExistTeacher(teacher, id) {
+    console.log("id Teacher edit:", teacher);
+    setTeacherId(teacher);
+    openEditModale();
+  }
 
   function updateLabel(label) {
     setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
@@ -282,16 +351,22 @@ const ContextProvider = (props) => {
         getStudentsByClassId,
         getAllSubjects,
         getAllClasses,
+        getAllTeachers,
         addAttendanceList,
         getTeacherByClassIdAndSubjectId,
         deleteSubjectById,
         addSubjectToDatabase,
+        addClassToDatabase,
+        updateClassToDatabase,
         updateSubjectToDatabase,
+        deleteClassById,
         closeModale,
         openModale,
         closeEditModale,
         openEditModale,
         editTeacherModules,
+        getClassesByClassTeacherId,
+        getClassesByModule,
 
         //URL
         BACKEND_URL,
@@ -300,7 +375,7 @@ const ContextProvider = (props) => {
         setClasses,
         teachers,
         setTeachers,
-        getAllTeachers,
+
         classId,
         setClassId,
         setSubjects,
@@ -335,8 +410,17 @@ const ContextProvider = (props) => {
         setRefDataBase,
         setJustTeacherId,
         justTeacherId,
-
-
+        // classen
+        classTeacher,
+        setClassTeacher,
+        moduleSubjectTeacher,
+        setModuleSubjectTeacher,
+        messageBackendModal,
+        setMessageBackendModal,
+        option,
+        setOption,
+        allClasses,
+        setAllClasses,
 
         // Events
         monthIndex,
