@@ -184,6 +184,10 @@ function TeacherForm(props) {
             type="text"
           />
         </div>
+        <label class="container">Hauptlehrer
+  <input type="checkbox" checked="checked"/>
+  <span class="checkmark"></span>
+</label>
         <div className="m-4">
           <label className="mr-11">Email</label>
           <input
