@@ -12,7 +12,7 @@ import { IoIosPeople } from "react-icons/io";
  
 
 
-    const {setClassId,classId,setClassName,classes,BACKEND_URL,students,setStudents,closeModale,setRefDataBase,refDataBase,messageBackend}=useContext(Context);
+    const {setClassId,classId,setClassName,classes,BACKEND_URL,students,setStudents,closeModale,setRefDataBase,refDataBase,messageBackend,setStudentsList,studentsList}=useContext(Context);
 
 
     const getClassIdWithName = (e) => {
@@ -53,6 +53,7 @@ import { IoIosPeople } from "react-icons/io";
  const content= await response.json()
  console.log("content student:", content);
  setStudents([...students, content.data]);
+ setStudentsList([...studentsList,content.data]);
  console.log('data Students:', content.data);
  closeModale();
  setRefDataBase(!refDataBase)

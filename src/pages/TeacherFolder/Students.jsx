@@ -31,7 +31,7 @@ function Students(props) {
         <EventsList />
       </div>
       {toggleModale ? <AddStudentModal/>: ''}
-      {toggleModale ? <EditModalStudents/>: ''}
+      {/* {toggleModale ? <EditModalStudents/>: ''} */}
     </div>
   );
 }

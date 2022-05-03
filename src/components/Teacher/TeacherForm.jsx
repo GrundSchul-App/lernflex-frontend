@@ -6,7 +6,7 @@ import { IoIosPeople } from "react-icons/io";
 import { ImBooks } from "react-icons/im";
 
 function TeacherForm(props) {
-
+  // const[teacherChecked, setTeacherChecked]=useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,6 +27,16 @@ function TeacherForm(props) {
     refDataBase
   } = useContext(Context);
 
+
+//  const checked=()=>{
+  
+//     setTeacherChecked(!teacherChecked)
+   
+  
+  
+  
+//    console.log(teacherChecked);
+//  }
   const getClassIdWithName = (e) => {
     setClassId(e.target.value);
     // console.log(e.target.value);
@@ -57,7 +67,9 @@ function TeacherForm(props) {
         email: email,
         modules: [{ classes: `${classId}`,subjects:`${subjectId}` }],
         // students:[{}]
-      }),
+        //  main_teacher:teacherChecked
+        
+      })
     });
     const content = await response.json();
     console.log("content result", content);
@@ -184,10 +196,7 @@ function TeacherForm(props) {
             type="text"
           />
         </div>
-        <label class="container">Hauptlehrer
-  <input type="checkbox" checked="checked"/>
-  <span class="checkmark"></span>
-</label>
+       
         <div className="m-4">
           <label className="mr-11">Email</label>
           <input
@@ -198,12 +207,18 @@ function TeacherForm(props) {
             name="email"
             type="email"
           />
-        </div>
+        </div >
+        {/* <div className="m-4">
+        <label className="text-blue-600" >Hauptlehrer
+        <input onClick={checked} type="checkbox" className="m-2" />
+ 
+        </label>
+        </div> */}
 
         <div className="flex justify-center">
           <button
             onClick={addTeacher}
-            className="bg-cyan-500 hover:bg-cyan-600  font-bold text-white px-2 py-1 rounded-xl mt-5 "
+            className="bg-cyan-500 hover:bg-cyan-600  font-bold text-white px-2 py-1 rounded-xl  "
           >
             Hinzufügen
           </button>

@@ -74,8 +74,8 @@ const ContextProvider = (props) => {
     setToggleModale(false);
   };
   const openModale = () => {
-    // console.log("hello modal")
-    setToggleModale(true);
+    //  console.log("hello modal")
+   setToggleModale(true);
   };
   // Toggle modal edit teacher modal
 
