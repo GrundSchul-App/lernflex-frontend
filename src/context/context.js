@@ -202,7 +202,7 @@ const ContextProvider = (props) => {
       const body = await res.json();
       return body;
     }
-  }, []);
+ 
 
   async function eventToDB(data) {
     const res = await fetch(`${BACKEND_URL}/calendar`, {
