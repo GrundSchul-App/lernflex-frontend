@@ -7,7 +7,7 @@ import ClassesModalUpdate from "./ClassesModalUpdate";
 
 const ClassesMainTable = () => {
   const { messageBackend, classes } = useContext(Context);
-  console.log(classes);
+ /*  console.log(classes); */
 
   const [showDeleteClassModal, setShowDeleteClassModal] = useState(false);
  
@@ -48,10 +48,10 @@ const ClassesMainTable = () => {
                     >
                       Klasse
                     </th>
-                    {/* <th className="font-medium text-gray-900  text-left">
+                     <th className="font-medium text-gray-900  text-left">
                       Klassenlehrer/in
                     </th>
-                    <th className="font-medium text-gray-900  text-left">
+                    {/*<th className="font-medium text-gray-900  text-left">
                       Fach - Lehrer/in
                     </th> */}
                   </tr>
@@ -73,11 +73,11 @@ const ClassesMainTable = () => {
                         <td className="text-gray-900  px-6 py-4 whitespace-nowrap font-light">
                           {classData.className}
                         </td>
-                      {/*   <td className="text-left font-light">
+                       <td className="text-left font-light">
                           {classData.classTeacher.firstName}{" "}
                           {classData.classTeacher.lastName}
                         </td>
-
+                         {/* 
                         <td className="text-left font-light">
                           {classData.modules.map((modul, index) => {
                             return (
