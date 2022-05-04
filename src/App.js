@@ -1,6 +1,6 @@
 // import EventsList from "./components/Attendance/EventsList";
 import Header from "./components/Header";
-// import Main from "./components/Attendance/Main";
+import Main from "./components/Attendance/Main";
 import Sidebar from "./components/Sidebar";
 // import CalendarComponents from "./components/CalendarComponent";
 import { Routes, Route } from "react-router-dom";
@@ -22,11 +22,11 @@ function App() {
   return (
     <div className=" bg-[#8DD4C3] max-w-[1420px] mx-auto">
       <ContextProvider>
-        {/* <Header /> */}
+        <Header /> 
         <div className="flex justify-start ">
-          {/* <Sidebar /> */}
+          <Sidebar /> 
 
-          {/* <Main /> */}
+        {/*   <Main />  */}
         <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/attendance" element={<AttendanceList />} />
