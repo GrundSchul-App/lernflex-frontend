@@ -16,17 +16,19 @@ import Settings from "./pages/TeacherFolder/Settings";
 
 import EventCalendar from "./components/calendar/EventCalendar";
 import ContextProvider from "./context/context";
+import Landing from "./pages/Landing";
 
 function App() {
   return (
-    <div className="p-4 bg-[#8DD4C3] max-w-[1420px] mx-auto">
+    <div className=" bg-[#8DD4C3] max-w-[1420px] mx-auto">
       <ContextProvider>
-        <Header />
+        {/* <Header /> */}
         <div className="flex justify-start ">
-          <Sidebar />
+          {/* <Sidebar /> */}
 
           {/* <Main /> */}
-          <Routes>
+        <Routes>
+            <Route path="/" element={<Landing />} />
             <Route path="/attendance" element={<AttendanceList />} />
             <Route path="/remote" element={<RemoteCourse />} />
             <Route path="/students" element={<Students />} />

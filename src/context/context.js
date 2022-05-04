@@ -35,6 +35,8 @@ export const Context = createContext({
 
 
 const ContextProvider = (props) => {
+
+  const [auth, setAuth] = useState({});
   // Ghania und Blanca Context
 
   const [classes, setClasses] = useState([]);
@@ -115,7 +117,7 @@ const ContextProvider = (props) => {
         return [...state, payload];
       case "update":
         console.log('my state ',state, 'my payload',payload);
-        return [...state.map((evt) => (evt.id === payload.id ? payload : evt))];
+        return state.map((evt) => (evt.id === payload.id ? payload : evt));
       case "delete":
         console.log(state, type, payload);
         return state.filter((evt) => evt.id !== payload.id);
@@ -144,20 +146,25 @@ const ContextProvider = (props) => {
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
-
     const fetchData = async () => {
-      await axios.get(`${BACKEND_URL}/calendar`)
-      .then(response => {
-        dispatchCalEvent({type: 'FETCH_SUCCESS', payload: response.data.data})
-      })
-      .catch(error => {
-        dispatchCalEvent({type: 'FETCH_ERROR'})
-      })
-    }
-    fetchData()
-  }, [savedEvents])
+      await axios
+        .get(`${BACKEND_URL}/calendar`)
+        .then((response) => {
+          dispatchCalEvent({
+            type: "FETCH_SUCCESS",
+            payload: response.data.data,
+          });
+        })
+        .catch((error) => {
+          dispatchCalEvent({ type: "FETCH_ERROR" });
+        });
+    };
+    fetchData();
+  }, [selectedEvent]);
+
 
     async function eventToDB(data) {
+      console.log(data);
       const res = await fetch(`${BACKEND_URL}/calendar`, {
         method: "POST",
         headers: {
@@ -169,7 +176,7 @@ const ContextProvider = (props) => {
       const body = await res.json();
       return body;
     }
-
+    
     async function updateEvent(data) {
       const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
         method: "PUT",
@@ -184,6 +191,7 @@ const ContextProvider = (props) => {
     }
 
     async function deleteEvent(data) {
+
       const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
         method: "DELETE",
         headers: {
@@ -449,6 +457,7 @@ const ContextProvider = (props) => {
   return (
     <Context.Provider
       value={{
+        setAuth,
         getClassIdAndName,
         getStudentsByClassId,
         getAllSubjects,

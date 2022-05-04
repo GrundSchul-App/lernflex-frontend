@@ -16,7 +16,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <aside className="bg-white max-w-[25%] rounded-xl mt-4 py-12 px-6 relative min-h-[892px]">
+    <aside className="ml-4 bg-white max-w-[25%] rounded-xl mt-4 py-12 px-6 relative min-h-[892px]">
       <ul className="list-none text-md font-semibold text-gray-500 hover:cursor-pointer space-y-10 overflow-hidden">
         <li className="">
           <Link

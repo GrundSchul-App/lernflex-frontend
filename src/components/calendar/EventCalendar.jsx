@@ -21,7 +21,7 @@ function EventCalendar() {
   return (
     <React.Fragment>
       {showEventModal && <EventModal />}
-      <div className="flex ">
+      <div className="flex mr-4">
         <div className="h-fit flex flex-col bg-white m-4 rounded-xl flex-auto ">
           <CalendarHeader />
           <div className="flex flex-1">
