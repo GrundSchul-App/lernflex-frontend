@@ -7,7 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import RemoteCourse from "./pages/TeacherFolder/RemoteCourse.jsx";
 import AttendanceList from "./pages/TeacherFolder/AttendanceList";
 import Students from "./pages/TeacherFolder/Students";
-import Homeworks from "./pages/TeacherFolder/HomeWorks";
+import Homeworks from "./pages/TeacherFolder/Homeworks";
 import Teachers from "./pages/TeacherFolder/Teachers";
 import Subjects from "./pages/TeacherFolder/Subjects";
 import Classes from "./pages/TeacherFolder/Classes";
