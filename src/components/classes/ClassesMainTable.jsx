@@ -7,6 +7,7 @@ import ClassesModalUpdate from "./ClassesModalUpdate";
 
 const ClassesMainTable = () => {
   const { messageBackend, classes } = useContext(Context);
+  console.log(classes);
 
   const [showDeleteClassModal, setShowDeleteClassModal] = useState(false);
  

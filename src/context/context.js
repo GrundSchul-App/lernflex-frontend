@@ -31,6 +31,8 @@ export const Context = createContext({
 // }
 
 const ContextProvider = (props) => {
+
+  const [auth, setAuth] = useState({});
   // Ghania und Blanca Context
 
   const [classes, setClasses] = useState([]);
@@ -119,8 +121,8 @@ const ContextProvider = (props) => {
       case "push":
         return [...state, payload];
       case "update":
-        console.log("my state ", state, "my payload", payload);
-        return [...state.map((evt) => (evt.id === payload.id ? payload : evt))];
+        console.log('my state ',state, 'my payload',payload);
+        return state.map((evt) => (evt.id === payload.id ? payload : evt));
       case "delete":
         console.log(state, type, payload);
         return state.filter((evt) => evt.id !== payload.id);
@@ -157,6 +159,49 @@ const ContextProvider = (props) => {
         });
     };
     fetchData();
+  }, [selectedEvent]);
+
+
+    async function eventToDB(data) {
+      console.log(data);
+      const res = await fetch(`${BACKEND_URL}/calendar`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const body = await res.json();
+      return body;
+    }
+    
+    async function updateEvent(data) {
+      const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const body = await res.json();
+      return body;
+    }
+
+    async function deleteEvent(data) {
+
+      const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const body = await res.json();
+      return body;
+    }
   }, []);
 
   async function eventToDB(data) {
@@ -496,6 +541,7 @@ const ContextProvider = (props) => {
   return (
     <Context.Provider
       value={{
+        setAuth,
         getClassIdAndName,
         getStudentsByClassId,
         getAllSubjects,
