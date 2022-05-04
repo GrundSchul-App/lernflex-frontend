@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/context";
-import ClassTeacherUpdateSelect from "./ClassTeacherUpdateSelect";
-import ModuleSubjectTeacherUpdateSelect from "./ModuleSubjectTeacherUpdateSelect";
+/* import ClassTeacherUpdateSelect from "./ClassTeacherUpdateSelect";
+import ModuleSubjectTeacherUpdateSelect from "./ModuleSubjectTeacherUpdateSelect"; */
 
 function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
   const {
@@ -9,8 +9,8 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
     updateClassToDatabase,
     databaseUpdated,
     setDatabaseUpdated,
-   classTeacher,
-    setClassTeacher, /* 
+  /*  classTeacher,
+    setClassTeacher, */ /* 
     moduleSubjectTeacher,
     setModuleSubjectTeacher, */
     messageBackendModal,
@@ -22,8 +22,8 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
   function updateClass(e) {
     e.preventDefault();
     if (
-      (className === "" && classToUpdate.className === "")  ||
-      (classTeacher === "" && classToUpdate.classTeacher === "") /*||
+      (className === "" && classToUpdate.className === "") /*  ||
+      (classTeacher === "" && classToUpdate.classTeacher === "") */ /*||
       (moduleSubjectTeacher === [{}] && classToUpdate.mudules === [{}]) ||
       (moduleSubjectTeacher.length !== 0 && moduleSubjectTeacher.includes({})) */
     ) {
@@ -35,7 +35,7 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
     const data = {
       _id: classToUpdate._id,
       className: className || classToUpdate.className ,
-      classTeacher: classTeacher || classToUpdate.classTeacher,/*
+      /* classTeacher: classTeacher || classToUpdate.classTeacher, *//*
       modules: moduleSubjectTeacher || classToUpdate.modules, */
     };
    
@@ -57,7 +57,7 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
     /* setModuleSubjectTeacher([{}]); */
     setMessageBackend("");
     setClassName("");
-    setClassTeacher("");
+   /*  setClassTeacher(""); */
   }
 
   return (
@@ -103,9 +103,9 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
             </div>
           </div>
 
-          <ClassTeacherUpdateSelect
+        {/*   <ClassTeacherUpdateSelect
             classTeacherData={classToUpdate.classTeacher}
-          />
+          /> */}
           {/* 
           <ModuleSubjectTeacherUpdateSelect
             subjectTeacherData={classToUpdate.modules}
