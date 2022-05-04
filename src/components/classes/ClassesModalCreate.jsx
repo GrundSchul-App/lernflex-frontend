@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/context";
-import ClassTeacherSelect from "./ClassTeacherSelect";
+/* import ClassTeacherSelect from "./ClassTeacherSelect"; */
 /* import ModuleSubjectTeacherSelect from "./ModuleSubjectTeacherSelect"; */
 
 function ClassesModalCreate({ setShowCreateClassModal }) {
@@ -9,8 +9,8 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
     addClassToDatabase,
     databaseUpdated,
     setDatabaseUpdated,
-    classTeacher,
-    setClassTeacher,
+  /*   classTeacher,
+    setClassTeacher, */
     /* moduleSubjectTeacher,
     setModuleSubjectTeacher, */
     messageBackendModal,
@@ -22,8 +22,8 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
   function addClass(e) {
     e.preventDefault();
     if (
-      className === "" ||
-      classTeacher === "" /* ||
+      className === ""/*  ||
+      classTeacher === "" */ /* ||
       moduleSubjectTeacher === [{}] ||
       (moduleSubjectTeacher.length !== 0 && moduleSubjectTeacher.includes({})) */
     ) {
@@ -33,8 +33,9 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
     }
     const data = {
       className: className,
-      classTeacher: classTeacher /*
-      modules: moduleSubjectTeacher, */,
+     // classTeacher: classTeacher 
+      /*
+      modules: moduleSubjectTeacher, */
     };
     if (data.length !== 0) {
       addClassToDatabase(data)
@@ -54,7 +55,7 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
     /* setModuleSubjectTeacher([{}]); */
     setMessageBackend("");
     setClassName("");
-    setClassTeacher("");
+    //setClassTeacher("");
   }
 
   useEffect(() => {
@@ -107,7 +108,7 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
             </div>
           </div>
 
-          <ClassTeacherSelect />
+         {/*  <ClassTeacherSelect /> */}
           {/* 
           <ModuleSubjectTeacherSelect /> */}
 

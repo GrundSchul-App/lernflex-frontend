@@ -48,9 +48,9 @@ const ClassesMainTable = () => {
                     >
                       Klasse
                     </th>
-                     <th className="font-medium text-gray-900  text-left">
+                    {/*  <th className="font-medium text-gray-900  text-left">
                       Klassenlehrer/in
-                    </th>
+                    </th> */}
                     {/*<th className="font-medium text-gray-900  text-left">
                       Fach - Lehrer/in
                     </th> */}
@@ -73,10 +73,10 @@ const ClassesMainTable = () => {
                         <td className="text-gray-900  px-6 py-4 whitespace-nowrap font-light">
                           {classData.className}
                         </td>
-                       <td className="text-left font-light">
+                     {/*   <td className="text-left font-light">
                           {classData.classTeacher.firstName}{" "}
                           {classData.classTeacher.lastName}
-                        </td>
+                        </td> */}
                          {/* 
                         <td className="text-left font-light">
                           {classData.modules.map((modul, index) => {
