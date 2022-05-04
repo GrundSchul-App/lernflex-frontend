@@ -65,6 +65,15 @@ const ContextProvider = (props) => {
   const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([{}]);
   const [option, setOption] = useState("");
 
+  const [homeworks, setHomeworks] = useState([]);
+  const [allHomeworks, setAllHomeworks] = useState([]);
+  const [homeworkDescription, setHomeworkDescription] = useState("");
+  const [homeworkType, setHomeworkType] = useState("");
+  /*  const [fileHomework, setFileHomework] = useState(""); */
+  const [urlHomework, setUrlHomework] = useState("");
+  const [fileNameHomework, setFileNameHomework] = useState("");
+  const [homeworkUploaded, setHomeworkUploaded] = useState(false);
+
   // Toggle modal teacher
   const [toggleModale, setToggleModale] = useState(false);
   const [editToggleModale, setEditToggleModale] = useState(false);
@@ -148,7 +157,7 @@ const ContextProvider = (props) => {
         });
     };
     fetchData();
-  }, [savedEvents]);
+  }, []);
 
   async function eventToDB(data) {
     const res = await fetch(`${BACKEND_URL}/calendar`, {
@@ -240,6 +249,49 @@ const ContextProvider = (props) => {
     return body;
   }
 
+  async function getAllHomeworks() {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1`,
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+
+  async function addHomeworkToDatabase(data) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/add`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const body = await res.json();
+    return body;
+  }
+  async function updateHomeworkToDatabase(data) {
+    const res = await fetch(`${BACKEND_URL}/homeworks/${data._id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
   async function getStudentsByClassId() {
     const res = await fetch(`${BACKEND_URL}/students/class/${classId}`, {
       headers: {
@@ -262,7 +314,7 @@ const ContextProvider = (props) => {
     return body;
   }
 
- /*  async function getTeacherAndSubjectsByClassId(classId) {
+  /*  async function getTeacherAndSubjectsByClassId(classId) {
     const res = await fetch(`${BACKEND_URL}/teacher/${classId}`, {
       headers: {
         Accept: "application/json",
@@ -464,7 +516,10 @@ const ContextProvider = (props) => {
         editTeacherModules,
         getClassesByClassTeacherId,
         getClassesByModule,
-       /*  getTeacherAndSubjectsByClassId, */
+        /*  getTeacherAndSubjectsByClassId, */
+        getAllHomeworks,
+        addHomeworkToDatabase,
+        updateHomeworkToDatabase,
 
         //URL
         BACKEND_URL,
@@ -528,6 +583,24 @@ const ContextProvider = (props) => {
         setOption,
         allClasses,
         setAllClasses,
+
+        // Homeworks
+        homeworks,
+        setHomeworks,
+        homeworkDescription,
+        setHomeworkDescription,
+        homeworkType,
+        setHomeworkType,
+        /*  fileHomework,
+        setFileHomework, */
+        urlHomework,
+        setUrlHomework,
+        fileNameHomework,
+        setFileNameHomework,
+        homeworkUploaded,
+        setHomeworkUploaded,
+        allHomeworks,
+        setAllHomeworks,
 
         // Events
         monthIndex,
