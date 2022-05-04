@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SubjectsMainTable from "./SubjectsMainTable";
 import Search from "./Search";
 import { Context } from "../../context/context";
+import SubjectModalCreate from "./SubjectModalCreate";
 
 function SubjectsMain() {
   const {
@@ -13,6 +14,8 @@ function SubjectsMain() {
     setSearchInput,
     setMessageBackend,
   } = useContext(Context);
+
+  const [showCreateSubjectModal, setShowCreateSubjectModal] = useState(false);
 
   useEffect(() => {
     // getAllClasses(token, userId)
@@ -32,6 +35,20 @@ function SubjectsMain() {
     <div className="flex-col w-full mr-4 sm:w-[100%] mt-4">
       <div className="flex justify-between ml-4 gap-4 flex-wrap w-full">
         <Search />
+        <button
+          className="flex grow  p-2
+          rounded-2xl bg-green-200 h-[75px] 
+          items-center justify-center transition-all
+           hover:bg-white hover:shadow-xl"
+          onClick={() => setShowCreateSubjectModal(true)}
+        >
+          + Fach
+        </button>
+        {showCreateSubjectModal && (
+          <SubjectModalCreate
+            setShowCreateSubjectModal={setShowCreateSubjectModal}
+          />
+        )}
 
         <button
           className="flex grow  p-2

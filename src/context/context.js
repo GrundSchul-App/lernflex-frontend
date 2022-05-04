@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
-import axios from 'axios';
+import axios from "axios";
 
 export const Context = createContext({
   monthIndex: 0,
@@ -23,16 +23,12 @@ export const Context = createContext({
   filteredEvents: [],
 });
 
-
-
 // function initEvents() {
-  
+
 //   const storageEvents = localStorage.getItem("savedEvents");
 //   const parsedEvents = storageEvents ? JSON.parse(storageEvents) : [];
 //   return parsedEvents;
 // }
-
-
 
 const ContextProvider = (props) => {
 
@@ -49,9 +45,9 @@ const ContextProvider = (props) => {
   const [subjectName, setSubjectName] = useState("");
 
   const [studentsList, setStudentsList] = useState([]);
-  const [students,setStudents]=useState([]);
-  const [selectValue, setSelectValue]=useState([])
-  const [studentId,setStudentId]=useState([]);
+  const [students, setStudents] = useState([]);
+  const [selectValue, setSelectValue] = useState([]);
+  const [studentId, setStudentId] = useState([]);
 
   const [teachers, setTeachers] = useState([]);
 
@@ -70,6 +66,15 @@ const ContextProvider = (props) => {
   ]); */
   const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([{}]);
   const [option, setOption] = useState("");
+
+  const [homeworks, setHomeworks] = useState([]);
+  const [allHomeworks, setAllHomeworks] = useState([]);
+  const [homeworkDescription, setHomeworkDescription] = useState("");
+  const [homeworkType, setHomeworkType] = useState("");
+  /*  const [fileHomework, setFileHomework] = useState(""); */
+  const [urlHomework, setUrlHomework] = useState("");
+  const [fileNameHomework, setFileNameHomework] = useState("");
+  const [homeworkUploaded, setHomeworkUploaded] = useState(false);
 
   // Toggle modal teacher
   const [toggleModale, setToggleModale] = useState(false);
@@ -124,20 +129,14 @@ const ContextProvider = (props) => {
       default:
         throw new Error();
     }
-
-    
   }
-  
 
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [daySelected, setDaySelected] = useState(dayjs());
   const [showEventModal, setShowEventModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [labels, setLabels] = useState([]);
-  const [savedEvents, dispatchCalEvent] = useReducer(
-    savedEventsReducer,
-    []
-  );
+  const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, []);
 
   // zaki hooks end
 
@@ -203,7 +202,46 @@ const ContextProvider = (props) => {
       const body = await res.json();
       return body;
     }
+  }, []);
 
+  async function eventToDB(data) {
+    const res = await fetch(`${BACKEND_URL}/calendar`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function updateEvent(data) {
+    const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function deleteEvent(data) {
+    const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
 
   async function getAllTeachers() {
     const res = await fetch(`${BACKEND_URL}/teacher`, {
@@ -214,7 +252,6 @@ const ContextProvider = (props) => {
     const body = await res.json();
     return body;
   }
-
 
   const getClassIdAndName = (e) => {
     setClassId(e.target.value);
@@ -235,12 +272,12 @@ const ContextProvider = (props) => {
     return body;
   }
 
-  async function getAllStudents(){
-    const res = await fetch(`${BACKEND_URL}/students`,{
+  async function getAllStudents() {
+    const res = await fetch(`${BACKEND_URL}/students`, {
       header: {
         Accept: "application/json",
       },
-    })
+    });
     const body = await res.json();
     return body;
   }
@@ -254,6 +291,49 @@ const ContextProvider = (props) => {
     });
     const body = await res.json();
 
+    return body;
+  }
+
+  async function getAllHomeworks() {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1`,
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+
+  async function addHomeworkToDatabase(data) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/add`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const body = await res.json();
+    return body;
+  }
+  async function updateHomeworkToDatabase(data) {
+    const res = await fetch(`${BACKEND_URL}/homeworks/${data._id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
     return body;
   }
 
@@ -279,6 +359,17 @@ const ContextProvider = (props) => {
     return body;
   }
 
+  /*  async function getTeacherAndSubjectsByClassId(classId) {
+    const res = await fetch(`${BACKEND_URL}/teacher/${classId}`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    const body = await res.json();
+
+    return body;
+  }
+ */
   async function getClassesByModule(subjectId, teacherId) {
     const res = await fetch(
       `${BACKEND_URL}/classes/module/${subjectId}/${teacherId}`,
@@ -300,7 +391,7 @@ const ContextProvider = (props) => {
       },
     });
     const body = await res.json();
-    
+
     return body;
   }
 
@@ -356,7 +447,6 @@ const ContextProvider = (props) => {
   }
 
   async function updateSubjectToDatabase(data) {
-   
     const res = await fetch(`${BACKEND_URL}/updateSubject/${data._id}`, {
       method: "PUT",
       headers: {
@@ -370,7 +460,6 @@ const ContextProvider = (props) => {
   }
 
   async function updateClassToDatabase(data) {
-    
     const res = await fetch(`${BACKEND_URL}/classes/${data._id}`, {
       method: "PUT",
       headers: {
@@ -404,33 +493,28 @@ const ContextProvider = (props) => {
     );
   }, [savedEvents, labels]);
 
-
-// neu Fach und klasse zu teacher hinzufügen
-   function editTeacherModules(id){
-    console.log('Id:', id);
-    setJustTeacherId( id);
-  openModaleAdd()
-  
-
- }
- // edit Teacher modale open 
- function editExistTeacher(teacher,id){
-   console.log("id Teacher edit:", teacher)
-   setTeacherId(teacher)
-   openEditModale()
- }
- // edit student modale open
- function editStudent(student,id){
-   console.log("id Student edit", student)
-   setStudentId(student)
-   openModale()
- }
+  // neu Fach und klasse zu teacher hinzufügen
+  function editTeacherModules(id) {
+    console.log("Id:", id);
+    setJustTeacherId(id);
+    openModaleAdd();
+  }
+  // edit Teacher modale open
+  function editExistTeacher(teacher, id) {
+    console.log("id Teacher edit:", teacher);
+    setTeacherId(teacher);
+    openEditModale();
+  }
+  // edit student modale open
+  function editStudent(student, id) {
+    console.log("id Student edit", student);
+    setStudentId(student);
+    openModale();
+  }
 
   // function updateLabel(label) {
   //   setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
   // }
-
-  
 
   // useEffect(() => {
   //   localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
@@ -478,6 +562,10 @@ const ContextProvider = (props) => {
         editTeacherModules,
         getClassesByClassTeacherId,
         getClassesByModule,
+        /*  getTeacherAndSubjectsByClassId, */
+        getAllHomeworks,
+        addHomeworkToDatabase,
+        updateHomeworkToDatabase,
 
         //URL
         BACKEND_URL,
@@ -542,6 +630,24 @@ const ContextProvider = (props) => {
         allClasses,
         setAllClasses,
 
+        // Homeworks
+        homeworks,
+        setHomeworks,
+        homeworkDescription,
+        setHomeworkDescription,
+        homeworkType,
+        setHomeworkType,
+        /*  fileHomework,
+        setFileHomework, */
+        urlHomework,
+        setUrlHomework,
+        fileNameHomework,
+        setFileNameHomework,
+        homeworkUploaded,
+        setHomeworkUploaded,
+        allHomeworks,
+        setAllHomeworks,
+
         // Events
         monthIndex,
         setMonthIndex,
@@ -558,7 +664,7 @@ const ContextProvider = (props) => {
         filteredEvents,
         updateEvent,
         deleteEvent,
-        eventToDB
+        eventToDB,
         // getAllEvents
       }}
     >

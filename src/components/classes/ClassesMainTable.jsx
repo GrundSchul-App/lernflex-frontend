@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../../context/context";
 import * as AiIcons from "react-icons/ai";
 import ClassesModalDelete from "./ClassesModalDelete";
-import ClassesModalCreate from "./ClassesModalCreate";
+
 import ClassesModalUpdate from "./ClassesModalUpdate";
 
 const ClassesMainTable = () => {
@@ -10,7 +10,7 @@ const ClassesMainTable = () => {
   console.log(classes);
 
   const [showDeleteClassModal, setShowDeleteClassModal] = useState(false);
-  const [showCreateClassModal, setShowCreateClassModal] = useState(false);
+ 
   const [showUpdateClassModal, setShowUpdateClassModal] = useState(false);
 
   const [classToDelete, setClassToDelete] = useState("");
@@ -28,21 +28,7 @@ const ClassesMainTable = () => {
 
   return (
     <div className="rounded-2xl m-4 p-4 bg-white w-full mr-4">
-      <div className="flex justify-end">
-        <button
-          className="flex  px-4 py-2 rounded-2xl bg-green-200 
-           items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"
-          onClick={() => setShowCreateClassModal(true)}
-        >
-          + Klasse
-        </button>
-        {showCreateClassModal && (
-          <ClassesModalCreate
-            setShowCreateClassModal={setShowCreateClassModal}
-          />
-        )}
-      </div>
-
+     
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -62,12 +48,12 @@ const ClassesMainTable = () => {
                     >
                       Klasse
                     </th>
-                    <th className="font-medium text-gray-900  text-left">
+                    {/* <th className="font-medium text-gray-900  text-left">
                       Klassenlehrer/in
                     </th>
                     <th className="font-medium text-gray-900  text-left">
                       Fach - Lehrer/in
-                    </th>
+                    </th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -87,7 +73,7 @@ const ClassesMainTable = () => {
                         <td className="text-gray-900  px-6 py-4 whitespace-nowrap font-light">
                           {classData.className}
                         </td>
-                        <td className="text-left font-light">
+                      {/*   <td className="text-left font-light">
                           {classData.classTeacher.firstName}{" "}
                           {classData.classTeacher.lastName}
                         </td>
@@ -106,7 +92,7 @@ const ClassesMainTable = () => {
                               </ul>
                             );
                           })}
-                        </td>
+                        </td> */}
                         <td className="text-center">
                           <button
                             type="button"

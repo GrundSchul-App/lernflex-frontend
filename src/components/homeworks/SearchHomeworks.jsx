@@ -2,25 +2,25 @@ import React, { useContext } from "react";
 import { Context } from "../../context/context";
 import { IoIosSearch } from "react-icons/io";
 
-function SearchClasses() {
+function SearchHomeworks() {
   const {
-    setClasses,
-    allClasses,
+    allHomeworks,
+    setHomeworks,
     searchInput,
     setSearchInput,
     setMessageBackend,
   } = useContext(Context);
 
-  function searchAndGetClasses() {
-    const foundArr = allClasses.filter((classItem) => {
+  function searchAndGetHomeworks() {
+    const foundArr = allHomeworks.filter((homework) => {
       return (
-        JSON.stringify(classItem)
+        JSON.stringify(homework)
           .toLowerCase()
           .search(searchInput.toLowerCase()) !== -1
       );
     });
 
-    setClasses(foundArr);
+    setHomeworks(foundArr);
   }
 
   return (
@@ -33,7 +33,7 @@ function SearchClasses() {
           >
             <IoIosSearch
               className="w-6 h-6 mr-2 transition-all hover:text-green-600 hover:cursor-pointer"
-              onClick={searchAndGetClasses}
+              onClick={searchAndGetHomeworks}
             />
           </span>
           <input
@@ -56,4 +56,4 @@ function SearchClasses() {
   );
 }
 
-export default SearchClasses;
+export default SearchHomeworks;
