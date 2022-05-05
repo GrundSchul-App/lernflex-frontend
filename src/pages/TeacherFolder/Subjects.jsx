@@ -6,11 +6,23 @@ import { Context } from "../../context/context";
 
 
 const Subjects = () => {
-  const {setMessageBackend } = useContext(Context);
-  useEffect(() => {
-    setMessageBackend("");
-  
-  }, []);
+  const {setMessageBackend,  getAllStudents,setStudents } = useContext(Context);
+ 
+
+  // useEffect(()=>{
+
+  //   getAllStudents().then((res) => {
+       
+  //         if (res.message === "success") {
+  //           setStudents(res.data);
+  //           console.log("result", res.data);
+  //         }
+  //       });
+  //     },[]); 
+
+
+
+
   return (
     <div className="flex flex-row w-full justify-between">
       <SubjectsMain />

@@ -17,7 +17,7 @@ const MainTable = ({ classAndSubjectName }) => {
   const [absentStudentsIdList, setAbsentStudentsIdList] = useState([]);
   const [data, setData] = useState([]);
 
-  console.log("**", studentsList);
+  // console.log("**", studentsList);
 
   
 

@@ -46,6 +46,7 @@ const ContextProvider = (props) => {
   const [students, setStudents] = useState([]);
   const [selectValue, setSelectValue] = useState([]);
   const [studentId, setStudentId] = useState([]);
+  const [getStudents, setGetStudents] = useState([]);
 
   const [teachers, setTeachers] = useState([]);
 
@@ -59,11 +60,16 @@ const ContextProvider = (props) => {
   const [searchInput, setSearchInput] = useState("");
 
   const [classTeacher, setClassTeacher] = useState("");
+
+  // Student Anwiesenheitsliste
+  const [getAnwiesenheitsListe, setgetAnwiesenheitsListe]=useState([])
   /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([
     { subject: "", teacher: "" },
   ]); */
   const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([{}]);
   const [option, setOption] = useState("");
+  //date from Calender selectedEvent
+  const [selectDate, setSelectDate] = useState("");
 
   // Toggle modal teacher
   const [toggleModale, setToggleModale] = useState(false);
@@ -75,7 +81,7 @@ const ContextProvider = (props) => {
   };
   const openModale = () => {
     //  console.log("hello modal")
-   setToggleModale(true);
+    setToggleModale(true);
   };
   // Toggle modal edit teacher modal
 
@@ -148,7 +154,7 @@ const ContextProvider = (props) => {
         });
     };
     fetchData();
-  }, [savedEvents]);
+  }, []);
 
   async function eventToDB(data) {
     const res = await fetch(`${BACKEND_URL}/calendar`, {
@@ -225,6 +231,7 @@ const ContextProvider = (props) => {
       },
     });
     const body = await res.json();
+    console.log("Bodyyy", body);
     return body;
   }
 
@@ -262,7 +269,7 @@ const ContextProvider = (props) => {
     return body;
   }
 
- /*  async function getTeacherAndSubjectsByClassId(classId) {
+  /*  async function getTeacherAndSubjectsByClassId(classId) {
     const res = await fetch(`${BACKEND_URL}/teacher/${classId}`, {
       headers: {
         Accept: "application/json",
@@ -297,6 +304,18 @@ const ContextProvider = (props) => {
 
     return body;
   }
+
+
+async function attendanceList(){
+  const res= await fetch(`${BACKEND_URL}/attendanceList`,{
+    headers: {
+      Accept: "application/json",
+    },
+  });
+  const body=await res.json();
+  return body;
+}
+
 
   async function addAttendanceList(data) {
     const res = await fetch(`${BACKEND_URL}/attendanceList/add`, {
@@ -411,8 +430,8 @@ const ContextProvider = (props) => {
   // edit student modale open
   function editStudent(student, id) {
     console.log("id Student edit", student);
-    setStudentId(student);
-    openModale();
+    setStudentId(student); // änderung
+    openEditModale();
   }
 
   // function updateLabel(label) {
@@ -464,7 +483,8 @@ const ContextProvider = (props) => {
         editTeacherModules,
         getClassesByClassTeacherId,
         getClassesByModule,
-       /*  getTeacherAndSubjectsByClassId, */
+        /*  getTeacherAndSubjectsByClassId, */
+        attendanceList,
 
         //URL
         BACKEND_URL,
@@ -501,6 +521,8 @@ const ContextProvider = (props) => {
         setDatabaseUpdated,
         searchInput,
         setSearchInput,
+        setgetAnwiesenheitsListe,
+        getAnwiesenheitsListe,
 
         toggleModale,
         setToggleModale,
@@ -516,6 +538,9 @@ const ContextProvider = (props) => {
         setRefDataBase,
         setJustTeacherId,
         justTeacherId,
+
+        selectDate,
+        setSelectDate,
 
         // classen
         classTeacher,
