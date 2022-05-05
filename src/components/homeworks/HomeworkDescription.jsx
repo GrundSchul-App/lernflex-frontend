@@ -3,13 +3,7 @@ import { useContext } from "react";
 import { Context } from "../../context/context";
 
 function HomeworkDescription() {
-
-    const {
-        homeworkDescription,
-        setHomeworkDescription,
-      } = useContext(Context);
-
-    
+  const { homeworkDescription, setHomeworkDescription } = useContext(Context);
 
   return (
     <div className="md:flex md:items-center mb-6">
@@ -47,8 +41,6 @@ function HomeworkDescription() {
           value={homeworkDescription}
           onChange={(e) => setHomeworkDescription(e.target.value)}
         ></textarea>
-
-    
       </div>
     </div>
   );

@@ -294,7 +294,7 @@ const ContextProvider = (props) => {
     return body;
   }
 
-  async function getAllHomeworks() {
+/*   async function getAllHomeworks() {
     const res = await fetch(
       `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1`,
       {
@@ -307,9 +307,101 @@ const ContextProvider = (props) => {
     const body = await res.json();
 
     return body;
+  } */
+
+  async function getAllHomeworks() {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks`,
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
   }
 
-  async function addHomeworkToDatabase(data) {
+
+
+  async function getHomeworksByTeacherId(teacherId) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/teacher/${teacherId}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+ 
+ /*  async function  getHomeworksBySubjectId(subjectId) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/subject/${subjectId}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  } */
+
+  async function  getHomeworksBySubjectId(subjectId) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/subject/${subjectId}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+
+/*   async function  getHomeworksByType(type) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/type/${type}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  } */
+
+  async function  getHomeworksByType(type) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/type/${type}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+
+/*   async function addHomeworkToDatabase(data) {
     const res = await fetch(
       `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/add`,
       {
@@ -323,7 +415,23 @@ const ContextProvider = (props) => {
     );
     const body = await res.json();
     return body;
+  } */
+  async function addHomeworkToDatabase(data) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const body = await res.json();
+    return body;
   }
+
   async function updateHomeworkToDatabase(data) {
     const res = await fetch(`${BACKEND_URL}/homeworks/${data._id}`, {
       method: "PUT",
@@ -332,6 +440,19 @@ const ContextProvider = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  } 
+
+
+  async function deleteHomeworkById(homeworkId) {
+    const res = await fetch(`${BACKEND_URL}/homeworks/${homeworkId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     });
     const body = await res.json();
     return body;
@@ -566,6 +687,10 @@ const ContextProvider = (props) => {
         getAllHomeworks,
         addHomeworkToDatabase,
         updateHomeworkToDatabase,
+        getHomeworksBySubjectId,
+        getHomeworksByType,
+        deleteHomeworkById,
+        getHomeworksByTeacherId,
 
         //URL
         BACKEND_URL,
@@ -574,6 +699,7 @@ const ContextProvider = (props) => {
         setClasses,
         teachers,
         setTeachers,
+        setTeacherId,
 
         classId,
         setClassId,

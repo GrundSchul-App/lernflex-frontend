@@ -1,17 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/context";
-/* import ClassTeacherSelect from "./ClassTeacherSelect";
-import ModuleSubjectTeacherSelect from "./ModuleSubjectTeacherSelect"; */
+
 import SelectSubjectUpdate from "./SelectSubjectUpdate";
 import HomeworkDescriptionUpdate from "./HomeworkDescriptionUpdate";
 import HomeworkTypeUpdate from "./HomeworkTypeUpdate";
 import HomeworkDateiUpdate from "./HomeworkDateiUpdate";
+import SelectTeacherUpdate from "./SelectTeacherUpdate";
 
 function HomeworksModalUpdate({
   homeworkToUpdate,
   setShowUpdateHomeworkModal,
 }) {
   const {
+    teacherId,
     databaseUpdated,
     setDatabaseUpdated,
     setMessageBackend,
@@ -25,7 +26,7 @@ function HomeworksModalUpdate({
     fileNameHomework,
     homeworkUploaded,
     setHomeworkUploaded,
-    addHomeworkToDatabase,
+
     updateHomeworkToDatabase,
   } = useContext(Context);
 
@@ -35,13 +36,13 @@ function HomeworksModalUpdate({
     e.preventDefault();
 
     if (
-      (subjectId === "" && homeworkToUpdate.subject ==="") ||
+      (subjectId === "" && homeworkToUpdate.subject === "") ||
       (title === "" && homeworkToUpdate.title === "") ||
       (homeworkDescription === "" && homeworkToUpdate.description === "") ||
       (homeworkType === "" && homeworkToUpdate.type === "") ||
       (urlHomework === "" && homeworkToUpdate.link === "") ||
-      (fileNameHomework === "" && homeworkToUpdate.fileName === "")
-
+      (fileNameHomework === "" && homeworkToUpdate.fileName === "") ||
+      (teacherId === "" && homeworkToUpdate.teacher === "")
     ) {
       setMessageBackendModal("Bitte füllen Sie die Felder aus");
 
@@ -56,9 +57,9 @@ function HomeworksModalUpdate({
       link: urlHomework || homeworkToUpdate.link,
       description: homeworkDescription || homeworkToUpdate.description,
       type: homeworkType || homeworkToUpdate.type,
-      teacher: "626c00950c33c059f57b51c1",
+      teacher: teacherId || homeworkToUpdate.teacher,
     };
-    console.log("dataHomework", data);
+    // console.log("dataHomework", data);
 
     if (data.length !== 0) {
       updateHomeworkToDatabase(data)
@@ -75,7 +76,6 @@ function HomeworksModalUpdate({
         });
     }
     setShowUpdateHomeworkModal(false);
-
     setMessageBackend("");
     setTitle("");
     setSubjectId("");
@@ -84,11 +84,10 @@ function HomeworksModalUpdate({
   }
 
   useEffect(() => {
-    /*  setModuleSubjectTeacher([{}]); */
-    console.log("homeworkToUpdate", homeworkToUpdate);
+    // console.log("homeworkToUpdate", homeworkToUpdate);
     setMessageBackendModal("");
     setMessageBackend("");
-    setHomeworkUploaded(true)
+    setHomeworkUploaded(true);
   }, []);
 
   return (
@@ -110,6 +109,7 @@ function HomeworksModalUpdate({
         <h3 className="font-semibold mt-4">Datei aktualisieren</h3>
 
         <form className="w-full max-w-md mt-8">
+          <SelectTeacherUpdate teacherToUpdate={homeworkToUpdate.teacher} />
           <SelectSubjectUpdate subjectToUpdate={homeworkToUpdate.subject} />
 
           <div className="md:flex md:items-center mb-6">
@@ -145,7 +145,7 @@ function HomeworksModalUpdate({
           <HomeworkDateiUpdate homeworkToUpdate={homeworkToUpdate} />
 
           <div className="flex justify-end">
-               {!homeworkUploaded && (
+            {!homeworkUploaded && (
               <button
                 className="flex  px-4 py-2 m-4 rounded-2xl bg-green-200 
            items-center justify-center transition-all text-white"
@@ -162,15 +162,7 @@ function HomeworksModalUpdate({
               >
                 Datei aktualisieren
               </button>
-            )} 
-
-          {/*   <button
-              onClick={(e) => updateHomework(e)}
-              className="flex  px-4 py-2 m-4 rounded-2xl bg-green-200 
-           items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"
-            >
-              Datei aktualisieren
-            </button> */}
+            )}
           </div>
         </form>
 

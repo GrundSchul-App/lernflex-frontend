@@ -2,17 +2,26 @@ import React from "react";
 import { useContext, useEffect } from "react";
 import { Context } from "../../context/context";
 
-function SelectSubject() {
-  const { getAllSubjects, subjects, setSubjects, setSubjectId } =
-    useContext(Context);
+function SelectTeacherToUpdate({ teacherToUpdate }) {
 
+   
+  const {
+    getAllTeachers,    
+    setTeacherId,
+    teachers,
+    setTeachers,
+  } = useContext(Context);
+
+  
   useEffect(() => {
     // getAllClasses(token, userId)
 
-    getAllSubjects()
+    getAllTeachers()
       .then((res) => {
         if (res.message === "success") {
-          setSubjects(res.data);
+          setTeachers(res.data);
+          
+         
         }
       })
       .catch((err) => {
@@ -22,13 +31,13 @@ function SelectSubject() {
 
   return (
     <div className="md:flex md:items-center mb-6">
-      <div className="md:w-1/4">
+     <div className="md:w-1/4">
         <label
           className="block text-gray-500 font-bold md:text-right 
                 mb-1 md:mb-0 pr-4"
           htmlFor="inline-name"
         >
-          Fach
+          Lehrer/in
         </label>
       </div>
       <div className="md:w-3/4">
@@ -52,24 +61,34 @@ function SelectSubject() {
           focus:outline-none w-full"
           name=""
           id=""
-          onChange={(e) => setSubjectId(e.target.value)}
-          defaultValue={"default"}
+          onChange={(e) => setTeacherId(e.target.value)}
+          
         >
-          <option value={"default"} disabled>
+          <option disabled>
             ...
           </option>
-
-          {subjects.map((subject, index) => {
+          {teachers.map((teacher, index) => {
+            if (teacherToUpdate._id === teacher._id) {
             return (
               <option
                 className="p-2"
                 key={index}
-                name="subject"
-                value={subject._id}
+                selected
+                defaultValue={teacher._id}
               >
-                {subject.subject_title}
+                {teacher.firstName} {teacher.lastName}
               </option>
-            );
+            );} else {
+              return (
+                <option
+                  className="p-2"
+                  key={index}
+                 
+                  value={teacher._id}
+                >
+                  {teacher.firstName} {teacher.lastName}
+                </option>
+              );} 
           })}
         </select>
       </div>
@@ -77,4 +96,4 @@ function SelectSubject() {
   );
 }
 
-export default SelectSubject;
+export default SelectTeacherToUpdate;
