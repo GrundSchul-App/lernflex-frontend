@@ -1,14 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/context";
-/* import ClassTeacherSelect from "./ClassTeacherSelect";
-import ModuleSubjectTeacherSelect from "./ModuleSubjectTeacherSelect"; */
+
 import SelectSubject from "./SelectSubject";
+import SelectTeacher from "./SelectTeacher";
 import HomeworkDescription from "./HomeworkDescription";
 import HomeworkType from "./HomeworkType";
 import HomeworkDatei from "./HomeworkDatei";
 
 function HomeworksModalCreate({ setShowCreateHomeworkModal }) {
   const {
+    setHomeworkDescription,
+    teacherId,
     databaseUpdated,
     setDatabaseUpdated,
     setMessageBackend,
@@ -30,9 +32,8 @@ function HomeworksModalCreate({ setShowCreateHomeworkModal }) {
   function addHomework(e) {
     e.preventDefault();
 
-   
-
     if (
+      teacherId === "" ||
       subjectId === "" ||
       title === "" ||
       homeworkDescription === "" ||
@@ -50,11 +51,11 @@ function HomeworksModalCreate({ setShowCreateHomeworkModal }) {
       link: urlHomework,
       description: homeworkDescription,
       type: homeworkType,
-      teacher: "626c00950c33c059f57b51c1",
+      teacher: teacherId,
     };
-    console.log("dataHomework", data);
+    // console.log("dataHomework", data);
 
-      if (data.length !== 0) {
+    if (data.length !== 0) {
       addHomeworkToDatabase(data)
         .then((res) => {
           if (res.message === "success") {
@@ -69,17 +70,15 @@ function HomeworksModalCreate({ setShowCreateHomeworkModal }) {
         });
     }
     setShowCreateHomeworkModal(false);
-   
     setMessageBackend("");
     setTitle("");
     setSubjectId("");
+    setHomeworkDescription("");
     setHomeworkUploaded(false);
     setMessageBackendModal("");
-
   }
 
   useEffect(() => {
-    /*  setModuleSubjectTeacher([{}]); */
     setMessageBackendModal("");
     setMessageBackend("");
   }, []);
@@ -103,6 +102,9 @@ function HomeworksModalCreate({ setShowCreateHomeworkModal }) {
         <h3 className="font-semibold mt-4">Neue Datei</h3>
 
         <form className="w-full max-w-md mt-8">
+        
+
+          <SelectTeacher />
           <SelectSubject />
 
           <div className="md:flex md:items-center mb-6">

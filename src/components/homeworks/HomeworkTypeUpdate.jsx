@@ -79,7 +79,7 @@ function HomeworkTypeUpdate({ homeworkTypeToUpdate }) {
                 online
               </option>
             </>
-          )}                      
+          )}
         </select>
       </div>
     </div>

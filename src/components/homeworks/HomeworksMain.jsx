@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import HomeworksMainTable from "./HomeworksMainTable";
-import SearchHomeworks from "./SearchHomeworks"; 
+import SearchHomeworks from "./SearchHomeworks";
 import { Context } from "../../context/context";
-/* import FilterClasses from "./FilterClasses"; */
+import FilterHomeworks from "./FilterHomeworks";
 
 import HomeworksModalCreate from "./HomeworksModalCreate";
 
 function HomeworksMain() {
   const {
+    
+    setOption,
     getAllHomeworks,
     homeworks,
     setHomeworks,
@@ -20,24 +22,27 @@ function HomeworksMain() {
 
   const [showCreateHomeworkModal, setShowCreateHomeworkModal] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {   
+    
     getAllHomeworks()
       .then((res) => {
         if (res.message === "success") {
           /*  setClasses(res.data);
           setAllClasses(res.data); */
-          let sortHomeworks = res.data;
+          /* let sortHomeworks = res.data;
           sortHomeworks.sort((a, b) =>
             a.subject.subject_code > b.subject.subject_code
               ? 1
               : b.subject.subject_code > a.subject.subject_code
               ? -1
               : 0
-          );
-         
-          setHomeworks(sortHomeworks);
-          setAllHomeworks(sortHomeworks);
-          console.log("allHomeworks", res.data);
+          ); */
+
+          /* setHomeworks(sortHomeworks);
+          setAllHomeworks(sortHomeworks); */
+          setHomeworks(res.data);
+          setAllHomeworks(res.data);
+          // console.log("allHomeworks", res.data);
         }
       })
       .catch((err) => {
@@ -48,8 +53,8 @@ function HomeworksMain() {
   return (
     <div className="flex-col w-full mr-4 sm:w-[100%] mt-4">
       <div className="flex justify-between ml-4 gap-4 flex-wrap w-full">
-          <SearchHomeworks /> 
-        {/* <FilterClasses /> */}
+        <SearchHomeworks />
+        <FilterHomeworks />
 
         <button
           className="flex grow  p-2
@@ -60,10 +65,11 @@ function HomeworksMain() {
         >
           Datei hochladen
         </button>
-      {showCreateHomeworkModal && (
+        {showCreateHomeworkModal && (
           <HomeworksModalCreate
-            setShowCreateHomeworkModal={setShowCreateHomeworkModal}          />
-        )} 
+            setShowCreateHomeworkModal={setShowCreateHomeworkModal}
+          />
+        )}
 
         <button
           className="flex grow  p-2
@@ -74,6 +80,7 @@ function HomeworksMain() {
             setDatabaseUpdated(!databaseUpdated);
             setSearchInput("");
             setMessageBackend("");
+            setOption("");
           }}
         >
           Alle Hausaufgaben Dateien

@@ -6,16 +6,14 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 export default function HomeworkDatei() {
   const {
-    urlHomework,
     setUrlHomework,
     setHomeworkUploaded,
     setFileNameHomework,
+    setMessageBackendModal,
   } = useContext(Context);
 
   const [fileHomework, setFileHomework] = useState("");
   const [picture, setPicture] = useState("");
-  /*  const [urlHomework, setUrlHomework] = useState("");
-  const [fileNameHomework, setFileNameHomework] = useState(""); */
 
   const [numPages, setNumPages] = useState(null);
   const [pageNumber] = useState(1);
@@ -27,9 +25,9 @@ export default function HomeworkDatei() {
 
   const onChangeFile = (e) => {
     setFileHomework(e.target.files[0]);
-    console.log("e.target.files[0]", e.target.files[0]);
+    // console.log("e.target.files[0]", e.target.files[0]);
     setFileNameHomework(e.target.files[0].name);
-    console.log("url", URL.createObjectURL(e.target.files[0]));
+    // console.log("url", URL.createObjectURL(e.target.files[0]));
 
     const dataArr = e.target.files[0].name.split(".");
     const fileExtension = dataArr[dataArr.length - 1];
@@ -57,8 +55,9 @@ export default function HomeworkDatei() {
       .then((data) => {
         let result = data.url.replace("http:", "https:");
         setUrlHomework(result);
-        console.log("url", data.url);
+        // console.log("url", data.url);
         setHomeworkUploaded(true);
+        setMessageBackendModal("File uploaded!");
       })
       .catch((err) => console.log(err));
   };
@@ -85,22 +84,6 @@ export default function HomeworkDatei() {
                 border-gray-200 rounded w-full py-2 px-4
                  text-gray-700 leading-tight focus:outline-none 
                  focus:bg-white focus:border-green-500"
-            /*    "form-control
-    block
-    w-full
-    px-3
-    py-1.5
-    text-base
-    font-normal
-    text-gray-700
-    bg-white bg-clip-padding
-    border border-solid border-gray-300
-    rounded
-    transition
-    ease-in-out
-    m-0
-    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" */
-
             id="data-upload"
             type="file"
             onChange={(e) => onChangeFile(e)}
@@ -111,8 +94,8 @@ export default function HomeworkDatei() {
             )}
 
             {pdfFile && (
-              <div  >
-                <Document   file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
+              <div>
+                <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
                   <Page pageNumber={pageNumber} />
                 </Document>
                 {/* <p>
@@ -132,8 +115,6 @@ export default function HomeworkDatei() {
             </div>
           </div>
         </div>
-
-        {/*   {urlHomework.length !== 0 && <img className="w-{200}" src={urlHomework} alt="..." />} */}
       </div>
     </>
   );

@@ -5,17 +5,11 @@ import { Document, Page, pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 export default function HomeworkDateiUpdate({ homeworkToUpdate }) {
-  const {
-    urlHomework,
-    setUrlHomework,
-    setHomeworkUploaded,
-    setFileNameHomework,
-  } = useContext(Context);
+  const { setUrlHomework, setHomeworkUploaded, setFileNameHomework } =
+    useContext(Context);
 
   const [fileHomework, setFileHomework] = useState("");
   const [picture, setPicture] = useState("");
-  /*  const [urlHomework, setUrlHomework] = useState("");
-  const [fileNameHomework, setFileNameHomework] = useState(""); */
 
   const [numPages, setNumPages] = useState(null);
   const [pageNumber] = useState(1);
@@ -46,9 +40,9 @@ export default function HomeworkDateiUpdate({ homeworkToUpdate }) {
 
   const onChangeFile = (e) => {
     setFileHomework(e.target.files[0]);
-    console.log("e.target.files[0]", e.target.files[0]);
+    // console.log("e.target.files[0]", e.target.files[0]);
     setFileNameHomework(e.target.files[0].name);
-    console.log("url", URL.createObjectURL(e.target.files[0]));
+    // console.log("url", URL.createObjectURL(e.target.files[0]));
 
     const dataArr = e.target.files[0].name.split(".");
     const fileExtension = dataArr[dataArr.length - 1];
@@ -76,15 +70,14 @@ export default function HomeworkDateiUpdate({ homeworkToUpdate }) {
       .then((data) => {
         let result = data.url.replace("http:", "https:");
         setUrlHomework(result);
-        console.log("url", data.url);
+        // console.log("url", data.url);
         setHomeworkUploaded(true);
       })
       .catch((err) => console.log(err));
   };
-  
+
   useEffect(() => {
     setFileNameHomework("");
-
     /* setPicture("");
     setPdfFile("") */
     getFileUploaded();
@@ -142,15 +135,17 @@ export default function HomeworkDateiUpdate({ homeworkToUpdate }) {
               </div>
             )}
 
-            { showHomeworkToUpdate && (<div className="">
-              <button
-                className="flex  px-2 py-2  rounded-2xl bg-green-200 
+            {showHomeworkToUpdate && (
+              <div className="">
+                <button
+                  className="flex  px-2 py-2  rounded-2xl bg-green-200 
            items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"
-                onClick={(e) => homeworkFileReplace(e)}
-              >
-                Datei ersetzen
-              </button>
-            </div>)}
+                  onClick={(e) => homeworkFileReplace(e)}
+                >
+                  Datei ersetzen
+                </button>
+              </div>
+            )}
 
             {showUploadFile && (
               <div className="">
@@ -165,8 +160,6 @@ export default function HomeworkDateiUpdate({ homeworkToUpdate }) {
             )}
           </div>
         </div>
-
-        {/*   {urlHomework.length !== 0 && <img className="w-{200}" src={urlHomework} alt="..." />} */}
       </div>
     </>
   );

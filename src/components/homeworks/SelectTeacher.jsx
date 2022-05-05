@@ -1,19 +1,44 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../../context/context";
 
-function HomeworkType() {
-  const { setHomeworkType } = useContext(Context);
+function SelectTeacher() {
+
+   
+  const {
+    getAllTeachers,
+    
+    setTeacherId,
+    teachers,
+    setTeachers,
+  } = useContext(Context);
+
+  
+  useEffect(() => {
+    // getAllClasses(token, userId)
+
+    getAllTeachers()
+      .then((res) => {
+        if (res.message === "success") {
+          setTeachers(res.data);
+          
+         
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="md:flex md:items-center mb-6">
-      <div className="md:w-1/4">
+     <div className="md:w-1/4">
         <label
           className="block text-gray-500 font-bold md:text-right 
                 mb-1 md:mb-0 pr-4"
           htmlFor="inline-name"
         >
-          Type
+          Lehrer/in
         </label>
       </div>
       <div className="md:w-3/4">
@@ -37,25 +62,28 @@ function HomeworkType() {
           focus:outline-none w-full"
           name=""
           id=""
-          onChange={(e) => setHomeworkType(e.target.value)}
+          onChange={(e) => setTeacherId(e.target.value)}
           defaultValue={"default"}
         >
           <option value={"default"} disabled>
             ...
           </option>
-          <option value="info" className="p-2">
-            info
-          </option>
-          <option value="homework" className="p-2">
-            homework
-          </option>
-          <option value="online" className="p-2">
-            online
-          </option>
+          {teachers.map((teacher, index) => {
+            return (
+              <option
+                className="p-2"
+                key={index}
+                name="teacher"
+                value={teacher._id}
+              >
+                {teacher.firstName} {teacher.lastName}
+              </option>
+            );
+          })}
         </select>
       </div>
     </div>
   );
 }
 
-export default HomeworkType;
+export default SelectTeacher;
