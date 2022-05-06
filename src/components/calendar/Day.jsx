@@ -4,15 +4,10 @@ import "dayjs/locale/de";
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/context";
 
-
 export default function Day({ day, rowIdx }) {
   const [dayEvents, setDayEvents] = useState([]);
-  const {
-    setDaySelected,
-    setShowEventModal,
-    savedEvents,
-    setSelectedEvent,
-  } = useContext(Context);
+  const { setDaySelected, setShowEventModal, savedEvents, setSelectedEvent } =
+    useContext(Context);
 
   // console.log(dayjs(day).format("DD-MM-YY"));
   function getCurrentDayClass() {
@@ -21,19 +16,12 @@ export default function Day({ day, rowIdx }) {
       : "";
   }
 
-
-
-
-
   useEffect(() => {
     const events = savedEvents.filter((evt) => {
       return dayjs(evt.date).format("DD-MM-YY") === day.format("DD-MM-YY");
     });
     setDayEvents(events);
-  }, [ savedEvents, day]);
-
-
-  
+  }, [savedEvents, day]);
 
   return (
     <div className="border border-gray-200 flex flex-col px-1 h-44">

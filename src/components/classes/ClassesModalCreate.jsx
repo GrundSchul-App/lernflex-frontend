@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/context";
-/* import ClassTeacherSelect from "./ClassTeacherSelect";
-import ModuleSubjectTeacherSelect from "./ModuleSubjectTeacherSelect"; */
+/* import ClassTeacherSelect from "./ClassTeacherSelect"; */
+/* import ModuleSubjectTeacherSelect from "./ModuleSubjectTeacherSelect"; */
 
 function ClassesModalCreate({ setShowCreateClassModal }) {
   const {
@@ -9,9 +9,9 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
     addClassToDatabase,
     databaseUpdated,
     setDatabaseUpdated,
-   /*  classTeacher,
-    setClassTeacher,
-    moduleSubjectTeacher,
+  /*   classTeacher,
+    setClassTeacher, */
+    /* moduleSubjectTeacher,
     setModuleSubjectTeacher, */
     messageBackendModal,
     setMessageBackendModal,
@@ -23,7 +23,7 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
     e.preventDefault();
     if (
       className === ""/*  ||
-      classTeacher === "" ||
+      classTeacher === "" */ /* ||
       moduleSubjectTeacher === [{}] ||
       (moduleSubjectTeacher.length !== 0 && moduleSubjectTeacher.includes({})) */
     ) {
@@ -32,8 +32,9 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
       return;
     }
     const data = {
-      className: className/* ,
-      classTeacher: classTeacher,
+      className: className,
+     // classTeacher: classTeacher 
+      /*
       modules: moduleSubjectTeacher, */
     };
     if (data.length !== 0) {
@@ -54,11 +55,11 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
     /* setModuleSubjectTeacher([{}]); */
     setMessageBackend("");
     setClassName("");
-    /* setClassTeacher(""); */
+    //setClassTeacher("");
   }
 
   useEffect(() => {
-   /*  setModuleSubjectTeacher([{}]); */
+    /*  setModuleSubjectTeacher([{}]); */
     setMessageBackendModal("");
     setMessageBackend("");
   }, []);
@@ -106,8 +107,9 @@ function ClassesModalCreate({ setShowCreateClassModal }) {
               />
             </div>
           </div>
-{/* 
-          <ClassTeacherSelect />
+
+         {/*  <ClassTeacherSelect /> */}
+          {/* 
           <ModuleSubjectTeacherSelect /> */}
 
           <div className="flex justify-end">

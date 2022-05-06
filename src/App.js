@@ -1,13 +1,13 @@
 // import EventsList from "./components/Attendance/EventsList";
 import Header from "./components/Header";
-// import Main from "./components/Attendance/Main";
+import Main from "./components/Attendance/Main";
 import Sidebar from "./components/Sidebar";
 // import CalendarComponents from "./components/CalendarComponent";
 import { Routes, Route } from "react-router-dom";
 import RemoteCourse from "./pages/TeacherFolder/RemoteCourse.jsx";
 import AttendanceList from "./pages/TeacherFolder/AttendanceList";
 import Students from "./pages/TeacherFolder/Students";
-import Homeworks from "./pages/TeacherFolder/HomeWorks";
+import Homeworks from "./pages/TeacherFolder/Homeworks";
 import Teachers from "./pages/TeacherFolder/Teachers";
 import Subjects from "./pages/TeacherFolder/Subjects";
 import Classes from "./pages/TeacherFolder/Classes";
@@ -16,17 +16,19 @@ import Settings from "./pages/TeacherFolder/Settings";
 
 import EventCalendar from "./components/calendar/EventCalendar";
 import ContextProvider from "./context/context";
+import Landing from "./pages/Landing";
 
 function App() {
   return (
-    <div className="p-4 bg-[#8DD4C3] max-w-[1420px] mx-auto">
+    <div className=" bg-[#8DD4C3] max-w-[1420px] mx-auto">
       <ContextProvider>
-        <Header />
+        <Header /> 
         <div className="flex justify-start ">
-          <Sidebar />
+          <Sidebar /> 
 
-          {/* <Main /> */}
-          <Routes>
+        {/*   <Main />  */}
+        <Routes>
+            <Route path="/" element={<Landing />} />
             <Route path="/attendance" element={<AttendanceList />} />
             <Route path="/remote" element={<RemoteCourse />} />
             <Route path="/students" element={<Students />} />

@@ -5,7 +5,7 @@ import { AiOutlineMail } from "react-icons/ai";
 
 const Header = () => {
   return (
-    <header className="flex h-[80px] items-center">
+    <header className="flex h-[80px] items-center pt-4 px-4 ">
       <nav
         className="
           flex flex-wrap

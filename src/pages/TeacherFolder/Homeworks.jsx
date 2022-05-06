@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from "react";
 import EventsList from "../../components/Attendance/EventsList";
-import ClassesMain from "../../components/classes/ClassesMain";
+import HomeworksMain from "../../components/homeworks/HomeworksMain";
 import CalendarComponent from "../../components/CalendarComponent";
 import { Context } from "../../context/context";
 
-function Classes() {
+function Homeworks() {
   const { setMessageBackend } = useContext(Context);
   useEffect(() => {
     setMessageBackend("");
@@ -12,12 +12,15 @@ function Classes() {
 
   return (
     <div className="flex flex-row w-full justify-between mr-4">
-      <ClassesMain />
-      <div className="hidden flex-col xl:flex xl:ml-4 xl:w-1/4 ">
+      
+      <HomeworksMain />
+      {/* <div className="hidden flex-col xl:flex xl:ml-4 xl:w-1/4 ">
         <CalendarComponent />
         <EventsList />
-      </div>
+      </div> */}
     </div>
   );
 }
-export default Classes;
+
+
+export default Homeworks;

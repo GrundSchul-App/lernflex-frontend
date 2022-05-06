@@ -24,7 +24,7 @@ const Subjects = () => {
 
 
   return (
-    <div className="flex flex-row w-full justify-between">
+    <div className="flex flex-row w-full justify-between mr-4">
       <SubjectsMain />
       <div className="hidden flex-col lg:flex lg:ml-4 lg:w-1/4 ">
         <CalendarComponent />

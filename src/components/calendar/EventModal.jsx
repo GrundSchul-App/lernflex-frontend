@@ -37,6 +37,7 @@ export default function EventModal() {
     if(selectedEvent) {
       updateEvent(calendarEvent)
       .then(() => {
+        console.log('das ist mein calendar event', calendarEvent, 'selectedEvent', selectedEvent);
         dispatchCalEvent({type: "update", payload: calendarEvent});
       })  
     } else {
@@ -48,12 +49,6 @@ export default function EventModal() {
           console.log("err", err);
         });
     }
-
-    // if (selectedEvent) {
-    //   dispatchCalEvent({ type: "update", payload: calendarEvent });
-    // } else {
-    //   dispatchCalEvent({ type: "push", payload: calendarEvent });
-    // }
 
     setShowEventModal(false);
   }
