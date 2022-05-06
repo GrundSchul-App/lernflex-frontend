@@ -32,7 +32,7 @@ export const Context = createContext({
 
 const ContextProvider = (props) => {
   // Ghania und Blanca Context
-
+  const [active,setActive]=useState(false)
   const [classes, setClasses] = useState([]);
   const [allClasses, setAllClasses] = useState([]);
   const [classId, setClassId] = useState("");
@@ -63,6 +63,7 @@ const ContextProvider = (props) => {
 
   // Student Anwiesenheitsliste
   const [getAnwiesenheitsListe, setgetAnwiesenheitsListe]=useState([])
+  const [list, setList]=useState([])
   /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([
     { subject: "", teacher: "" },
   ]); */
@@ -97,6 +98,9 @@ const ContextProvider = (props) => {
   const closeModaleAdd = () => {
     setToggleAddSubClassModale(false);
   };
+  const activeFilterArow=()=>{
+    setActive(active)
+  }
   // Zaki Context + Hooks Events
   // const initEvents = {
   //   loading: true,
@@ -268,18 +272,24 @@ const ContextProvider = (props) => {
 
     return body;
   }
-
-  /*  async function getTeacherAndSubjectsByClassId(classId) {
-    const res = await fetch(`${BACKEND_URL}/teacher/${classId}`, {
+  
+  
+  
+   async function getAttendanceByClassIdAndSubject(date,subjectId,classId) {
+    //  console.log("date async",date)
+    const res = await fetch(`${BACKEND_URL}/attendanceList/
+    ${date}/${subjectId}/${classId}`, {
       headers: {
         Accept: "application/json",
       },
     });
+    console.log("select****",date);
     const body = await res.json();
 
     return body;
+  
   }
- */
+ 
   async function getClassesByModule(subjectId, teacherId) {
     const res = await fetch(
       `${BACKEND_URL}/classes/module/${subjectId}/${teacherId}`,
@@ -483,7 +493,7 @@ async function attendanceList(){
         editTeacherModules,
         getClassesByClassTeacherId,
         getClassesByModule,
-        /*  getTeacherAndSubjectsByClassId, */
+        getAttendanceByClassIdAndSubject,
         attendanceList,
 
         //URL
@@ -523,6 +533,8 @@ async function attendanceList(){
         setSearchInput,
         setgetAnwiesenheitsListe,
         getAnwiesenheitsListe,
+        setList,
+        list,
 
         toggleModale,
         setToggleModale,
@@ -541,6 +553,7 @@ async function attendanceList(){
 
         selectDate,
         setSelectDate,
+        activeFilterArow,
 
         // classen
         classTeacher,

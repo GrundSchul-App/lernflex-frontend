@@ -1,4 +1,4 @@
-import { useState , useContext,useEffect} from "react";
+import { useState , useContext} from "react";
 
 import StudentTable from "../StudentTable";
 import SearchStudentBar from "../SearchStudentBar";
@@ -13,12 +13,14 @@ import {Context} from '../../../context/context';
 import SelectSubject from "../../AttendanceListStudent/SelectSubject";
 
 import AttendanceListTable from "../../AttendanceListStudent/AttendanceListTable";
+// import { format } from 'date-fns'
 
 
 
 function StudentTab(){
+  const [classSubjectList,setClassSubjectList]=useState([])
   const [toggleState, setToggleState] = useState(1);
-  const {getStudentsByClassId,classId,selectValue,getAllStudents,setStudents,students,attendanceList,setgetAnwiesenheitsListe,getAnwiesenheitsListe,selectDate}=useContext(Context);
+  const {getStudentsByClassId,classId,selectValue,getAllStudents,setStudents,students,attendanceList,setgetAnwiesenheitsListe,list,setList,selectDate,getAttendanceByClassIdAndSubject,subjectId,activeFilterArow,setActive,active}=useContext(Context);
 
   const date = selectDate
   ? new Date(selectDate).toLocaleDateString()
@@ -59,16 +61,54 @@ getStudentsByClassId(classId).then((res) => {
               }
 }
 // console.log("anwesenheitlistestate", getAnwiesenheitsListe);
+const getAllAttendanceListByClassIdAndSubjectId=()=>{
+  
+ 
+  // const ghania=format(selectDate, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")
+  // console.log("ghania", ghania)
+  const date1 = selectDate
+  ? new Date(selectDate).toLocaleDateString()
+  : "";
+  const date = date1.split("/").reverse().join("-");
+  // console.log("dateeeeeeee", date);
+  
+  
+  // console.log("subjectId and classID und date", subjectId , classId, date);
+ 
+  getAttendanceByClassIdAndSubject(date,subjectId,classId)
+ 
+    .then((res)=>{
+      if (res.message === "success"){
+        console.log("result set anwiesent", res.data)
+        setList(res.data)
 
-useEffect(()=>{
-  attendanceList().then((res)=>{
-    if(res.message === "success"){
-      setgetAnwiesenheitsListe(res.data)
-      // console.log("anwesenheit", res.data);
+
+      }
+
+    }).catch((err)=>{
+      console.log("err",err)
       
-    }
-  })
-},[])
+    });
+   
+  }
+  console.log("mein list", list);
+
+const resetButton=()=>{
+  console.log("deactive");
+  console.log("active", active);
+}
+
+
+
+// useEffect(()=>{
+//   attendanceList().then((res)=>{
+//     if(res.message === "success"){
+//       setgetAnwiesenheitsListe(res.data)
+//        console.log("anwesenheit", res.data);
+      
+//     }
+//   })
+// },[])
 
 
 return (
@@ -125,12 +165,15 @@ return (
        
        <SelectClassesStudent/>
         <SelectSubject/>
-        <button className="flex  px-4 py-2 rounded-2xl bg-green-200 
+        <button 
+        onClick={getAllAttendanceListByClassIdAndSubjectId}
+        className="flex  px-4 py-2 rounded-2xl bg-green-200 
          items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg">Anwesenheitsliste suchen </button>
+         <button onClick={resetButton} >refrech</button>
        </div>
        {/* <AttendanceListForm/> */}
        <div className=" border text-lg mt-2 rounded-md p-5 text-center">Die Liste der abwesenden Schülerinnen und Schüler am <input defaultValue={date} className="ml-5 text-blue-600"/>  </div>
-        <AttendanceListTable/>
+        <AttendanceListTable />
       </div>
 
       <div

@@ -2,22 +2,14 @@ import React from 'react'
 // import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 // import {Context} from "../../context/context"
 
-function AttendanceBodyTable({student,index,list}) {
+function AttendanceBodyTable({index,item,student,list}) {
   // const {BACKEND_URL,setRefDataBase,refDataBase}=useContext(Context)
   
-  const date = list.date
-  ? new Date(list.date).toLocaleDateString()
-  : "";
+  // const date = list[0].date
+  // ? new Date(student.date).toLocaleDateString()
+  // : "";
 
 
-
-
-
-
-
-
-  
-    
 
   return (
     <tr key={index} className="bg-gray-100 border-b">
@@ -25,34 +17,34 @@ function AttendanceBodyTable({student,index,list}) {
                             {index + 1}
                           </td>
                           <td className="text-center px-1 py-4 whitespace-nowrap text-sm font-light text-gray-900  ">
-                            {date}
+                            {list[0].date}
                           </td>
                           <td className="text-center px-1 py-4 whitespace-nowrap text-sm font-light text-gray-900  ">
-                            {student.firstName}
+                            {item.firstName}
                           </td>
                           <td className="text-sm text-center text-gray-900 font-light px-1 py-4 whitespace-nowrap  ">
-                            {student.lastName}
+                            {item.lastName}
                           </td>
                           <td className="text-sm text-center text-g<BodyTableAttendance
                           key={index}
                           list={list}
                           index={index}
                         />ray-900 font-light px-1 py-4 whitespace-nowrap  ">
-                            {list.classId.className}
+                            {list[0].classId.className}
                           </td>
                           <td className="text-sm text-center text-g<BodyTableAttendance
                           key={index}
                           list={list}
                           index={index}
                         />ray-900 font-light px-1 py-4 whitespace-nowrap  ">
-                            {list.subject.subject_code}
+                            {list[0].subject.subject_code}
                           </td>
                           
                           <td className="text-sm text-center text-gray-900 font-light px-1 py-4 ">
-                            {student.gender}
+                            {item.gender}
                           </td>
                           <td className="text-sm text-center text-gray-900 font-light px-1 py-4 ">
-                            {student.email}
+                            {item.email}
                           </td>
                           
                           

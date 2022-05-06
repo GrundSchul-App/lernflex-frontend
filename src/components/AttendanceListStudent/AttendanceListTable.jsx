@@ -3,7 +3,18 @@ import {Context} from '../../context/context'
 import AttendanceBodyTable from './AttendanceBodyTable';
 
 function AttendanceListTable() {
-  const {getAnwiesenheitsListe}=useContext(Context)
+
+  const {getAnwiesenheitsListe,active,list}=useContext(Context)
+  // console.log("getAnwiesenheitsListe****", getAnwiesenheitsListe );
+  console.log("listeeeeeeeeeeee", list);
+  // console.log("55555", classListSubj);
+
+
+
+
+
+
+
   return (
     <div className="rounded-2xl m-4 mt-0 py-4 bg-white ">
         
@@ -51,13 +62,13 @@ function AttendanceListTable() {
                     </th>
                     <th
                       scope="col"
-                      className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                      className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                     >
                       Fach
                     </th>
                     <th
                       scope="col"
-                      className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                      className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                     >
                       Geschlecht
                     </th>
@@ -75,29 +86,76 @@ function AttendanceListTable() {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                    getAnwiesenheitsListe.map((list, index) => {
-                       console.log("list", list);
-                      
-                      return (
-                        
-                        list.absent.map((student,index)=>{
-                          // console.log("student", student.lastName);
-                          // console.log("studentfirstname", student.firstName);
-                          return (
-                            <AttendanceBodyTable
-                          key={index}
-                          student={student}
-                          index={index}
-                          list={list}
-                          anwiesList={getAnwiesenheitsListe}
-                          
-                        />
-                          )
-                        })
-                        
-                      );
-                    })}
+                  
+               {list.length !==0 &&
+               list[0].absent.map((item,index)=>{
+                 return ( <AttendanceBodyTable
+                  key={index}
+                  list={list}
+                  index={index}
+                  item={item}
+                  
+                  
+                />)
+               })}
+           {/* {JSON.classListSubj.length === 0 ? JSON.stringify(classListSubj).map((student,index)=>{
+             return (student.absent.)
+           })
+          //  list.map((student,index)=>{
+             console.log("absent", student.absent);
+             return (student.absent.map((item,index)=>{
+               console.log("item", item);
+               return (  <AttendanceBodyTable
+                key={index}
+                student={student}
+                index={index}
+                item={item}
+                
+                
+              />)
+             }))
+
+                         )} */}
+      
+      {/* getAnwiesenheitsListe.length !==0 &&
+        getAnwiesenheitsListe.map((student, index) => {
+          
+          console.log("student8888", student.absent);
+                 
+                  
+                   return ( student.absent.length !==0 &&
+
+                      student.absent.map((item,index)=>{
+                        console.log("Item",item.firstName);
+                     return (
+                    
+                         
+                         <AttendanceBodyTable
+                         key={index}
+                         student={student}
+                         index={index}
+                         item={item}
+                         
+                         
+                       />
+                    
+                     
+                     
+                     )
+                     
+                   })
+                     
+                       
+                    
+                    
+                    
+                  );
+                })      
+      
+     */}
+
+
+                 
                 </tbody>
               </table>
             </form>

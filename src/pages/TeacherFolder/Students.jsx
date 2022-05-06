@@ -9,7 +9,7 @@ import StudentTab from "../../components/Student/studentTab/StudentTab";
 import { Context } from "../../context/context";
 
 function Students(props) {
-  const { toggleModale, editToggleModale, getAllStudents, setStudents,refDataBase } =
+  const { toggleModale, editToggleModale, getAllStudents, setStudents,refDataBase ,attendanceList,setgetAnwiesenheitsListe} =
     useContext(Context);
 
   useEffect(() => {
@@ -20,6 +20,16 @@ function Students(props) {
       }
     });
   }, [refDataBase]);
+
+  useEffect(()=>{
+    attendanceList().then((res)=>{
+      if(res.message === "success"){
+        setgetAnwiesenheitsListe(res.data)
+         console.log("anwesenheit", res.data);
+        
+      }
+    })
+  },[])
 
   return (
     <div className=" font-family-karla w-full  flex ml-4">
