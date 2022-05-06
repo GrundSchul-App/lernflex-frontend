@@ -7,62 +7,108 @@ import SelectClassesStudent from "../SelectClassesStudent";
 
 import InputSearchStudent from "../InputSearchStudent";
 import {Context} from '../../../context/context';
-import {GrRefresh} from 'react-icons/gr'
+
+
+
+import SelectSubject from "../../AttendanceListStudent/SelectSubject";
+
+import AttendanceListTable from "../../AttendanceListStudent/AttendanceListTable";
+// import { format } from 'date-fns'
+
 
 
 function StudentTab(){
+  const [classSubjectList,setClassSubjectList]=useState([])
   const [toggleState, setToggleState] = useState(1);
-  const {setStudentsList,getStudentsByClassId,classId,selectValue,getAllStudents,setStudents,students}=useContext(Context);
+  const {getStudentsByClassId,classId,selectValue,getAllStudents,setStudents,students,attendanceList,setgetAnwiesenheitsListe,list,setList,selectDate,getAttendanceByClassIdAndSubject,subjectId,activeFilterArow,setActive,active}=useContext(Context);
 
+  const date = selectDate
+  ? new Date(selectDate).toLocaleDateString()
+  : "";
+
+
+  // console.log("date", selectDate);
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
 
 const onClickHandelStudent=()=>{
-setStudentsList([]);
+// setStudentsList([]);
 
 if(selectValue === 'Klasse'){
   console.log("selectKlasse", selectValue);
 getStudentsByClassId(classId).then((res) => {
   if (res.message === "success") {
     
-    setStudentsList(res.data);
+    setStudents(res.data);
     console.log("*", res.data);
  
-  }
-  
+  } 
 });
-// if(selectValue ==='All'){
-//   console.log('Value:', selectValue);
-//   console.log("Hello All");
-//      getAllStudents().then((res) => {
-//           if (res.message === "success") {
-//             setStudentsList(res.data);
-//             console.log(students);
-   
-//            console.log("result", res.data);
-//          }
-//         });
-//       }
 
-
- }else if(selectValue === 'All'){ // a ecrire plutart dans refrech button
-  console.log("hello All");
+} if (selectValue ==='All'){
+  console.log('Value:', selectValue);
+ 
   getAllStudents().then((res) => {
-              if (res.message === "success") {
-                setStudentsList(res.data);
-                console.log(students);
-       
-               console.log("result", res.data);
-             }
-            });
-          }
-
+       if (res.message === "Success") {
+                    setStudents(res.data);
+                    console.log("students2", students);
+           
+                   console.log("result", res.data);
+                 }
+                });
+              }
 }
+// console.log("anwesenheitlistestate", getAnwiesenheitsListe);
+const getAllAttendanceListByClassIdAndSubjectId=()=>{
   
+ 
+  // const ghania=format(selectDate, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")
+  // console.log("ghania", ghania)
+  const date1 = selectDate
+  ? new Date(selectDate).toLocaleDateString()
+  : "";
+  const date = date1.split("/").reverse().join("-");
+  // console.log("dateeeeeeee", date);
+  
+  
+  // console.log("subjectId and classID und date", subjectId , classId, date);
+ 
+  getAttendanceByClassIdAndSubject(date,subjectId,classId)
+ 
+    .then((res)=>{
+      if (res.message === "success"){
+        console.log("result set anwiesent", res.data)
+        setList(res.data)
 
 
+      }
+
+    }).catch((err)=>{
+      console.log("err",err)
+      
+    });
+   
+  }
+  console.log("mein list", list);
+
+const resetButton=()=>{
+  console.log("deactive");
+  console.log("active", active);
+}
+
+
+
+// useEffect(()=>{
+//   attendanceList().then((res)=>{
+//     if(res.message === "success"){
+//       setgetAnwiesenheitsListe(res.data)
+//        console.log("anwesenheit", res.data);
+      
+//     }
+//   })
+// },[])
 
 
 return (
@@ -78,7 +124,7 @@ return (
         className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
         onClick={() => toggleTab(2)}
       >
-        Anwesenheitliste
+        Anwesenheitsliste
       </button>
       <button
         className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
@@ -101,8 +147,8 @@ return (
         <SelectClassesStudent/>
         <button onClick={onClickHandelStudent} className="flex  px-4 py-2 rounded-2xl bg-green-200 
          items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"> Suche</button>
-         <button onClick={onClickHandelStudent} className="flex  px-1 py-1 rounded-2xl 
-         items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"> <GrRefresh/></button>
+         {/* <button onClick={onClickHandelStudent} className="flex  px-1 py-1 rounded-2xl 
+         items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"> <GrRefresh/></button> */}
       </div>
       
     </div>
@@ -115,12 +161,19 @@ return (
       <div
         className={toggleState === 2 ? "content  active-content" : "content"}
       >
-        <h2>Content 2</h2>
-        <hr />
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-          voluptatum qui adipisci.
-        </p>
+       <div className="flex justify-around bg-[#8DD4C3]  items-center h-24 rounded-md ">
+       
+       <SelectClassesStudent/>
+        <SelectSubject/>
+        <button 
+        onClick={getAllAttendanceListByClassIdAndSubjectId}
+        className="flex  px-4 py-2 rounded-2xl bg-green-200 
+         items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg">Anwesenheitsliste suchen </button>
+         <button onClick={resetButton} >refrech</button>
+       </div>
+       {/* <AttendanceListForm/> */}
+       <div className=" border text-lg mt-2 rounded-md p-5 text-center">Die Liste der abwesenden Schülerinnen und Schüler am <input defaultValue={date} className="ml-5 text-blue-600"/>  </div>
+        <AttendanceListTable />
       </div>
 
       <div

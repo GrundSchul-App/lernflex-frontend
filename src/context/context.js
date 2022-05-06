@@ -34,7 +34,7 @@ const ContextProvider = (props) => {
 
   const [auth, setAuth] = useState({});
   // Ghania und Blanca Context
-
+  const [active,setActive]=useState(false)
   const [classes, setClasses] = useState([]);
   const [allClasses, setAllClasses] = useState([]);
   const [classId, setClassId] = useState("");
@@ -48,6 +48,7 @@ const ContextProvider = (props) => {
   const [students, setStudents] = useState([]);
   const [selectValue, setSelectValue] = useState([]);
   const [studentId, setStudentId] = useState([]);
+  const [getStudents, setGetStudents] = useState([]);
 
   const [teachers, setTeachers] = useState([]);
 
@@ -61,11 +62,17 @@ const ContextProvider = (props) => {
   const [searchInput, setSearchInput] = useState("");
 
   const [classTeacher, setClassTeacher] = useState("");
+
+  // Student Anwiesenheitsliste
+  const [getAnwiesenheitsListe, setgetAnwiesenheitsListe]=useState([])
+  const [list, setList]=useState([])
   /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([
     { subject: "", teacher: "" },
   ]); */
   const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([{}]);
   const [option, setOption] = useState("");
+  //date from Calender selectedEvent
+  const [selectDate, setSelectDate] = useState("");
 
   const [homeworks, setHomeworks] = useState([]);
   const [allHomeworks, setAllHomeworks] = useState([]);
@@ -85,7 +92,7 @@ const ContextProvider = (props) => {
     setToggleModale(false);
   };
   const openModale = () => {
-    // console.log("hello modal")
+    //  console.log("hello modal")
     setToggleModale(true);
   };
   // Toggle modal edit teacher modal
@@ -102,6 +109,9 @@ const ContextProvider = (props) => {
   const closeModaleAdd = () => {
     setToggleAddSubClassModale(false);
   };
+  const activeFilterArow=()=>{
+    setActive(active)
+  }
   // Zaki Context + Hooks Events
   // const initEvents = {
   //   loading: true,
@@ -159,6 +169,7 @@ const ContextProvider = (props) => {
         });
     };
     fetchData();
+
   }, [selectedEvent]);
 
 
@@ -203,6 +214,7 @@ const ContextProvider = (props) => {
       return body;
     }
  
+
 
   async function eventToDB(data) {
     const res = await fetch(`${BACKEND_URL}/calendar`, {
@@ -279,6 +291,7 @@ const ContextProvider = (props) => {
       },
     });
     const body = await res.json();
+    console.log("Bodyyy", body);
     return body;
   }
 
@@ -480,17 +493,25 @@ const ContextProvider = (props) => {
     return body;
   }
 
-  /*  async function getTeacherAndSubjectsByClassId(classId) {
-    const res = await fetch(`${BACKEND_URL}/teacher/${classId}`, {
+  
+  
+  
+   async function getAttendanceByClassIdAndSubject(date,subjectId,classId) {
+    //  console.log("date async",date)
+    const res = await fetch(`${BACKEND_URL}/attendanceList/
+    ${date}/${subjectId}/${classId}`, {
+
       headers: {
         Accept: "application/json",
       },
     });
+    console.log("select****",date);
     const body = await res.json();
 
     return body;
+  
   }
- */
+ 
   async function getClassesByModule(subjectId, teacherId) {
     const res = await fetch(
       `${BACKEND_URL}/classes/module/${subjectId}/${teacherId}`,
@@ -515,6 +536,18 @@ const ContextProvider = (props) => {
 
     return body;
   }
+
+
+async function attendanceList(){
+  const res= await fetch(`${BACKEND_URL}/attendanceList`,{
+    headers: {
+      Accept: "application/json",
+    },
+  });
+  const body=await res.json();
+  return body;
+}
+
 
   async function addAttendanceList(data) {
     const res = await fetch(`${BACKEND_URL}/attendanceList/add`, {
@@ -629,8 +662,8 @@ const ContextProvider = (props) => {
   // edit student modale open
   function editStudent(student, id) {
     console.log("id Student edit", student);
-    setStudentId(student);
-    openModale();
+    setStudentId(student); // änderung
+    openEditModale();
   }
 
   // function updateLabel(label) {
@@ -683,6 +716,10 @@ const ContextProvider = (props) => {
         editTeacherModules,
         getClassesByClassTeacherId,
         getClassesByModule,
+
+        getAttendanceByClassIdAndSubject,
+        attendanceList,
+
         /*  getTeacherAndSubjectsByClassId, */
         getAllHomeworks,
         addHomeworkToDatabase,
@@ -691,6 +728,7 @@ const ContextProvider = (props) => {
         getHomeworksByType,
         deleteHomeworkById,
         getHomeworksByTeacherId,
+
 
         //URL
         BACKEND_URL,
@@ -728,6 +766,10 @@ const ContextProvider = (props) => {
         setDatabaseUpdated,
         searchInput,
         setSearchInput,
+        setgetAnwiesenheitsListe,
+        getAnwiesenheitsListe,
+        setList,
+        list,
 
         toggleModale,
         setToggleModale,
@@ -743,6 +785,10 @@ const ContextProvider = (props) => {
         setRefDataBase,
         setJustTeacherId,
         justTeacherId,
+
+        selectDate,
+        setSelectDate,
+        activeFilterArow,
 
         // classen
         classTeacher,

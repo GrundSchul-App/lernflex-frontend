@@ -18,7 +18,7 @@ export function EditStudentForm(props) {
   
 
 
-    const {setClassId,setClassName,classes,studentId,BACKEND_URL,setRefDataBase,refDataBase} = useContext(Context)
+    const {setClassId,setClassName,classes,studentId,BACKEND_URL,setRefDataBase,refDataBase,student} = useContext(Context)
 
 
     const getClassIdWithName = (e) => {
@@ -35,19 +35,24 @@ export function EditStudentForm(props) {
 
  async function updateStudent(e){
  e.preventDefault();
- const response= await fetch(`${BACKEND_URL}/student/${studentId._id}`,{
+// console.log("editStudentId", studentId);
+console.log("EditfirstName student", editFirstNameStudent);
+
+const data= {
+
+  firstName:editFirstNameStudent || studentId.firstName,
+  lastName:editLastNameStudent || studentId.lastName ,
+  email:editEmailStudent || studentId.email,}
+  console.log("data", data);
+ const response= await fetch(`${BACKEND_URL}/students/${studentId._id}`,{
      method:"PUT",
      header:{
          Accept: "application/json",
          "Content-Type": "application/json",
      },
-     body: JSON.stringify({
-         firstName:editFirstNameStudent || studentId.firstName,
-         lastName:editLastNameStudent || studentId.lastName,
-         email:editEmailStudent || studentId.email,
-         birthDate:editBirthDate || studentId.birthDate,
-         gender:editGender || studentId.gender,
-     }),
+     body: JSON.stringify(
+       data
+     ),
 
  })
  const content = await response.json()
@@ -161,7 +166,7 @@ export function EditStudentForm(props) {
         <div className="m-4 ">
           <label className="mr-5">Vorname</label>
           <input
-          onChange={(e)=>{setEditLastNameStudent(e.target.value)}}
+          onChange={(e)=>setEditFirstNameStudent(e.target.value  )}
             
             className="border border-black rounded-md"
             name="firstName"
@@ -172,9 +177,9 @@ export function EditStudentForm(props) {
         <div className="m-4">
           <label className="mr-2">Nachname</label>
           <input
-            onChange={(e) => {
-              setEditLastNameStudent(e.target.value);
-            }}
+            onChange={(e) => 
+              setEditLastNameStudent(e.target.value)
+            }
             className="border border-black rounded-md"
             name="lastName"
             type="text"
@@ -184,9 +189,9 @@ export function EditStudentForm(props) {
         <div className="m-4">
           <label className="mr-11">Email</label>
           <input
-            onChange={(e) => {
-              setEditEmailStudent(e.target.value);
-            }}
+            onChange={(e) => 
+              setEditEmailStudent(e.target.value)
+            }
             className="border border-black rounded-md"
             name="email"
             type="email"
@@ -205,7 +210,7 @@ export function EditStudentForm(props) {
             defaultValue={studentId.birthday}
           />
         </div>
-        <div className="m-4">
+        {/* <div className="m-4">
           <label className="mr-5">Klasse</label>
           <input
             onChange={(e) => {
@@ -215,9 +220,9 @@ export function EditStudentForm(props) {
             name="birthday"
             type="text"
           />
-        </div>
+        </div> */}
 
-        <div className="m-4">
+        {/* <div className="m-4">
           <label className="mr-5">Geschlecht</label>
           <input
             onChange={(e) => {
@@ -227,7 +232,7 @@ export function EditStudentForm(props) {
             name="gender"
             type="text"
           />
-        </div>
+        </div> */}
 
         <div className="flex justify-center">
           <button
