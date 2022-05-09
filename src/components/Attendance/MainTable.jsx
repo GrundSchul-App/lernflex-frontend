@@ -19,15 +19,13 @@ const MainTable = ({ classAndSubjectName }) => {
 
   // console.log("**", studentsList);
 
-  
-
   const handleChange = (e) => {
     //e.preventDefault();
-    console.log(e.target.value);
+
     //setChecked(!checked);
 
     const isChecked = e.target.checked;
-    console.log("isChecked", isChecked);
+
     if (isChecked) {
       setAbsentStudentsIdList([...absentStudentsIdList, e.target.value]);
     } else {
@@ -52,33 +50,32 @@ const MainTable = ({ classAndSubjectName }) => {
   };
 
   const createAttendanceList = () => {
-    console.log("absentStudentsIdList", absentStudentsIdList);
-
     getTeacherByClassIdAndSubjectId(classId, subjectId)
       .then((res) => {
         if (res.message === "success") {
-          console.log("res.data", res.data);
         }
         setData({
           classId: classId,
           subject: subjectId,
           teacher: res.data._id,
           absent: absentStudentsIdList,
-        });       
-      }).catch((err) => {
+        });
+      })
+      .catch((err) => {
         console.log("err", err);
-      } );      
+      });
   };
 
   useEffect(() => {
     if (data.length !== 0) {
-    addAttendanceList(data).then((res) => {
-      setMessageBackend(res.message);
-    });}
+      addAttendanceList(data).then((res) => {
+        setMessageBackend(res.message);
+      });
+    }
   }, [data]);
 
   return (
-    <div className="rounded-2xl m-4 p-4 bg-white w-full mr-4">
+    <div className="rounded-2xl p-4 bg-white w-full mt-4">
       <p className="font-semibold">{classAndSubjectName}</p>
 
       <div className="flex flex-col">
