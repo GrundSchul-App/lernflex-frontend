@@ -1,9 +1,9 @@
 // import EventsList from "./components/Attendance/EventsList";
 import Header from "./components/Header";
-// import Main from "./components/Attendance/Main";
 import Sidebar from "./components/Sidebar";
+// import Main from "./components/Attendance/Main";
 // import CalendarComponents from "./components/CalendarComponent";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import RemoteCourse from "./pages/TeacherFolder/RemoteCourse.jsx";
 import AttendanceList from "./pages/TeacherFolder/AttendanceList";
 import Students from "./pages/TeacherFolder/Students";
@@ -19,16 +19,15 @@ import ContextProvider from "./context/context";
 import Landing from "./pages/Landing";
 
 function App() {
+  const location = useLocation();
   return (
     <div className=" bg-[#8DD4C3] max-w-[1420px] mx-auto">
       <ContextProvider>
-        {/* <Header /> */}
+        {location.pathname !== '/login' ? <Header /> : '' }
         <div className="flex justify-start ">
-          {/* <Sidebar /> */}
-
-          {/* <Main /> */}
-        <Routes>
-            <Route path="/" element={<Landing />} />
+          {location.pathname !== '/login' ? <Sidebar /> : '' }
+          <Routes>
+            <Route path="/login" element={<Landing />} />
             <Route path="/attendance" element={<AttendanceList />} />
             <Route path="/remote" element={<RemoteCourse />} />
             <Route path="/students" element={<Students />} />

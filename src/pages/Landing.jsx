@@ -49,29 +49,25 @@ const Landing = () => {
 
   async function handleLogin(e) {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/users/login",
-        JSON.stringify({
-          email,
-          password,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          // withCredentials: true,
-        }
-      );
-      setEmail("");
-      setPassword("");
-      const resToken = response?.data?.password;
-      const resRole = response?.data?.role;
-      setAuth({ email, password, resRole, resToken });
-      console.log(response?.data);
-
-      navigate("/attendance");
-    } catch (error) {
-      console.log(error);
-    }
+    if (!email || !password) return;
+    axios
+      .post("http://localhost:4000/users/login", {
+        email, password
+      })
+      .then(function (response) {
+        const token = response?.data.data.token;
+        localStorage.setItem("token", token);
+        // setAuth(token);
+        window.location.href = "/attendance";
+        console.log(response);
+      }, {
+          headers: {
+            "Content-Type": "application/json"},
+            withCredentials: true,
+        })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   const backgroundImageStyle = {
