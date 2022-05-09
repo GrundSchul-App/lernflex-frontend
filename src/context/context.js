@@ -34,6 +34,8 @@ const ContextProvider = (props) => {
 
   const [auth, setAuth] = useState({});
   // Ghania und Blanca Context
+
+  const [allAttendanceList, setAllAttendanceList] = useState([]);
   const [active,setActive]=useState(false)
   const [classes, setClasses] = useState([]);
   const [allClasses, setAllClasses] = useState([]);
@@ -266,10 +268,16 @@ const ContextProvider = (props) => {
   }
 
   const getClassIdAndName = (e) => {
-    setClassId(e.target.value);
-    console.log(e.target.value);
+   
+    setClassId(e.target.value);    
     setClassName(e.target.options[e.target.selectedIndex].text);
-    console.log(e.target.options[e.target.selectedIndex].text);
+    
+  };
+
+  const getDatum = (date) => {
+    let dateArray = date.split("T");
+    return dateArray[0].split("-").reverse().join("-");
+    
   };
 
   async function getAllClasses() {
@@ -562,6 +570,18 @@ async function attendanceList(){
     return body;
   }
 
+  async function deleteAttendanceById(id) {
+    const res = await fetch(`${BACKEND_URL}/attendanceList/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
+    return body;
+  }
+
   async function deleteSubjectById(subjectId) {
     const res = await fetch(`${BACKEND_URL}/removeSubject/${subjectId}`, {
       method: "DELETE",
@@ -695,6 +715,7 @@ async function attendanceList(){
   return (
     <Context.Provider
       value={{
+        getDatum,
         setAuth,
         getClassIdAndName,
         getStudentsByClassId,
@@ -719,6 +740,7 @@ async function attendanceList(){
 
         getAttendanceByClassIdAndSubject,
         attendanceList,
+        deleteAttendanceById,
 
         /*  getTeacherAndSubjectsByClassId, */
         getAllHomeworks,
@@ -733,6 +755,12 @@ async function attendanceList(){
         //URL
         BACKEND_URL,
         //useState
+
+        //attendanceList
+        allAttendanceList, 
+        setAllAttendanceList,
+
+
         classes,
         setClasses,
         teachers,
