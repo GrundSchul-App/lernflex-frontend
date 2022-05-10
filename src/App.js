@@ -23,11 +23,11 @@ function App() {
   return (
     <div className=" bg-[#8DD4C3] max-w-[1420px] mx-auto">
       <ContextProvider>
-        {location.pathname !== '/login' ? <Header /> : '' }
+        {location.pathname !== '/landing' ? <Header /> : '' }
         <div className="flex justify-start ">
-          {location.pathname !== '/login' ? <Sidebar /> : '' }
+          {location.pathname !== '/landing' ? <Sidebar /> : '' }
           <Routes>
-            <Route path="/login" element={<Landing />} />
+            <Route path="/landing" element={<Landing />} />
             <Route path="/attendance" element={<AttendanceList />} />
             <Route path="/remote" element={<RemoteCourse />} />
             <Route path="/students" element={<Students />} />

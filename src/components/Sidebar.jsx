@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { FaRegListAlt } from "react-icons/fa";
@@ -14,7 +15,13 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const location = useLocation();
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/landing";
+    return axios.post("http://localhost:4000/logout").then((response) => {
+      return response.data;
+    });
+  }
   return (
     <aside className="ml-4 bg-white max-w-[25%] rounded-xl mt-4 py-12 px-6 relative min-h-[892px]">
       <ul className="list-none text-md font-semibold text-gray-500 hover:cursor-pointer space-y-10 overflow-hidden">
@@ -139,7 +146,7 @@ const Sidebar = () => {
       </ul>
       <div className="flex items-center absolute bottom-14 text-xl font-semibold text-gray-500 hover:cursor-pointer space-x-2 hover:text-red-400">
         <RiLogoutBoxRLine />
-        <h3 className="hidden sm:flex">Logout</h3>
+        <h3 className="hidden sm:flex"><button onClick={handleLogout}>Logout</button></h3>
       </div>
     </aside>
   );

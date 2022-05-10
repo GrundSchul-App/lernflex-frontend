@@ -38,7 +38,6 @@ const ContextProvider = (props) => {
 
   const [auth, setAuth] = useState({});
   // Ghania und Blanca Context
-
   const [classes, setClasses] = useState([]);
   const [allClasses, setAllClasses] = useState([]);
   const [classId, setClassId] = useState("");
