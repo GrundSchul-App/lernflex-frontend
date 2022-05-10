@@ -1,8 +1,8 @@
-import React,{useContext} from "react";
-import {Context} from '../../context/context'
+import React from "react";
+
 
 function AttendanceListForm(props) {
-    const {getAnwiesenheitsListe,setGetAnwiesenheitsListe} = useContext(Context)
+   
 
 
 
