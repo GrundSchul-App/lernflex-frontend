@@ -42,7 +42,7 @@ function HomeworksMain() {
           setAllHomeworks(sortHomeworks); */
           setHomeworks(res.data);
           setAllHomeworks(res.data);
-          // console.log("allHomeworks", res.data);
+           console.log("allHomeworks", res.data);
         }
       })
       .catch((err) => {
