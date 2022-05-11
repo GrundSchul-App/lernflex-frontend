@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
-import axios from 'axios';
+import axios from "axios";
 
 export const Context = createContext({
   monthIndex: 0,
@@ -23,21 +23,20 @@ export const Context = createContext({
   filteredEvents: [],
 });
 
-
-
 // function initEvents() {
-  
+
 //   const storageEvents = localStorage.getItem("savedEvents");
 //   const parsedEvents = storageEvents ? JSON.parse(storageEvents) : [];
 //   return parsedEvents;
 // }
 
-
-
 const ContextProvider = (props) => {
 
   const [auth, setAuth] = useState({});
   // Ghania und Blanca Context
+
+  const [allAttendanceList, setAllAttendanceList] = useState([]);
+  const [active,setActive]=useState(false)
   const [classes, setClasses] = useState([]);
   const [allClasses, setAllClasses] = useState([]);
   const [classId, setClassId] = useState("");
@@ -48,9 +47,12 @@ const ContextProvider = (props) => {
   const [subjectName, setSubjectName] = useState("");
 
   const [studentsList, setStudentsList] = useState([]);
-  const [students,setStudents]=useState([]);
-  const [selectValue, setSelectValue]=useState([])
-  const [studentId,setStudentId]=useState([]);
+  const [students, setStudents] = useState([]);
+  const [selectValue, setSelectValue] = useState([]);
+  const [studentId, setStudentId] = useState([]);
+  
+  //setStudentChecked(!studentChecked
+  const [studentChecked, setStudentChecked] = useState(false)
 
   const [teachers, setTeachers] = useState([]);
 
@@ -64,24 +66,49 @@ const ContextProvider = (props) => {
   const [searchInput, setSearchInput] = useState("");
 
   const [classTeacher, setClassTeacher] = useState("");
+
+  // Student Anwiesenheitsliste
+  const [getAnwiesenheitsListe, setgetAnwiesenheitsListe]=useState([])
+  const [list, setList]=useState([])
+  const [selectAttendId,setSelectAttendId]=useState('');
+  const [selectAbsentId,setSelectAbsentId]=useState([]);
   /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([
     { subject: "", teacher: "" },
   ]); */
   const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([{}]);
   const [option, setOption] = useState("");
+  //date from Calender selectedEvent
+  const [selectDate, setSelectDate] = useState("");
+
+  const [homeworks, setHomeworks] = useState([]);
+  const [allHomeworks, setAllHomeworks] = useState([]);
+  const [homeworkDescription, setHomeworkDescription] = useState("");
+  const [homeworkType, setHomeworkType] = useState("");
+  /*  const [fileHomework, setFileHomework] = useState(""); */
+  const [urlHomework, setUrlHomework] = useState("");
+  const [fileNameHomework, setFileNameHomework] = useState("");
+  const [homeworkUploaded, setHomeworkUploaded] = useState(false);
+  const [homeWorkId,setHomeWorkId]=useState("");
 
   // Toggle modal teacher
   const [toggleModale, setToggleModale] = useState(false);
   const [editToggleModale, setEditToggleModale] = useState(false);
   const [toggleAddSubClassModale, setToggleAddSubClassModale] = useState(false);
+  const [toggleHomeworModal,setToggleHomeworModale]=useState(false);
 
   const closeModale = () => {
     setToggleModale(false);
   };
   const openModale = () => {
-    // console.log("hello modal")
+    //  console.log("hello modal")
     setToggleModale(true);
   };
+  const closeHomeworkModale=()=>{
+    setToggleHomeworModale(false)
+  }
+  const openHomeworkModale=()=>{
+    setToggleHomeworModale(true)
+  }
   // Toggle modal edit teacher modal
 
   const closeEditModale = () => {
@@ -96,6 +123,9 @@ const ContextProvider = (props) => {
   const closeModaleAdd = () => {
     setToggleAddSubClassModale(false);
   };
+  const activeFilterArow=()=>{
+    setActive(active)
+  }
   // Zaki Context + Hooks Events
   // const initEvents = {
   //   loading: true,
@@ -123,20 +153,14 @@ const ContextProvider = (props) => {
       default:
         throw new Error();
     }
-
-    
   }
-  
 
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [daySelected, setDaySelected] = useState(dayjs());
   const [showEventModal, setShowEventModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [labels, setLabels] = useState([]);
-  const [savedEvents, dispatchCalEvent] = useReducer(
-    savedEventsReducer,
-    []
-  );
+  const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, []);
 
   // zaki hooks end
 
@@ -159,6 +183,7 @@ const ContextProvider = (props) => {
         });
     };
     fetchData();
+
   }, [selectedEvent]);
 
 
@@ -202,7 +227,47 @@ const ContextProvider = (props) => {
       const body = await res.json();
       return body;
     }
+ 
 
+
+  async function eventToDB(data) {
+    const res = await fetch(`${BACKEND_URL}/calendar`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function updateEvent(data) {
+    const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function deleteEvent(data) {
+    const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
 
   async function getAllTeachers() {
     const res = await fetch(`${BACKEND_URL}/teacher`, {
@@ -214,12 +279,17 @@ const ContextProvider = (props) => {
     return body;
   }
 
-
   const getClassIdAndName = (e) => {
-    setClassId(e.target.value);
-    console.log(e.target.value);
+   
+    setClassId(e.target.value);    
     setClassName(e.target.options[e.target.selectedIndex].text);
-    console.log(e.target.options[e.target.selectedIndex].text);
+    
+  };
+
+  const getDatum = (date) => {
+    let dateArray = date.split("T");
+    return dateArray[0].split("-").reverse().join("-");
+    
   };
 
   async function getAllClasses() {
@@ -234,13 +304,14 @@ const ContextProvider = (props) => {
     return body;
   }
 
-  async function getAllStudents(){
-    const res = await fetch(`${BACKEND_URL}/students`,{
+  async function getAllStudents() {
+    const res = await fetch(`${BACKEND_URL}/students`, {
       header: {
         Accept: "application/json",
       },
-    })
+    });
     const body = await res.json();
+    // console.log("Bodyyy", body);
     return body;
   }
 
@@ -253,6 +324,170 @@ const ContextProvider = (props) => {
     });
     const body = await res.json();
 
+    return body;
+  }
+
+/*   async function getAllHomeworks() {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1`,
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  } */
+
+  async function getAllHomeworks() {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks`,
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+
+
+
+  async function getHomeworksByTeacherId(teacherId) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/teacher/${teacherId}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+ 
+ /*  async function  getHomeworksBySubjectId(subjectId) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/subject/${subjectId}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  } */
+
+  async function  getHomeworksBySubjectId(subjectId) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/subject/${subjectId}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+
+/*   async function  getHomeworksByType(type) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/type/${type}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  } */
+
+  async function  getHomeworksByType(type) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/type/${type}`,     
+      {
+        headers: {
+          Accept: "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const body = await res.json();
+
+    return body;
+  }
+
+/*   async function addHomeworkToDatabase(data) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/add`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const body = await res.json();
+    return body;
+  } */
+  async function addHomeworkToDatabase(data) {
+    const res = await fetch(
+      `${BACKEND_URL}/homeworks`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const body = await res.json();
+    return body;
+  }
+
+  async function updateHomeworkToDatabase(data) {
+    const res = await fetch(`${BACKEND_URL}/homeworks/${data._id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  } 
+
+
+  async function deleteHomeworkById(homeworkId) {
+    const res = await fetch(`${BACKEND_URL}/homeworks/${homeworkId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
     return body;
   }
 
@@ -278,6 +513,25 @@ const ContextProvider = (props) => {
     return body;
   }
 
+  
+  
+  
+   async function getAttendanceByClassIdAndSubject(date,subjectId,classId) {
+    //  console.log("date async",date)
+    const res = await fetch(`${BACKEND_URL}/attendanceList/
+    ${date}/${subjectId}/${classId}`, {
+
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    console.log("select****",date);
+    const body = await res.json();
+
+    return body;
+  
+  }
+ 
   async function getClassesByModule(subjectId, teacherId) {
     const res = await fetch(
       `${BACKEND_URL}/classes/module/${subjectId}/${teacherId}`,
@@ -299,9 +553,21 @@ const ContextProvider = (props) => {
       },
     });
     const body = await res.json();
-    
+
     return body;
   }
+
+
+async function attendanceList(){
+  const res= await fetch(`${BACKEND_URL}/attendanceList`,{
+    headers: {
+      Accept: "application/json",
+    },
+  });
+  const body=await res.json();
+  return body;
+}
+
 
   async function addAttendanceList(data) {
     const res = await fetch(`${BACKEND_URL}/attendanceList/add`, {
@@ -311,6 +577,18 @@ const ContextProvider = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function deleteAttendanceById(id) {
+    const res = await fetch(`${BACKEND_URL}/attendanceList/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     });
     const body = await res.json();
     return body;
@@ -355,7 +633,6 @@ const ContextProvider = (props) => {
   }
 
   async function updateSubjectToDatabase(data) {
-   
     const res = await fetch(`${BACKEND_URL}/updateSubject/${data._id}`, {
       method: "PUT",
       headers: {
@@ -369,7 +646,6 @@ const ContextProvider = (props) => {
   }
 
   async function updateClassToDatabase(data) {
-    
     const res = await fetch(`${BACKEND_URL}/classes/${data._id}`, {
       method: "PUT",
       headers: {
@@ -403,33 +679,57 @@ const ContextProvider = (props) => {
     );
   }, [savedEvents, labels]);
 
+  // neu Fach und klasse zu teacher hinzufügen
+  function editTeacherModules(id) {
+    console.log("Id:", id);
+    setJustTeacherId(id);
+    openModaleAdd();
+  }
 
-// neu Fach und klasse zu teacher hinzufügen
-   function editTeacherModules(id){
-    console.log('Id:', id);
-    setJustTeacherId( id);
-  openModaleAdd()
-  
+  function editHomeWorkStudent(id){
+    setHomeWorkId(id)
+   
 
- }
- // edit Teacher modale open 
- function editExistTeacher(teacher,id){
-   console.log("id Teacher edit:", teacher)
-   setTeacherId(teacher)
-   openEditModale()
- }
- // edit student modale open
- function editStudent(student,id){
-   console.log("id Student edit", student)
-   setStudentId(student)
-   openModale()
- }
+  }
+
+  //select id list and id absent 
+  function selectAbsentAndAttendance(id){
+    
+    console.log("select id",id)
+    // setSelectAttendId(id1)
+    if (!(selectAbsentId.find((item)=>item===id))){
+      
+      const newArray=[...selectAbsentId,id]
+      // setStudentChecked(!studentChecked)
+      setSelectAbsentId(newArray)
+      console.log("newArray", newArray);
+
+    }else {
+    
+     
+     console.log("student existiert schon"); 
+    }
+
+
+    
+    // console.log("result id", selectAbsentId);
+  }
+  // edit Teacher modale open
+  function editExistTeacher(teacher, id) {
+    console.log("id Teacher edit:", teacher);
+    setTeacherId(teacher);
+    openEditModale();
+  }
+  // edit student modale open
+  function editStudent(student, id) {
+    console.log("id Student edit", student);
+    setStudentId(student); // änderung
+    openEditModale();
+  }
 
   // function updateLabel(label) {
   //   setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
   // }
-
-  
 
   // useEffect(() => {
   //   localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
@@ -456,6 +756,7 @@ const ContextProvider = (props) => {
   return (
     <Context.Provider
       value={{
+        getDatum,
         setAuth,
         getClassIdAndName,
         getStudentsByClassId,
@@ -474,17 +775,45 @@ const ContextProvider = (props) => {
         openModale,
         closeEditModale,
         openEditModale,
+        closeHomeworkModale,
+        openHomeworkModale,
         editTeacherModules,
         getClassesByClassTeacherId,
         getClassesByModule,
 
+        getAttendanceByClassIdAndSubject,
+        attendanceList,
+
+        selectAbsentAndAttendance,
+
+        deleteAttendanceById,
+
+
+        /*  getTeacherAndSubjectsByClassId, */
+        getAllHomeworks,
+        addHomeworkToDatabase,
+        updateHomeworkToDatabase,
+        getHomeworksBySubjectId,
+        getHomeworksByType,
+        deleteHomeworkById,
+        getHomeworksByTeacherId,
+        editHomeWorkStudent,
+
+
         //URL
         BACKEND_URL,
         //useState
+
+        //attendanceList
+        allAttendanceList, 
+        setAllAttendanceList,
+
+
         classes,
         setClasses,
         teachers,
         setTeachers,
+        setTeacherId,
 
         classId,
         setClassId,
@@ -513,7 +842,17 @@ const ContextProvider = (props) => {
         setDatabaseUpdated,
         searchInput,
         setSearchInput,
-
+        setgetAnwiesenheitsListe,
+        getAnwiesenheitsListe,
+        setList,
+        list,
+        studentChecked, 
+        setStudentChecked,
+        setSelectAttendId,
+        setSelectAbsentId,
+        homeWorkId,
+        selectAbsentId,
+        toggleHomeworModal,
         toggleModale,
         setToggleModale,
         editToggleModale,
@@ -529,6 +868,10 @@ const ContextProvider = (props) => {
         setJustTeacherId,
         justTeacherId,
 
+        selectDate,
+        setSelectDate,
+        activeFilterArow,
+
         // classen
         classTeacher,
         setClassTeacher,
@@ -540,6 +883,24 @@ const ContextProvider = (props) => {
         setOption,
         allClasses,
         setAllClasses,
+
+        // Homeworks
+        homeworks,
+        setHomeworks,
+        homeworkDescription,
+        setHomeworkDescription,
+        homeworkType,
+        setHomeworkType,
+        /*  fileHomework,
+        setFileHomework, */
+        urlHomework,
+        setUrlHomework,
+        fileNameHomework,
+        setFileNameHomework,
+        homeworkUploaded,
+        setHomeworkUploaded,
+        allHomeworks,
+        setAllHomeworks,
 
         // Events
         monthIndex,
@@ -557,7 +918,7 @@ const ContextProvider = (props) => {
         filteredEvents,
         updateEvent,
         deleteEvent,
-        eventToDB
+        eventToDB,
         // getAllEvents
       }}
     >

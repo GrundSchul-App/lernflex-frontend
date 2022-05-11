@@ -1,5 +1,6 @@
 // import EventsList from "./components/Attendance/EventsList";
 import Header from "./components/Header";
+import Main from "./components/Attendance/Main";
 import Sidebar from "./components/Sidebar";
 // import Main from "./components/Attendance/Main";
 // import CalendarComponents from "./components/CalendarComponent";
@@ -7,7 +8,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import RemoteCourse from "./pages/TeacherFolder/RemoteCourse.jsx";
 import AttendanceList from "./pages/TeacherFolder/AttendanceList";
 import Students from "./pages/TeacherFolder/Students";
-import Homeworks from "./pages/TeacherFolder/HomeWorks";
+import Homeworks from "./pages/TeacherFolder/Homeworks";
 import Teachers from "./pages/TeacherFolder/Teachers";
 import Subjects from "./pages/TeacherFolder/Subjects";
 import Classes from "./pages/TeacherFolder/Classes";

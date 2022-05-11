@@ -55,6 +55,7 @@ export function EditTeacherForm(props) {
     // const data= {
 
     // }
+   
     const response = await fetch(`${BACKEND_URL}/update/${teacherId._id} `, {
       method: "PUT",
       headers: {

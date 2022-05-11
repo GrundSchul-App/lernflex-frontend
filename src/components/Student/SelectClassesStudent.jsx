@@ -19,7 +19,7 @@ function SelectClassesStudent(props) {
       getAllClasses().then((res) => {
         if (res.message === "success") {
           setClasses(res.data);
-          console.log(res.data);
+          // console.log(res.data);
         }
 
         // getAllStudents().then((res) => {

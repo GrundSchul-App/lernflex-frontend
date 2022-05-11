@@ -6,13 +6,25 @@ import { Context } from "../../context/context";
 
 
 const Subjects = () => {
-  const {setMessageBackend } = useContext(Context);
-  useEffect(() => {
-    setMessageBackend("");
-  
-  }, []);
+  const {setMessageBackend,  getAllStudents,setStudents } = useContext(Context);
+ 
+
+  // useEffect(()=>{
+
+  //   getAllStudents().then((res) => {
+       
+  //         if (res.message === "success") {
+  //           setStudents(res.data);
+  //           console.log("result", res.data);
+  //         }
+  //       });
+  //     },[]); 
+
+
+
+
   return (
-    <div className="flex flex-row w-full justify-between">
+    <div className="flex flex-row w-full justify-between mr-4">
       <SubjectsMain />
       <div className="hidden flex-col lg:flex lg:ml-4 lg:w-1/4 ">
         <CalendarComponent />

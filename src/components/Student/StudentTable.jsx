@@ -1,10 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import BodyTable from "./BodyTable";
 
 import { Context } from "../../context/context";
 
 function StudentTable(props) {
-  const { studentsList,openModale } = useContext(Context);
+  const { studentsList,openModale,students,refDataBase,setStudents,getAllStudents } = useContext(Context);
+
+// useEffect(()=>{
+
+//  getAllStudents().then((res) => {
+   
+//       if (res.message === "success") {
+//         setStudents(res.data);
+//         console.log("result", res.data);
+//       }
+//     });
+//   },[]);
+
+
+
+
   return (
     <div className="rounded-2xl m-4 mt-0 py-4 bg-white ">
       <div className="flex flex-col">
@@ -23,25 +38,31 @@ function StudentTable(props) {
                     <tr>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                       >
                         #
                       </th>
                       <th
                         scope="col"
-                        className="text-left font-medium text-gray-900 px-6 py-4 "
+                        className="text-left text-sm text-gray-900 px-4 py-4 "
                       >
                         Vorname
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                       >
                         NachName
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
+                      >
+                        Klasse
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                       >
                         Gebutsdatum
                       </th>
@@ -53,7 +74,7 @@ function StudentTable(props) {
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                       >
                         Email
                       </th>
@@ -66,8 +87,8 @@ function StudentTable(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    {studentsList.length !== 0 &&
-                      studentsList.map((student, index) => {
+                    {
+                      students.map((student, index) => {
                         return (
                           <BodyTable
                             key={index}
