@@ -1,15 +1,18 @@
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 
+
+
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/context";
+
 
 export default function Day({ day, rowIdx }) {
   const [dayEvents, setDayEvents] = useState([]);
   const { setDaySelected, setShowEventModal, savedEvents, setSelectedEvent } =
     useContext(Context);
 
-  // console.log(dayjs(day).format("DD-MM-YY"));
+
   function getCurrentDayClass() {
     return day.format("DD-MM-YY") === dayjs().locale("de-DE").format("DD-MM-YY")
       ? "bg-blue-600 text-white rounded-full w-7"
@@ -18,7 +21,9 @@ export default function Day({ day, rowIdx }) {
 
   useEffect(() => {
     const events = savedEvents.filter((evt) => {
-      return dayjs(evt.date).format("DD-MM-YY") === day.format("DD-MM-YY");
+      return (
+        dayjs(evt.date).format("DD-MM-YY") === day.format("DD-MM-YY")
+      );
     });
     setDayEvents(events);
   }, [savedEvents, day]);

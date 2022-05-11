@@ -3,6 +3,7 @@ import Header from "./components/Header";
 
 import Main from "./components/Attendance/Main";
 import Sidebar from "./components/Sidebar";
+// import Main from "./components/Attendance/Main";
 // import CalendarComponents from "./components/CalendarComponent";
 import { Routes, Route, useLocation } from "react-router-dom";
 import RemoteCourse from "./pages/TeacherFolder/RemoteCourse.jsx";
@@ -24,11 +25,9 @@ function App() {
   return (
     <div className=" bg-[#8DD4C3] max-w-[1420px] mx-auto">
       <ContextProvider>
-        {location.pathname === "/landing" ? "" : <Header />}
+        {location.pathname !== '/landing' ? <Header /> : '' }
         <div className="flex justify-start ">
-          {location.pathname === "/landing" ? "" : <Sidebar />}
-
-          {/*   <Main />  */}
+          {location.pathname !== '/landing' ? <Sidebar /> : '' }
           <Routes>
             <Route path="/landing" element={<Landing />} />
             <Route path="/attendance" element={<AttendanceList />} />

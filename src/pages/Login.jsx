@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import studentImg from "../assets/images/student-laptop.jpg";
 import logo from "../assets/images/Logo.svg";
+import {Context} from "../context/context";
+
 
 const Login = () => {
+  const { BACKEND_URL } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+    if (!email || !password) return;
+    const user = { email, password };
+
+    try {
+      const url = `${BACKEND_URL}/login`;
+
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      setPassword("");
+      setEmail("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
       <div className="absolute top-8 right-8 w-[30vw] min-h-[320px] h-[30vh] bg-white rounded-xl p-6 min-w-[200px] opacity-100 hover:opacity-100">
