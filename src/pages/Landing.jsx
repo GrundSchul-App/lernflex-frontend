@@ -20,7 +20,7 @@ const Landing = () => {
     e.preventDefault();
     try {
     const response = await axios.post(
-      "http://localhost:4000/users/register",
+      "http://localhost:4000/register",
         JSON.stringify({
           firstName: firstName,
           lastName: lastName,
@@ -29,7 +29,7 @@ const Landing = () => {
       }),
       {
         headers: { "Content-Type": "application/json" },
-        // withCredentials: true,
+        withCredentials: true,
       }
     );
     setFirstName("");
@@ -41,7 +41,7 @@ const Landing = () => {
     setAuth({ email, password, resRole, resToken });
     console.log(response?.data);
     auth && navigate("/attendance");
-
+    return response?.data
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +51,7 @@ const Landing = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/users/login",
+        "http://localhost:4000/landing",
         JSON.stringify({
           email,
           password,
@@ -63,11 +63,12 @@ const Landing = () => {
       );
       setEmail("");
       setPassword("");
-      const resToken = response?.data?.password;
+      const resToken = response?.data?.token;
       const resRole = response?.data?.role;
+
       setAuth({ email, password, resRole, resToken });
       console.log(response?.data);
-
+      localStorage.setItem('token', resToken);
       navigate("/attendance");
     } catch (error) {
       console.log(error);
