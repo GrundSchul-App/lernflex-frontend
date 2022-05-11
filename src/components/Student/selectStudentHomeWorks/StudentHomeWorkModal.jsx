@@ -43,10 +43,12 @@ function StudentHomeWorkModal() {
           {" "}
           <GrFormClose />
         </button>
+        <div className="flex">
+        
 
           
         <HomeworkTable/>
-
+        </div>
         
       </div>
     </div>
