@@ -112,8 +112,7 @@ function TeacherTable(props) {
                                   key={index}
                                 >
                                   <li>
-                                    {modules.classes.className}/
-                                    {modules.subjects.subject_code}
+                                    {modules.classes.className}/{modules.subjects.subject_code}
                                   </li>
                                   
                                 </div>

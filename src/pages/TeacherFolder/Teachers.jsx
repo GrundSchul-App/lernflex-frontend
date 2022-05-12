@@ -35,7 +35,7 @@ function Teachers(props) {
     getAllTeachers().then((res) => {
       if (res.message === "success") {
         setTeachers(res.data);
-        // console.log("result", res.data);
+         console.log("result", res.data);
       }
     });
   }, [refDataBase]);

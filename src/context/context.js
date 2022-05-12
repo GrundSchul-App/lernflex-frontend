@@ -111,6 +111,7 @@ const ContextProvider = (props) => {
   const [editToggleModale, setEditToggleModale] = useState(false);
   const [toggleAddSubClassModale, setToggleAddSubClassModale] = useState(false);
   const [toggleHomeworModal,setToggleHomeworModale]=useState(false);
+  const [eventList,setEventList]=useState([]);
 
   const closeModale = () => {
     setToggleModale(false);
@@ -278,6 +279,18 @@ const ContextProvider = (props) => {
     });
     const body = await res.json();
     return body;
+  }
+  async function getAllEventByDate(date){
+    const res= await fetch(`${BACKEND_URL}/calendar/date/${date}`,{
+      header:{
+        Accept: "application/json",
+      },
+    });
+    
+    const body=await res.json();
+    console.log("body", body);
+    
+    return body
   }
 
   async function getAllTeachers() {
@@ -758,6 +771,7 @@ const ContextProvider = (props) => {
   //   localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
   // }, [savedEvents]);
 
+
   useEffect(() => {
     setLabels((prevLabels) => {
       return [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
@@ -827,6 +841,7 @@ const ContextProvider = (props) => {
         deleteRemoteById,
 
         editHomeWorkStudent,
+        getAllEventByDate,
 
 
 
@@ -866,6 +881,8 @@ const ContextProvider = (props) => {
         editStudent,
         studentId,
         setStudentId,
+        eventList,
+        setEventList,
 
         databaseUpdated,
         setDatabaseUpdated,

@@ -95,15 +95,15 @@ function StudentTab() {
   };
   // console.log("mein list", list);
 
-  const resetButton = () => {
-    attendanceList().then((res) => {
-      if (res.message === "success") {
-        setList(res.data);
-        // console.log("anwesenheit", res.data);
-      }
-    });
-    // console.log("list8777", list);
-  };
+  // const resetButton = () => {
+  //   attendanceList().then((res) => {
+  //     if (res.message === "success") {
+  //       setList(res.data);
+  //       // console.log("anwesenheit", res.data);
+  //     }
+  //   });
+  //   // console.log("list8777", list);
+  // };
 
 
    /// hausaufgaben wählen 
@@ -173,9 +173,10 @@ function StudentTab() {
         >
           <div>
             <div className="flex justify-around bg-[#8DD4C3]  items-center h-24 rounded-md ">
-              <SearchStudentBar />
-              <InputSearchStudent />
+            <SearchStudentBar />
+              
               <SelectClassesStudent />
+              <InputSearchStudent />
               <button
                 onClick={onClickHandelStudent}
                 className="flex  px-4 py-2 rounded-2xl bg-green-200 
@@ -205,9 +206,9 @@ function StudentTab() {
             >
               Anwesenheitsliste suchen{" "}
             </button>
-            <button className="bg-green-800" onClick={resetButton}>
+            {/* <button className="bg-green-800" onClick={resetButton}>
               refrech
-            </button>
+            </button> */}
           </div>
           {/* <AttendanceListForm/> */}
           <div className=" border text-lg mt-2 rounded-md p-5 text-center">

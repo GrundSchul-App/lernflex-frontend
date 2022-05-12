@@ -66,7 +66,10 @@ async function HomeWorkSendButton(){
   return (
     <div className="rounded-2xl m-4 p-4 bg-white w-full mr-4">
       <div className="flex flex-col">
-        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div  className=" bg-cyan-200 border text-lg mt-2 rounded-md p-5 text-center">
+          <h1 className="   font-bold text-green"> Die Homeworksliste</h1>
+        </div>
+        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 mt-5">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-hidden">
               <table className="min-w-full">
@@ -111,13 +114,15 @@ async function HomeWorkSendButton(){
                       scope="col"
                       className="font-medium  text-gray-900 px-4 py-4 text-left"
                     >
-                      Schüler/innen
+                      + Datei
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {homeworks.length !== 0 &&
                     homeworks.map((homeworkData, index) => {
+                      // console.log("homworkmap", homeworkData)
+            
                       return (
                         <tr
                           key={index}
@@ -146,12 +151,12 @@ async function HomeWorkSendButton(){
                           <td className="text-gray-900  px-4 py-4 whitespace-nowrap font-light">
                             {homeworkData.type}
                           </td>
-                          <td className="text-gray-900  px-4 py-4 whitespace-nowrap font-light">
+                          {/* <td className="text-gray-900  px-4 py-4 whitespace-nowrap font-light">
                             {homeworkData.absent}
-                          </td>
+                          </td> */}
                           <td className="text-gray-900  px-4 py-4 whitespace-nowrap font-light">
-                          <button onClick={()=> editHomeWorkStudent(homeworkData._id) } type="button">
-                                    <IoIosAddCircleOutline className="text-green-600" />
+                          <button className="m-2" onClick={()=> editHomeWorkStudent(homeworkData._id) } type="button">
+                                    <IoIosAddCircleOutline className="text-green-600 " />
                                   </button>
                           </td>
                         </tr>
@@ -163,7 +168,7 @@ async function HomeWorkSendButton(){
           </div>
         </div>
       </div>
-      <button type="button" onClick={HomeWorkSendButton}>HausAufgaben senden</button>
+      <button className="bg-cyan-500 hover:bg-cyan-600  font-bold text-white px-2 py-1 rounded-xl mt-5" type="button" onClick={HomeWorkSendButton}>HausAufgaben senden</button>
     </div>
   );
 }

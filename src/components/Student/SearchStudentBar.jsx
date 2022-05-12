@@ -4,7 +4,7 @@ import {Context} from '../../context/context'
 
 function SearchStudentBar(props) {
   // const [selectValue, setSelectValue]=useState([])
-  const {getAllStudents,setStudents,setSelectValue}=useContext(Context)
+  const {setSelectValue}=useContext(Context)
 
   // const getClassIdWithName = (e) => {
   //   getAllClasses();
@@ -73,7 +73,7 @@ setSelectValue(e.target.value);
         <option value="All">All</option>
         <option value="Name">Name</option>
         <option value="Klasse">Klasse</option>
-        <option value="Lehrer">Lehrer</option>
+       
       </select>
 
       
