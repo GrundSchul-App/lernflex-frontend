@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar";
 // import CalendarComponents from "./components/CalendarComponent";
 import { Routes, Route, useLocation } from "react-router-dom";
 import RemoteCourse from "./pages/TeacherFolder/RemoteCourse.jsx";
+import Remote from "./pages/TeacherFolder/Remote.jsx";
 import AttendanceList from "./pages/TeacherFolder/AttendanceList";
 import Students from "./pages/TeacherFolder/Students";
 import Homeworks from "./pages/TeacherFolder/Homeworks";
@@ -31,7 +32,8 @@ function App() {
           <Routes>
             <Route path="/landing" element={<Landing />} />
             <Route path="/attendance" element={<AttendanceList />} />
-            <Route path="/remote" element={<RemoteCourse />} />
+           {/*  <Route path="/remote" element={<RemoteCourse />} /> */}
+           <Route path="/remote" element={<Remote />} />
             <Route path="/students" element={<Students />} />
             <Route path="/homeworks" element={<Homeworks />} />
             <Route path="/teachers" element={<Teachers />} />
