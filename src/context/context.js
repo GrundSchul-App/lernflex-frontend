@@ -100,6 +100,7 @@ const ContextProvider = (props) => {
   const [allHomeworks, setAllHomeworks] = useState([]);
   const [homeworkDescription, setHomeworkDescription] = useState("");
   const [homeworkType, setHomeworkType] = useState("");
+const [onlineHomework, setOnlineHomework] = useState([])
   /*  const [fileHomework, setFileHomework] = useState(""); */
   const [urlHomework, setUrlHomework] = useState("");
   const [fileNameHomework, setFileNameHomework] = useState("");
@@ -937,6 +938,8 @@ const ContextProvider = (props) => {
         setHomeworkDescription,
         homeworkType,
         setHomeworkType,
+        onlineHomework,
+         setOnlineHomework,
         /*  fileHomework,
         setFileHomework, */
         urlHomework,

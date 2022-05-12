@@ -21,7 +21,7 @@ export default function EventModal() {
     selectedEvent ? selectedEvent.description : ""
   );
 
-console.log(daySelected);
+// console.log(daySelected);
 
   function handleSubmit(e) {
     e.preventDefault();
