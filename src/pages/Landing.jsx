@@ -7,12 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 
 const Landing = () => {
-  const { auth, setAuth } = useContext(Context);
+  const { setAuth } = useContext(Context);
+  const [loading, setLoading] = useState(false);
   const [ firstName, setFirstName ] = useState("");
   const [ lastName, setLastName ] = useState("");
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
-  const [ role, setRole ] = useState("admin");
+  // const [ role, setRole ] = useState("admin");
   const [userLogIn, setUserLogIn] = useState(false);
   const navigate = useNavigate();
 
@@ -36,49 +37,49 @@ const Landing = () => {
     setLastName("");
     setEmail("");
     setPassword("");
-    const resToken = response?.data?.password;
-    const resRole = response?.data?.role;
-    setAuth({ email, password, resRole, resToken });
-    console.log(response?.data);
-    auth && navigate("/attendance");
+    const resToken = response?.data?.token;
+    const resAdmin = response?.data?.admin;
+    localStorage.setItem("user", JSON.stringify(response?.data.data));
 
+    setAuth({ email, password, resAdmin, resToken });
+    console.log(response?.data);
+    navigate("/attendance");
     } catch (error) {
-      console.log(error);
+      throw new Error("Error: " + error.message);
     }
   }
 
   async function handleLogin(e) {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/users/login",
-        JSON.stringify({
-          email,
-          password,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          // withCredentials: true,
-        }
-      );
-      setEmail("");
-      setPassword("");
-      const resToken = response?.data?.password;
-      const resRole = response?.data?.role;
-      setAuth({ email, password, resRole, resToken });
-      console.log(response?.data);
-
-      navigate("/attendance");
-    } catch (error) {
-      console.log(error);
-    }
+    setLoading(true);
+    if (!email || !password) return;
+    axios
+      .post("http://localhost:4000/landing", {
+        email,
+        password,
+      })
+      .then(
+        function (response) {
+          const user = response?.data.data;
+          console.log('this is my user', user);
+          localStorage.setItem("user", JSON.stringify(user));
+          
+          const resToken = response?.data.data.token;
+          const resAdmin = response?.data?.admin;
+          setAuth({ email, password, resAdmin, resToken });
+          window.location.href = "/attendance";
+        },
+        { withCredentials: true }
+      )
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   const backgroundImageStyle = {
     backgroundImage: `url("${studentImg}")`,
     backgroundSize: "cover",
   };
-
   return (
     <div
       style={backgroundImageStyle}

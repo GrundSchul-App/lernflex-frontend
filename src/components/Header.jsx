@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/images/Logo.svg";
 import { BiMessageDetail } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 
+
+
 const Header = () => {
+  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const userProfile = userData.user.avatar;
+    setProfile(userProfile);
+    setUser(userData.user.firstName + " " + userData.user.lastName);
+  }, [])
   return (
     <header className="flex h-[80px] items-center pt-4 px-4 ">
       <nav
@@ -47,21 +57,16 @@ const Header = () => {
                 <AiOutlineMail className="w-6 h-6" />
               </a>
             </li>
-            <li>
-              <div className="m-1 w-12 h-12 relative rounded-full bg-gray-500 ">
-                <img
-                  src="http://source.unsplash.com/50x50/?girl"
-                  alt="avatar"
-                  className="rounded-full"
-                />
+            <li className="flex self-center">
+              <div className="m-1 items-center relative rounded-full bg-gray-500 ">
+                <img src={profile} alt="avatar" className="rounded-full w-10" />
               </div>
             </li>
-            <li>
+            <li className="flex">
               <a
                 href="#"
-                className="md:p-4 block hover:text-green-400 text-gray-500"
-              >
-                User Login
+                className="md:m-2 self-center hover:text-green-400 text-gray-500 truncate font-bold capitalize">
+                {user}
               </a>
             </li>
           </ul>

@@ -64,7 +64,9 @@ const ContextProvider = (props) => {
   const [students, setStudents] = useState([]);
   const [selectValue, setSelectValue] = useState([]);
   const [studentId, setStudentId] = useState([]);
-  const [getStudents, setGetStudents] = useState([]);
+  
+  //setStudentChecked(!studentChecked
+  const [studentChecked, setStudentChecked] = useState(false)
 
   const [teachers, setTeachers] = useState([]);
 
@@ -80,8 +82,12 @@ const ContextProvider = (props) => {
   const [classTeacher, setClassTeacher] = useState("");
 
   // Student Anwiesenheitsliste
-  const [getAnwiesenheitsListe, setgetAnwiesenheitsListe] = useState([]);
-  const [list, setList] = useState([]);
+
+  const [getAnwiesenheitsListe, setgetAnwiesenheitsListe]=useState([])
+  const [list, setList]=useState([])
+  const [selectAttendId,setSelectAttendId]=useState('');
+  const [selectAbsentId,setSelectAbsentId]=useState([]);
+
   /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([
     { subject: "", teacher: "" },
   ]); */
@@ -98,11 +104,13 @@ const ContextProvider = (props) => {
   const [urlHomework, setUrlHomework] = useState("");
   const [fileNameHomework, setFileNameHomework] = useState("");
   const [homeworkUploaded, setHomeworkUploaded] = useState(false);
+  const [homeWorkId,setHomeWorkId]=useState("");
 
   // Toggle modal teacher
   const [toggleModale, setToggleModale] = useState(false);
   const [editToggleModale, setEditToggleModale] = useState(false);
   const [toggleAddSubClassModale, setToggleAddSubClassModale] = useState(false);
+  const [toggleHomeworModal,setToggleHomeworModale]=useState(false);
 
   const closeModale = () => {
     setToggleModale(false);
@@ -111,6 +119,12 @@ const ContextProvider = (props) => {
     //  console.log("hello modal")
     setToggleModale(true);
   };
+  const closeHomeworkModale=()=>{
+    setToggleHomeworModale(false)
+  }
+  const openHomeworkModale=()=>{
+    setToggleHomeworModale(true)
+  }
   // Toggle modal edit teacher modal
 
   const closeEditModale = () => {
@@ -305,7 +319,7 @@ const ContextProvider = (props) => {
       },
     });
     const body = await res.json();
-    console.log("Bodyyy", body);
+    // console.log("Bodyyy", body);
     return body;
   }
 
@@ -694,6 +708,35 @@ const ContextProvider = (props) => {
     setJustTeacherId(id);
     openModaleAdd();
   }
+
+  function editHomeWorkStudent(id){
+    setHomeWorkId(id)
+   
+
+  }
+
+  //select id list and id absent 
+  function selectAbsentAndAttendance(id){
+    
+    console.log("select id",id)
+    // setSelectAttendId(id1)
+    if (!(selectAbsentId.find((item)=>item===id))){
+      
+      const newArray=[...selectAbsentId,id]
+      // setStudentChecked(!studentChecked)
+      setSelectAbsentId(newArray)
+      console.log("newArray", newArray);
+
+    }else {
+    
+     
+     console.log("student existiert schon"); 
+    }
+
+
+    
+    // console.log("result id", selectAbsentId);
+  }
   // edit Teacher modale open
   function editExistTeacher(teacher, id) {
     console.log("id Teacher edit:", teacher);
@@ -755,13 +798,19 @@ const ContextProvider = (props) => {
         openModale,
         closeEditModale,
         openEditModale,
+        closeHomeworkModale,
+        openHomeworkModale,
         editTeacherModules,
         getClassesByClassTeacherId,
         getClassesByModule,
 
         getAttendanceByClassIdAndSubject,
         attendanceList,
+
+        selectAbsentAndAttendance,
+
         deleteAttendanceById,
+
 
         /*  getTeacherAndSubjectsByClassId, */
         getAllHomeworks,
@@ -771,10 +820,15 @@ const ContextProvider = (props) => {
         getHomeworksByType,
         deleteHomeworkById,
         getHomeworksByTeacherId,
+
         // remoteWeeks
         getAllRemoteWeeks,
         addRemoteWeekToDatabase,
         deleteRemoteById,
+
+        editHomeWorkStudent,
+
+
 
         //URL
         BACKEND_URL,
@@ -821,7 +875,13 @@ const ContextProvider = (props) => {
         getAnwiesenheitsListe,
         setList,
         list,
-
+        studentChecked, 
+        setStudentChecked,
+        setSelectAttendId,
+        setSelectAbsentId,
+        homeWorkId,
+        selectAbsentId,
+        toggleHomeworModal,
         toggleModale,
         setToggleModale,
         editToggleModale,

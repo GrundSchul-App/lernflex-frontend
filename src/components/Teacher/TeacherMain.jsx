@@ -21,7 +21,7 @@ const getAllTeacherByClassAndSubject=()=>{
   getTeacherByClassIdAndSubjectId(classId, subjectId)
   .then((res) => {
   if (res.message === "success") {
-    console.log("res.data teacher by class and id", res.data);
+    // console.log("res.data teacher by class and id", res.data);
    
     setTeachers(res.data)
 
@@ -30,7 +30,7 @@ const getAllTeacherByClassAndSubject=()=>{
   }).catch((err) => {
   console.log("err", err);
   } );  
-  console.log(classId , subjectId);   
+  // console.log(classId , subjectId);   
 }
 
 const allTeacher=()=>{
@@ -38,7 +38,7 @@ const allTeacher=()=>{
   getAllTeachers().then((res) => {
     if (res.message === "success") {
       setTeachers(res.data);
-      console.log("result", res.data);
+      // console.log("result", res.data);
     }
   });
 }
@@ -55,13 +55,13 @@ const allTeacher=()=>{
         getAllClasses().then((res) => {
           if (res.message === "success") {
             setClasses(res.data);
-            console.log(res.data);
+            // console.log(res.data);
           }
         });
         getAllSubjects().then((res) => {
           if (res.message === "success") {
             setSubjects(res.data);
-            console.log('result2', res.data);
+            // console.log('result2', res.data);
           }
         });
 

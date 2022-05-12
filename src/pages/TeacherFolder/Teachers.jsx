@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import TeacherTable from "../../components/Teacher/TeacherTable";
 import CalendarComponents from "../../components/CalendarComponent";
 // import TeacherForm from "../../components/Teacher/TeacherForm";
@@ -35,7 +35,7 @@ function Teachers(props) {
     getAllTeachers().then((res) => {
       if (res.message === "success") {
         setTeachers(res.data);
-        console.log("result", res.data);
+        // console.log("result", res.data);
       }
     });
   }, [refDataBase]);
