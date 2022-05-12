@@ -33,53 +33,53 @@ function TeacherTable(props) {
 
   return (
     <div className="rounded-2xl m-4 mt-0 py-4 bg-white ">
-      <div className="flex flex-col">
-        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 ">
-            <div className="overflow-hidden ">
+      <div className="flex flex-col items-center">
+        <div className="overflow-x-auto sm:-mx-4 lg:-mx-4">
+          <div className="py-2 inline-block min-w-full sm:px-4 lg:px-4 ">
+            <div className="overflow-hidden   ">
               <form>
-                <table className="min-w-full ">
+                <table >
                   <thead className="bg-white border-b">
                     <tr>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                       >
                         #
                       </th>
                       <th
                         scope="col"
-                        className=" font-medium text-gray-900 px-6 py-4 "
+                        className=" font-medium text-sm text-gray-900 px-5 py-4 "
                       >
                         Vorname
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-5 py-4 text-left"
                       >
                         NachName
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-5 py-4 text-left"
                       >
                         Email
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-5 py-4 text-left"
                       >
                         Klasse/Fach
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-5 py-5 text-left"
                       >
                         Add Klasse/Fach
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-5 py-4 text-left"
                       >
                         Actions
                       </th>
@@ -91,27 +91,27 @@ function TeacherTable(props) {
 
                       return (
                         <tr key={index} className="bg-gray-100 border-b">
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {index + 1}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900">
+                          <td className="px-4 py-4 whitespace-nowrap text-md font-light text-gray-900">
                             {teacher.firstName}
                           </td>
-                          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          <td className="text-md text-gray-900 font-light px-4 py-4 whitespace-nowrap">
                             {teacher.lastName}
                           </td>
-                          <td className="text-left text-gray-900 font-light px-6 py-4 ">
+                          <td className="text-left text-gray-900 font-light px-4 py-4 ">
                             {teacher.email}
                           </td>
 
-                          <td className="text-center text-gray-900 font-light px-6 py-4 ">
+                          <td className="text-center text-gray-900 font-light p-4 ">
                             {teacher.modules.map((modules,index) => {
                               return (
                                 <div
-                                  className="flex justify-between"
+                                  className="flex justify-between "
                                   key={index}
                                 >
-                                  <li>
+                                  <li className="text-sm">
                                     {modules.classes.className}/{modules.subjects.subject_code}
                                   </li>
                                   
@@ -130,14 +130,14 @@ function TeacherTable(props) {
 
                           <td className="text-center text-green-600">
                             <button onClick={()=>editExistTeacher(teacher)} type="button">
-                              <AiFillEdit className="w-7 h-7 " />
+                              <AiFillEdit className="w-6 h-6 shadow-lg " />
                             </button>
                             <button
                               onClick={() => deleteTeacher(teacher._id)}
                               type="button"
                               className="text-red-600"
                             >
-                              <AiFillDelete className="w-7 h-7 text-red ml-3 " />
+                              <AiFillDelete className="w-6 h-6 text-red ml-3 shadow-lg" />
                             </button>
                           </td>
                           

@@ -159,12 +159,12 @@ function StudentTab() {
         >
           Anwesenheitsliste
         </button>
-        <button
+        {/* <button
           className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(3)}
         >
           Tab 3
-        </button>
+        </button> */}
       </div>
 
       <div className="content-tabs">
@@ -223,7 +223,7 @@ function StudentTab() {
           </button>
         </div>
 
-        <div
+        {/* <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
           <h2>Content 3</h2>
@@ -236,7 +236,7 @@ function StudentTab() {
             laboriosam architecto optio rem, dignissimos voluptatum beatae
             aperiam voluptatem atque. Beatae rerum dolores sunt.
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ function Students(props) {
   }, [refDataBase]);
 
   return (
-    <div className=" font-family-karla w-full  flex ml-4">
+    <div className=" font-family-karla w-full  flex mx-4 ">
       <StudentTab />
       <div className="hidden flex-col xl:flex xl:w-1/4  ml-4">
         <CalendarComponent />

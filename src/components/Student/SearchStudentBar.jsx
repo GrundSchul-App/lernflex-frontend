@@ -39,7 +39,7 @@ setSelectValue(e.target.value);
 
 
   return (
-    <div className="flex  p-[1%] rounded-xl bg-white max-w-[30%]   justify-center">
+    <div className="flex  p-2 rounded-xl bg-white max-w-[30%]   justify-center">
     
       <BiFilterAlt className="w-6 h-6 mr-3" />
       <h3 className="mr-[5px]">Filter nach</h3>
@@ -49,7 +49,7 @@ setSelectValue(e.target.value);
       block
       
       px-3
-      py-1.5
+      py-2
       mr-2
       text-base
       font-normal

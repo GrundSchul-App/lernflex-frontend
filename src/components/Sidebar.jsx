@@ -48,7 +48,7 @@ const Sidebar = () => {
             }`}
           >
             <AiOutlineCalendar />
-            <span className="ml-2 hidden sm:flex">Remote Unterricht</span>
+            <span className="ml-2 hidden sm:flex truncate">Remote Unterricht</span>
           </Link>
         </li>
         <li className="">

@@ -27,7 +27,7 @@ const {selectDate,setSelectDate,getAllEventByDate, setEventList}=useContext(Cont
   // console.log("select", selectDate);
   
   return (
-    <div className="bg-white rounded-xl w-full mt-4 py-[25px] px-[25px]">
+    <div className="bg-white rounded-xl w-full mt-4 overflow-hidden border-hidden ">
         
       <Calendar onChange={onChange} value={date} locale="de-DE" className="text-gray-500" onClick={setSelectDate(date)}/>
     </div>

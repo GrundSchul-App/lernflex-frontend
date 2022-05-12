@@ -15,9 +15,9 @@ const SelectClasses = ({ messageClass, setMessageClass }) => {
           className="form-select 
       block
       
-      px-3
+      
       py-1.5
-      mr-2
+     
       text-base
       font-normal
       text-gray-700

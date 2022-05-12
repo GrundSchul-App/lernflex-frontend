@@ -20,9 +20,9 @@ const SelectSubjects = ({ messageSubject, setMessageSubject }) => {
           className="form-select 
       block
       
-      px-3
+      px-2
       py-1.5
-      mr-2
+    
       text-base
       font-normal
       text-gray-700
