@@ -31,7 +31,7 @@ const HomeworksMainTable = () => {
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-hidden">
-              <table className="min-w-full">
+              <table className="min-w-full text-sm">
                 <thead className="bg-white border-b">
                   <tr>
                     <th
@@ -132,7 +132,7 @@ const HomeworksMainTable = () => {
                             >
                               <AiIcons.AiFillDelete
                                 title="Datei löschen"
-                                className="w-5 h-5 text-red ml-3 "
+                                className="w-5 h-5 text-red ml-3 mr-4 "
                               />
                             </button>
                             {showDeleteHomeworkModal && (
