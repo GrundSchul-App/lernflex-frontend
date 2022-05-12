@@ -31,12 +31,26 @@ export const Context = createContext({
 // }
 
 const ContextProvider = (props) => {
-
   const [auth, setAuth] = useState({});
   // Ghania und Blanca Context
 
+  const [remoteWeeks, setRemoteWeeks] = useState([]);
+  const [allRemotes, setAllRemotes] = useState([]);
+  const [infoDatas, setInfoDatas] = useState([]);
+  const [infoDataId, setInfoDataId] = useState("");
+  //const [startDate, setStartDate] = useState(dayjs().format("YYYY-MM-DD"));
+  const [startDate, setStartDate] = useState("");
+  const [homeworkId, setHomeworkId] = useState("");
+  const [homeworkText, setHomeworkText] = useState("");
+  const [monday, setMonday] = useState([]);
+  const [tuesday, setTuesday] = useState([]);
+  const [wednesday, setWednesday] = useState([]);
+  const [thursday, setThursday] = useState([]);
+  const [friday, setFriday] = useState([]);
+  const [showDay, setShowDay] = useState(false);
+
   const [allAttendanceList, setAllAttendanceList] = useState([]);
-  const [active,setActive]=useState(false)
+  const [active, setActive] = useState(false);
   const [classes, setClasses] = useState([]);
   const [allClasses, setAllClasses] = useState([]);
   const [classId, setClassId] = useState("");
@@ -66,8 +80,8 @@ const ContextProvider = (props) => {
   const [classTeacher, setClassTeacher] = useState("");
 
   // Student Anwiesenheitsliste
-  const [getAnwiesenheitsListe, setgetAnwiesenheitsListe]=useState([])
-  const [list, setList]=useState([])
+  const [getAnwiesenheitsListe, setgetAnwiesenheitsListe] = useState([]);
+  const [list, setList] = useState([]);
   /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([
     { subject: "", teacher: "" },
   ]); */
@@ -111,9 +125,9 @@ const ContextProvider = (props) => {
   const closeModaleAdd = () => {
     setToggleAddSubClassModale(false);
   };
-  const activeFilterArow=()=>{
-    setActive(active)
-  }
+  const activeFilterArow = () => {
+    setActive(active);
+  };
   // Zaki Context + Hooks Events
   // const initEvents = {
   //   loading: true,
@@ -133,7 +147,7 @@ const ContextProvider = (props) => {
       case "push":
         return [...state, payload];
       case "update":
-        console.log('my state ',state, 'my payload',payload);
+        console.log("my state ", state, "my payload", payload);
         return state.map((evt) => (evt.id === payload.id ? payload : evt));
       case "delete":
         console.log(state, type, payload);
@@ -171,52 +185,47 @@ const ContextProvider = (props) => {
         });
     };
     fetchData();
-
   }, [selectedEvent]);
 
+  async function eventToDB(data) {
+    console.log(data);
+    const res = await fetch(`${BACKEND_URL}/calendar`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
 
-    async function eventToDB(data) {
-      console.log(data);
-      const res = await fetch(`${BACKEND_URL}/calendar`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const body = await res.json();
-      return body;
-    }
-    
-    async function updateEvent(data) {
-      const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const body = await res.json();
-      return body;
-    }
+  async function updateEvent(data) {
+    const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
 
-    async function deleteEvent(data) {
-
-      const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const body = await res.json();
-      return body;
-    }
- 
-
+  async function deleteEvent(data) {
+    const res = await fetch(`${BACKEND_URL}/calendar/${data.id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
 
   async function eventToDB(data) {
     const res = await fetch(`${BACKEND_URL}/calendar`, {
@@ -268,16 +277,13 @@ const ContextProvider = (props) => {
   }
 
   const getClassIdAndName = (e) => {
-   
-    setClassId(e.target.value);    
+    setClassId(e.target.value);
     setClassName(e.target.options[e.target.selectedIndex].text);
-    
   };
 
   const getDatum = (date) => {
     let dateArray = date.split("T");
     return dateArray[0].split("-").reverse().join("-");
-    
   };
 
   async function getAllClasses() {
@@ -315,7 +321,7 @@ const ContextProvider = (props) => {
     return body;
   }
 
-/*   async function getAllHomeworks() {
+  /*   async function getAllHomeworks() {
     const res = await fetch(
       `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1`,
       {
@@ -331,38 +337,67 @@ const ContextProvider = (props) => {
   } */
 
   async function getAllHomeworks() {
-    const res = await fetch(
-      `${BACKEND_URL}/homeworks`,
-      {
-        headers: {
-          Accept: "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`${BACKEND_URL}/homeworks`, {
+      headers: {
+        Accept: "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
     const body = await res.json();
 
     return body;
   }
 
+  async function getAllRemoteWeeks() {
+    const res = await fetch(`${BACKEND_URL}/remoteWeek`, {
+      headers: {
+        Accept: "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    const body = await res.json();
 
+    return body;
+  }
+
+  async function addRemoteWeekToDatabase(data) {
+    const res = await fetch(`${BACKEND_URL}/remoteWeek/${data.startWeekDate}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    return body;
+  }
+
+  async function deleteRemoteById(remoteId) {
+    const res = await fetch(`${BACKEND_URL}/remoteWeek/${remoteId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
+    return body;
+  }
 
   async function getHomeworksByTeacherId(teacherId) {
-    const res = await fetch(
-      `${BACKEND_URL}/homeworks/teacher/${teacherId}`,     
-      {
-        headers: {
-          Accept: "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`${BACKEND_URL}/homeworks/teacher/${teacherId}`, {
+      headers: {
+        Accept: "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
     const body = await res.json();
 
     return body;
   }
- 
- /*  async function  getHomeworksBySubjectId(subjectId) {
+
+  /*  async function  getHomeworksBySubjectId(subjectId) {
     const res = await fetch(
       `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/subject/${subjectId}`,     
       {
@@ -377,22 +412,19 @@ const ContextProvider = (props) => {
     return body;
   } */
 
-  async function  getHomeworksBySubjectId(subjectId) {
-    const res = await fetch(
-      `${BACKEND_URL}/homeworks/subject/${subjectId}`,     
-      {
-        headers: {
-          Accept: "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+  async function getHomeworksBySubjectId(subjectId) {
+    const res = await fetch(`${BACKEND_URL}/homeworks/subject/${subjectId}`, {
+      headers: {
+        Accept: "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
     const body = await res.json();
 
     return body;
   }
 
-/*   async function  getHomeworksByType(type) {
+  /*   async function  getHomeworksByType(type) {
     const res = await fetch(
       `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/type/${type}`,     
       {
@@ -407,22 +439,19 @@ const ContextProvider = (props) => {
     return body;
   } */
 
-  async function  getHomeworksByType(type) {
-    const res = await fetch(
-      `${BACKEND_URL}/homeworks/type/${type}`,     
-      {
-        headers: {
-          Accept: "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+  async function getHomeworksByType(type) {
+    const res = await fetch(`${BACKEND_URL}/homeworks/type/${type}`, {
+      headers: {
+        Accept: "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    });
     const body = await res.json();
 
     return body;
   }
 
-/*   async function addHomeworkToDatabase(data) {
+  /*   async function addHomeworkToDatabase(data) {
     const res = await fetch(
       `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/add`,
       {
@@ -438,17 +467,14 @@ const ContextProvider = (props) => {
     return body;
   } */
   async function addHomeworkToDatabase(data) {
-    const res = await fetch(
-      `${BACKEND_URL}/homeworks`,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const res = await fetch(`${BACKEND_URL}/homeworks`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
     const body = await res.json();
     return body;
   }
@@ -464,8 +490,7 @@ const ContextProvider = (props) => {
     });
     const body = await res.json();
     return body;
-  } 
-
+  }
 
   async function deleteHomeworkById(homeworkId) {
     const res = await fetch(`${BACKEND_URL}/homeworks/${homeworkId}`, {
@@ -501,25 +526,23 @@ const ContextProvider = (props) => {
     return body;
   }
 
-  
-  
-  
-   async function getAttendanceByClassIdAndSubject(date,subjectId,classId) {
+  async function getAttendanceByClassIdAndSubject(date, subjectId, classId) {
     //  console.log("date async",date)
-    const res = await fetch(`${BACKEND_URL}/attendanceList/
-    ${date}/${subjectId}/${classId}`, {
-
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    console.log("select****",date);
+    const res = await fetch(
+      `${BACKEND_URL}/attendanceList/
+    ${date}/${subjectId}/${classId}`,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    console.log("select****", date);
     const body = await res.json();
 
     return body;
-  
   }
- 
+
   async function getClassesByModule(subjectId, teacherId) {
     const res = await fetch(
       `${BACKEND_URL}/classes/module/${subjectId}/${teacherId}`,
@@ -545,17 +568,15 @@ const ContextProvider = (props) => {
     return body;
   }
 
-
-async function attendanceList(){
-  const res= await fetch(`${BACKEND_URL}/attendanceList`,{
-    headers: {
-      Accept: "application/json",
-    },
-  });
-  const body=await res.json();
-  return body;
-}
-
+  async function attendanceList() {
+    const res = await fetch(`${BACKEND_URL}/attendanceList`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    const body = await res.json();
+    return body;
+  }
 
   async function addAttendanceList(data) {
     const res = await fetch(`${BACKEND_URL}/attendanceList/add`, {
@@ -750,16 +771,18 @@ async function attendanceList(){
         getHomeworksByType,
         deleteHomeworkById,
         getHomeworksByTeacherId,
-
+        // remoteWeeks
+        getAllRemoteWeeks,
+        addRemoteWeekToDatabase,
+        deleteRemoteById,
 
         //URL
         BACKEND_URL,
         //useState
 
         //attendanceList
-        allAttendanceList, 
+        allAttendanceList,
         setAllAttendanceList,
-
 
         classes,
         setClasses,
@@ -847,6 +870,33 @@ async function attendanceList(){
         setHomeworkUploaded,
         allHomeworks,
         setAllHomeworks,
+
+        // Remote
+        allRemotes,
+        setAllRemotes,
+        remoteWeeks,
+        setRemoteWeeks,
+        infoDatas,
+        setInfoDatas,
+        infoDataId,
+        setInfoDataId,
+        startDate,
+        setStartDate,
+        homeworkId,
+        setHomeworkId,
+        homeworkText,
+        setHomeworkText,
+        monday,
+        setMonday,
+        tuesday,
+        setTuesday,
+        wednesday,
+        setWednesday,
+        thursday,
+        setThursday,
+        friday,
+        setFriday,
+       showDay, setShowDay,
 
         // Events
         monthIndex,
