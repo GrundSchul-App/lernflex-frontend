@@ -95,15 +95,15 @@ function StudentTab() {
   };
   // console.log("mein list", list);
 
-  const resetButton = () => {
-    attendanceList().then((res) => {
-      if (res.message === "success") {
-        setList(res.data);
-        // console.log("anwesenheit", res.data);
-      }
-    });
-    // console.log("list8777", list);
-  };
+  // const resetButton = () => {
+  //   attendanceList().then((res) => {
+  //     if (res.message === "success") {
+  //       setList(res.data);
+  //       // console.log("anwesenheit", res.data);
+  //     }
+  //   });
+  //   // console.log("list8777", list);
+  // };
 
 
    /// hausaufgaben wählen 

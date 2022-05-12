@@ -5,7 +5,7 @@ import {Context} from '../context/context'
 function CalendarComponent(props) {
 const {selectDate,setSelectDate,getAllEventByDate, setEventList}=useContext(Context)
   const [date, setDate] = useState(new Date());
-  const date1= selectDate ? new Date(selectDate).toLocaleDateString() : "";
+  const date1= date ? new Date(date).toLocaleDateString() : "";
   console.log("date1", date1);
 
  
@@ -13,9 +13,9 @@ const {selectDate,setSelectDate,getAllEventByDate, setEventList}=useContext(Cont
 
   const onChange = (date) => {
     
-    console.log(date);
+    // console.log("date", date);
     
-    console.log(dateSuche);
+    console.log("selectDate", selectDate);
     getAllEventByDate(dateSuche).then((res) => {
       if(res.message === "success"){
     setEventList(res.data);
