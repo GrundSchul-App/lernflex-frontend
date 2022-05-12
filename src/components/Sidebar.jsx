@@ -17,7 +17,7 @@ const Sidebar = () => {
   const location = useLocation();
   const handleLogout = () => {
     localStorage.removeItem("user");
-    window.location.href = "/landing";
+    window.location.href = "/";
     return axios.post("http://localhost:4000/logout").then((response) => {
       return response.data;
     });
