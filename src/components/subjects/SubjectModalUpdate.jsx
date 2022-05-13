@@ -38,8 +38,8 @@ function SubjectModalUpdate({ subject, setShowUpdateSubjectModal }) {
   }
 
   return (
-    <div className="absolute inset-0 bg-black bg-opacity-10  flex justify-center items-center ">
-      <div className="flex flex-col p-4 bg-white justify-between items-center relative rounded-xl">
+    <div className="absolute inset-0 flex justify-center items-center ">
+      <div className="flex flex-col p-4 bg-white justify-between items-center relative rounded-xl shadow-2xl">
         <button
           onClick={() => setShowUpdateSubjectModal(false)}
           className="self-end px-2 py-0 bg-gray-200 rounded transition-all hover:cursor-pointer hover:bg-green-200 hover:shadow-xl"

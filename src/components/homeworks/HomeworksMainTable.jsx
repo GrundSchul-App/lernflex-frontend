@@ -116,14 +116,6 @@ const HomeworksMainTable = () => {
                                 className="w-5 h-5 "
                               />
                             </button>
-                            {showUpdateHomeworkModal && (
-                              <HomeworksModalUpdate
-                                homeworkToUpdate={homeworkToUpdate}
-                                setShowUpdateHomeworkModal={
-                                  setShowUpdateHomeworkModal
-                                }
-                              />
-                            )}
 
                             <button
                               type="button"
@@ -135,20 +127,24 @@ const HomeworksMainTable = () => {
                                 className="w-5 h-5 text-red ml-3 mr-4 "
                               />
                             </button>
-                            {showDeleteHomeworkModal && (
-                              <HomeworksModalDelete
-                                homeworkToDelete={homeworkToDelete}
-                                setShowDeleteHomeworkModal={
-                                  setShowDeleteHomeworkModal
-                                }
-                              />
-                            )}
                           </td>
                         </tr>
                       );
                     })}
                 </tbody>
               </table>
+              {showUpdateHomeworkModal && (
+                <HomeworksModalUpdate
+                  homeworkToUpdate={homeworkToUpdate}
+                  setShowUpdateHomeworkModal={setShowUpdateHomeworkModal}
+                />
+              )}
+              {showDeleteHomeworkModal && (
+                <HomeworksModalDelete
+                  homeworkToDelete={homeworkToDelete}
+                  setShowDeleteHomeworkModal={setShowDeleteHomeworkModal}
+                />
+              )}
             </div>
           </div>
         </div>
