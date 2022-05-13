@@ -1,17 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ShowImageOrPdf from "./ShowImageOrPdf";
 
 function DayTable({ dayList, dayDE }) {
-  useEffect(() => {
-  console.log("dayList", dayList);
-  }, []);
-
   return (
     <div className="flex flex-col w-1/5 mt-2  text-sm justify-start items-center">
       <p className="bg-green-300 min-w-full text-center p-2 text-base font-bold rounded-xl">
         {dayDE}
       </p>
-  
+
       {dayList.length !== 0 &&
         dayList.map((item, index) => (
           <div
@@ -30,14 +26,12 @@ function DayTable({ dayList, dayDE }) {
                 <p className="text-left">{item.homeworkText}</p>
               )}
 
-              {typeof item.homeworkData !== "undefined"  && (               
-                <ShowImageOrPdf link={item.homeworkData.link} />           
-                              
+              {typeof item.homeworkData !== "undefined" && (
+                <ShowImageOrPdf link={item.homeworkData.link} />
               )}
             </div>
           </div>
         ))}
-    
     </div>
   );
 }
