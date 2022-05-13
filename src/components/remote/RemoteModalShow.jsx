@@ -46,12 +46,12 @@ function RemoteModalShow({ remoteToShow, setShowRemoteModal }) {
 
   return (
     <div
-      className="absolute inset-0 bg-black bg-opacity-30  flex justify-center
+      className="absolute inset-0 flex justify-center
    items-center overflow-hidden"
     >
       <div
         className="flex flex-col p-4 w-2/3 bg-white justify-between items-center
-     relative rounded-xl overflow-scroll overflow-x-hidden"
+     relative rounded-xl overflow-scroll overflow-x-hidden shadow-3xl"
       >
         <button
           onClick={() => setShowRemoteModal(false)}

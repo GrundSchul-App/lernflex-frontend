@@ -37,12 +37,12 @@ function FilterByTeacher({ setShowModal }) {
 
   return (
     <div
-      className="absolute inset-0 bg-black bg-opacity-30  flex justify-center
+      className="absolute inset-0 flex justify-center
          items-center "
     >
       <div
         className="flex flex-col p-4 w-1/2 bg-white justify-between items-center
-           relative rounded-xl"
+           relative rounded-xl shadow-3xl"
       >
         <button
           onClick={() => {
@@ -56,7 +56,7 @@ function FilterByTeacher({ setShowModal }) {
         >
           x
         </button>
-        <h3 className="font-semibold mt-4">Filter bei Teacher</h3>
+        <h3 className="font-semibold mt-4">Filter bei Lehrer/in</h3>
 
         <div className="w-2/3 mt-6 ">
           <SelectTeacher />

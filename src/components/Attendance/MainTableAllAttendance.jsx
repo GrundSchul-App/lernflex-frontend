@@ -154,18 +154,18 @@ const MainTableAllAttendance = () => {
                                 className="w-5 h-5 text-red mr-4 "
                               />
                             </button>
-                            {showDeleteModal && (
-                              <AttendanceModalDelete
-                                attendanceToDelete={attendanceToDelete}
-                                setShowDeleteModal={setShowDeleteModal}
-                              />
-                            )}
                           </td>
                         </tr>
                       );
                     })}
                 </tbody>
               </table>
+              {showDeleteModal && (
+                <AttendanceModalDelete
+                  attendanceToDelete={attendanceToDelete}
+                  setShowDeleteModal={setShowDeleteModal}
+                />
+              )}
             </div>
           </div>
         </div>
