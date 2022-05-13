@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../../context/context";
 import * as AiIcons from "react-icons/ai";
 import RemoteModalDelete from "./RemoteModalDelete";
@@ -15,8 +15,6 @@ const RemoteMainTable = () => {
   const [remoteToUpdate, setRemoteToUpdate] = useState("");
   const [remoteToShow, setRemoteToShow] = useState("");
 
-
-
   const deleteRemote = (remoteData) => {
     setRemoteToDelete(remoteData);
     setShowDeleteRemoteModal(true);
@@ -28,14 +26,9 @@ const RemoteMainTable = () => {
   };
 
   const showRemote = (remoteData) => {
-    console.log("showRemote");
     setRemoteToShow(remoteData);
     setShowRemoteModal(true);
   };
-
-  useEffect(() => {
-    console.log("RemoteMainTable");
-  }, [])
 
   return (
     <div className="rounded-2xl m-4 p-4 bg-white w-full mr-4">
@@ -99,12 +92,6 @@ const RemoteMainTable = () => {
                                 className="w-5 h-5 "
                               />
                             </button>
-                            {showRemoteModal && (
-                              <RemoteModalShow
-                                remoteToShow={remoteToShow}
-                                setShowRemoteModal={setShowRemoteModal}
-                              />
-                            )}
 
                             <button
                               type="button"
@@ -116,14 +103,6 @@ const RemoteMainTable = () => {
                                 className="w-5 h-5 ml-3 "
                               />
                             </button>
-                            {showUpdateRemoteModal && (
-                              <RemoteModalUpdate
-                                remoteToUpdate={remoteToUpdate}
-                                setShowUpdateRemoteModal={
-                                  setShowUpdateRemoteModal
-                                }
-                              />
-                            )}
 
                             <button
                               type="button"
@@ -135,20 +114,30 @@ const RemoteMainTable = () => {
                                 className="w-5 h-5 text-red ml-3 "
                               />
                             </button>
-                            {showDeleteRemoteModal && (
-                              <RemoteModalDelete
-                                remoteToDelete={remoteToDelete}
-                                setShowDeleteRemoteModal={
-                                  setShowDeleteRemoteModal
-                                }
-                              />
-                            )}
                           </td>
                         </tr>
                       );
                     })}
                 </tbody>
               </table>
+              {showRemoteModal && (
+                <RemoteModalShow
+                  remoteToShow={remoteToShow}
+                  setShowRemoteModal={setShowRemoteModal}
+                />
+              )}
+              {showUpdateRemoteModal && (
+                <RemoteModalUpdate
+                  remoteToUpdate={remoteToUpdate}
+                  setShowUpdateRemoteModal={setShowUpdateRemoteModal}
+                />
+              )}
+              {showDeleteRemoteModal && (
+                <RemoteModalDelete
+                  remoteToDelete={remoteToDelete}
+                  setShowDeleteRemoteModal={setShowDeleteRemoteModal}
+                />
+              )}
             </div>
           </div>
         </div>

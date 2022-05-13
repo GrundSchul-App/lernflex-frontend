@@ -1,43 +1,44 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Context } from "../../context/context";
-import { Document, Page } from "react-pdf";
+import { Document } from "react-pdf";
 
 import DayTable from "./DayTable";
 
 function RemoteModalShow({ remoteToShow, setShowRemoteModal }) {
   const { getDatum } = useContext(Context);
 
- 
- /*  const [numPages, setNumPages] = useState(null);
+  /*  const [numPages, setNumPages] = useState(null);
   const [pageNumber] = useState(1); */
- 
-/* 
+
+  /* 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
   }; */
 
- function getPdfOrImg() {
-    console.log("RemoteModalShow");
+  function getPdfOrImg() {
+    // console.log("RemoteModalShow");
 
     if (typeof remoteToShow.infoData !== "undefined") {
-      console.log("remoteToShow.infoData.link", remoteToShow.infoData.link);
+      // console.log("remoteToShow.infoData.link", remoteToShow.infoData.link);
       const dataArr = remoteToShow.infoData.link.split(".");
       const fileExtension = dataArr[dataArr.length - 1];
       if (fileExtension === "pdf") {
         return (
-        <Document className="w-1/2"
-          file={remoteToShow.infoData.link}
-         /*  onLoadSuccess={onDocumentLoadSuccess} */
-        >
-         {/*  <Page pageNumber={pageNumber} /> */}
-        </Document>
-      
-     )
+          <Document
+            className="w-1/2"
+            file={remoteToShow.infoData.link}
+            /*  onLoadSuccess={onDocumentLoadSuccess} */
+          >
+            {/*  <Page pageNumber={pageNumber} /> */}
+          </Document>
+        );
       } else {
         return (
-         
-            <img className="w-1/2" src={remoteToShow.infoData.link} alt="remoteToShow.infoData.link" />
-          
+          <img
+            className="w-1/2"
+            src={remoteToShow.infoData.link}
+            alt={remoteToShow.infoData.link}
+          />
         );
       }
     }
@@ -45,7 +46,7 @@ function RemoteModalShow({ remoteToShow, setShowRemoteModal }) {
 
   return (
     <div
-      className="absolute inset-0 bg-black bg-opacity-10  flex justify-center
+      className="absolute inset-0 bg-black bg-opacity-30  flex justify-center
    items-center overflow-hidden"
     >
       <div
@@ -65,10 +66,7 @@ function RemoteModalShow({ remoteToShow, setShowRemoteModal }) {
         </h3>
 
         {typeof remoteToShow.infoData !== "undefined" && (
-          <div className="mt-4 flex justify-center">
-            {getPdfOrImg()}
-             
-          </div>
+          <div className="mt-4 flex justify-center">{getPdfOrImg()}</div>
         )}
 
         <div className="flex justify-between w-full gap-2 mt-2">

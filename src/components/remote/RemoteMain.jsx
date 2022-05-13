@@ -9,11 +9,8 @@ function RemoteMain() {
   const {
     getAllRemoteWeeks,
     remoteWeeks,
-
     setOption,
-
     setRemoteWeeks,
-
     setAllRemotes,
     setDatabaseUpdated,
     databaseUpdated,

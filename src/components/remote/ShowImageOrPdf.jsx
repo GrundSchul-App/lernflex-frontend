@@ -17,7 +17,7 @@ function ShowImageOrPdf({ link }) {
   };
 
   useEffect(() => {  
-    console.log("link", link);
+    // console.log("link", link);
    if (link.length !== 0) {
 
     const dataArr = link.split(".");

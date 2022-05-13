@@ -7,7 +7,6 @@ function Week() {
 
   const weekDays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
   const [createDay, setCreateDay] = useState(undefined);
-  const [buttonOn, setButtonOn] = useState(false);
 
   function onClick(e, index) {
     e.preventDefault();
