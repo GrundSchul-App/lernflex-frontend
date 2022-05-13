@@ -51,7 +51,7 @@ function RemoteModalShow({ remoteToShow, setShowRemoteModal }) {
     >
       <div
         className="flex flex-col p-4 w-2/3 bg-white justify-between items-center
-     relative rounded-xl overflow-scroll overflow-x-hidden shadow-2xl"
+     relative rounded-xl overflow-scroll overflow-x-hidden shadow-3xl"
       >
         <button
           onClick={() => setShowRemoteModal(false)}

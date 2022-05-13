@@ -67,7 +67,7 @@ function ClassesModalUpdate({ classToUpdate, setShowUpdateClassModal }) {
     >
       <div
         className="flex flex-col p-4 w-1/2 bg-white justify-between items-center
-       relative rounded-xl shadow-2xl"
+       relative rounded-xl shadow-3xl"
       >
         <button
           onClick={() => setShowUpdateClassModal(false)}
