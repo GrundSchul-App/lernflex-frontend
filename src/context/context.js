@@ -482,7 +482,7 @@ const [onlineHomework, setOnlineHomework] = useState([])
   /*   async function addHomeworkToDatabase(data) {
     const res = await fetch(
       `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/add`,
-      {
+      {console.log(object);
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -708,12 +708,14 @@ const [onlineHomework, setOnlineHomework] = useState([])
   }
 
   const filteredEvents = useMemo(() => {
-    return savedEvents.filter((evt) =>
+    return(  savedEvents.length > 0 &&  savedEvents.filter((evt) =>
       labels
+      
         .filter((lbl) => lbl.checked)
         .map((lbl) => lbl.label)
         .includes(evt.label)
-    );
+        
+    ));
   }, [savedEvents, labels]);
 
   // neu Fach und klasse zu teacher hinzufügen
@@ -775,13 +777,13 @@ const [onlineHomework, setOnlineHomework] = useState([])
 
   useEffect(() => {
     setLabels((prevLabels) => {
-      return [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
+      return(   savedEvents.length > 0 && [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
         const currentLabel = prevLabels.find((lbl) => lbl.label === label);
         return {
           label,
           checked: currentLabel ? currentLabel.checked : true,
         };
-      });
+      }));
     });
   }, [savedEvents]);
 
@@ -895,7 +897,7 @@ const [onlineHomework, setOnlineHomework] = useState([])
         list,
         studentChecked, 
         setStudentChecked,
-        setSelectAttendId,
+        // setSelectAttendId,
         setSelectAbsentId,
         homeWorkId,
         selectAbsentId,

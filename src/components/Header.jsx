@@ -31,7 +31,7 @@ const Header = () => {
       >
         <div>
           <a href="">
-            <img className="h-auto -ml-4 object-top" src={logo} />
+            <img className="h-auto -ml-4 object-top" src={logo} alt="" />
           </a>
         </div>
 
