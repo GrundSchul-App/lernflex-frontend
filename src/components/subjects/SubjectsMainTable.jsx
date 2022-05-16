@@ -11,7 +11,7 @@ const SubjectsMainTable = () => {
   const [ShowDeleteSubjectModal, setShowDeleteSubjectModal] = useState(false);
   const [subjectToDelete, setSubjectToDelete] = useState("");
   const [subjectToUpdate, setSubjectToUpdate] = useState("");
- 
+
   const [showUpdateSubjectModal, setShowUpdateSubjectModal] = useState(false);
 
   function deleteSubject(subject) {
@@ -96,14 +96,6 @@ const SubjectsMainTable = () => {
                               className="w-5 h-5 "
                             />
                           </button>
-                          {showUpdateSubjectModal && (
-                            <SubjectModalUpdate
-                              subject={subjectToUpdate}
-                              setShowUpdateSubjectModal={
-                                setShowUpdateSubjectModal
-                              }
-                            />
-                          )}
 
                           <button
                             type="button"
@@ -115,20 +107,25 @@ const SubjectsMainTable = () => {
                               className="w-5 h-5 text-red ml-3 "
                             />
                           </button>
-                          {ShowDeleteSubjectModal && (
-                            <SubjectModalDelete
-                              subject={subjectToDelete}
-                              setShowDeleteSubjectModal={
-                                setShowDeleteSubjectModal
-                              }
-                            />
-                          )}
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
+              {showUpdateSubjectModal && (
+                <SubjectModalUpdate
+                  subject={subjectToUpdate}
+                  setShowUpdateSubjectModal={setShowUpdateSubjectModal}
+                />
+              )}
+
+              {ShowDeleteSubjectModal && (
+                <SubjectModalDelete
+                  subject={subjectToDelete}
+                  setShowDeleteSubjectModal={setShowDeleteSubjectModal}
+                />
+              )}
             </div>
           </div>
         </div>
