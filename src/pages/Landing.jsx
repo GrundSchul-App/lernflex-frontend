@@ -21,7 +21,7 @@ const Landing = () => {
     e.preventDefault();
     try {
     const response = await axios.post(
-      "http://localhost:4000/users/register",
+      `${process.env.REACT_APP_BACKEND_URL}/users/register`,
         JSON.stringify({
           firstName: firstName,
           lastName: lastName,
@@ -54,7 +54,7 @@ const Landing = () => {
     setLoading(true);
     if (!email || !password) return;
     axios
-      .post("http://localhost:4000/landing", {
+      .post(`${process.env.REACT_APP_BACKEND_URL}/landing`, {
         email,
         password,
       })

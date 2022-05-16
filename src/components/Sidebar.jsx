@@ -13,12 +13,14 @@ import { RiCalendarEventLine } from "react-icons/ri";
 import { FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
+
 const Sidebar = () => {
   const location = useLocation();
   const handleLogout = () => {
     localStorage.removeItem("user");
     window.location.href = "/";
-    return axios.post("http://localhost:4000/logout").then((response) => {
+
+    return axios.post(`${process.env.REACT_APP_BACKEND_URL}/logout`).then((response) => {
       return response.data;
     });
   }
