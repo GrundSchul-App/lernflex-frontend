@@ -85,7 +85,7 @@ const ContextProvider = (props) => {
 
   const [getAnwiesenheitsListe, setgetAnwiesenheitsListe]=useState([])
   const [list, setList]=useState([])
-  const [selectAttendId,setSelectAttendId]=useState('');
+  // const [selectAttendId,setSelectAttendId]=useState('');
   const [selectAbsentId,setSelectAbsentId]=useState([]);
 
   /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([

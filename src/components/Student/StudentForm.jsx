@@ -48,6 +48,7 @@ import { IoIosPeople } from "react-icons/io";
       classId:classId,
       
     }),
+    
 
  });
  const content= await response.json()
