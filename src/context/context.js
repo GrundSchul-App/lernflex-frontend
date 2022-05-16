@@ -707,6 +707,7 @@ const ContextProvider = (props) => {
   }
 
   const filteredEvents = useMemo(() => {
+    console.log("saveevent", savedEvents);
     return savedEvents.filter((evt) =>
       labels
         .filter((lbl) => lbl.checked)
