@@ -38,7 +38,7 @@ const Sidebar = () => {
             }`}
           >
             <FaRegListAlt />
-            <span className="ml-2 hidden sm:flex">Anwesenheitsliste</span>
+            <span className="ml-2 hidden sm:flex">Abwesenheitsliste</span>
           </Link>
         </li>
         <li className="">
