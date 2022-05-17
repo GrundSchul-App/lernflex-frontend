@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import EventsList from "../../components/Attendance/EventsList";
 import SubjectsMain from "../../components/subjects/SubjectsMain";
 import CalendarComponent from "../../components/CalendarComponent";

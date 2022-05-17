@@ -707,12 +707,13 @@ const ContextProvider = (props) => {
   }
 
   const filteredEvents = useMemo(() => {
-    return savedEvents.filter((evt) =>
-      labels
+    console.log("saveevent", savedEvents);
+    return (savedEvents.length > 0 && savedEvents.filter((evt) =>
+   labels.length >0 &&   labels
         .filter((lbl) => lbl.checked)
         .map((lbl) => lbl.label)
         .includes(evt.label)
-    );
+    ));
   }, [savedEvents, labels]);
 
   // neu Fach und klasse zu teacher hinzufügen
@@ -774,13 +775,14 @@ const ContextProvider = (props) => {
 
   useEffect(() => {
     setLabels((prevLabels) => {
-      return [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
-        const currentLabel = prevLabels.find((lbl) => lbl.label === label);
+      return (  savedEvents.length > 0 && [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
+       
+        const currentLabel = prevLabels.length >0 && prevLabels.find((lbl) => lbl.label === label);
         return {
           label,
           checked: currentLabel ? currentLabel.checked : true,
         };
-      });
+      }));
     });
   }, [savedEvents]);
 
