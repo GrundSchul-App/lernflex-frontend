@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
-import EventsList from "../../components/Attendance/EventsList";
+// import EventsList from "../../components/Attendance/EventsList";
 import HomeworksMain from "../../components/homeworks/HomeworksMain";
-import CalendarComponent from "../../components/CalendarComponent";
+// import CalendarComponent from "../../components/CalendarComponent";
 import { Context } from "../../context/context";
 
 function Homeworks() {
