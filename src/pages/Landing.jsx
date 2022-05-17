@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Landing = () => {
-  const { setAuth } = useContext(Context);
+  const { setAuth,BACKEND_URL } = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [ firstName, setFirstName ] = useState("");
   const [ lastName, setLastName ] = useState("");
@@ -21,7 +21,7 @@ const Landing = () => {
     e.preventDefault();
     try {
     const response = await axios.post(
-      "http://localhost:4000/users/register",
+      `${BACKEND_URL}/users/register`,
         JSON.stringify({
           firstName: firstName,
           lastName: lastName,
@@ -51,29 +51,52 @@ const Landing = () => {
 
   async function handleLogin(e) {
     e.preventDefault();
-    setLoading(true);
-    if (!email || !password) return;
-    axios
-      .post("http://localhost:4000/landing", {
-        email,
-        password,
-      })
-      .then(
-        function (response) {
-          const user = response?.data.data;
-          console.log('this is my user', user);
-          localStorage.setItem("user", JSON.stringify(user));
+    try{
+      setLoading(true);
+      if (!email || !password) return;
+      axios
+        .post(`${BACKEND_URL}/landing`, {
+          email,
+          password,
+        })
+        .then(
+          function (response) {
+            const user = response?.data.data;
+            console.log('this is my user', user);
+            localStorage.setItem("user", JSON.stringify(user));
+            
+            const resToken = response?.data.data.token;
+            const resAdmin = response?.data?.admin;
+            setAuth({ email, password, resAdmin, resToken });
+            // window.location.href = "/attendance";
+            navigate("/attendance");
+          },
+          { withCredentials: true }
+        )
+    } catch(error) {
+      console.log(error);
+    };
+    // setLoading(true);
+    // if (!email || !password) return;
+    // axios
+    //   .post(`${BACKEND_URL}/landing`, {
+    //     email,
+    //     password,
+    //   })
+    //   .then(
+    //     function (response) {
+    //       const user = response?.data.data;
+    //       console.log('this is my user', user);
+    //       localStorage.setItem("user", JSON.stringify(user));
           
-          const resToken = response?.data.data.token;
-          const resAdmin = response?.data?.admin;
-          setAuth({ email, password, resAdmin, resToken });
-          window.location.href = "/attendance";
-        },
-        { withCredentials: true }
-      )
-      .catch(function (error) {
-        console.log(error);
-      });
+    //       const resToken = response?.data.data.token;
+    //       const resAdmin = response?.data?.admin;
+    //       setAuth({ email, password, resAdmin, resToken });
+    //       window.location.href = "/attendance";
+    //     },
+    //     { withCredentials: true }
+    //   )
+      
   }
 
   const backgroundImageStyle = {
@@ -183,7 +206,7 @@ const Landing = () => {
                 type="submit"
                 className="border-2 p-2 rounded-lg  mt-4 w-full font-bold  bg-gray-300 hover:bg-gray-400"
               >
-                Registerieren
+                Registrieren
               </button>
             </div>
           )}

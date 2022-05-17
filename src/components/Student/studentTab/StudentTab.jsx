@@ -14,7 +14,11 @@ import AttendanceListTable from "../../AttendanceListStudent/AttendanceListTable
 // import { format } from 'date-fns'
 
 function StudentTab() {
+
  
+
+  // const [classSubjectList, setClassSubjectList] = useState([]);
+
   const [toggleState, setToggleState] = useState(1);
   const {
     getStudentsByClassId,
@@ -23,12 +27,11 @@ function StudentTab() {
     getAllStudents,
     setStudents,
     students,
-  
     setList,
     selectDate,
     getAttendanceByClassIdAndSubject,
     subjectId,
-    
+
     openHomeworkModale,
     getAllHomeworks,
     setAllHomeworks,

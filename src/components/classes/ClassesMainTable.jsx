@@ -7,10 +7,10 @@ import ClassesModalUpdate from "./ClassesModalUpdate";
 
 const ClassesMainTable = () => {
   const { messageBackend, classes } = useContext(Context);
- /*  console.log(classes); */
+  /*  console.log(classes); */
 
   const [showDeleteClassModal, setShowDeleteClassModal] = useState(false);
- 
+
   const [showUpdateClassModal, setShowUpdateClassModal] = useState(false);
 
   const [classToDelete, setClassToDelete] = useState("");
@@ -28,7 +28,6 @@ const ClassesMainTable = () => {
 
   return (
     <div className="rounded-2xl m-4 p-4 bg-white w-full mr-4">
-     
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -73,11 +72,11 @@ const ClassesMainTable = () => {
                         <td className="text-gray-900  px-6 py-4 whitespace-nowrap font-light">
                           {classData.className}
                         </td>
-                     {/*   <td className="text-left font-light">
+                        {/*   <td className="text-left font-light">
                           {classData.classTeacher.firstName}{" "}
                           {classData.classTeacher.lastName}
                         </td> */}
-                         {/* 
+                        {/* 
                         <td className="text-left font-light">
                           {classData.modules.map((modul, index) => {
                             return (
@@ -104,12 +103,6 @@ const ClassesMainTable = () => {
                               className="w-5 h-5 "
                             />
                           </button>
-                          {showUpdateClassModal && (
-                            <ClassesModalUpdate
-                              classToUpdate={classToUpdate}
-                              setShowUpdateClassModal={setShowUpdateClassModal}
-                            />
-                          )}
 
                           <button
                             type="button"
@@ -121,18 +114,24 @@ const ClassesMainTable = () => {
                               className="w-5 h-5 text-red ml-3 "
                             />
                           </button>
-                          {showDeleteClassModal && (
-                            <ClassesModalDelete
-                              classToDelete={classToDelete}
-                              setShowDeleteClassModal={setShowDeleteClassModal}
-                            />
-                          )}
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
+              {showUpdateClassModal && (
+                <ClassesModalUpdate
+                  classToUpdate={classToUpdate}
+                  setShowUpdateClassModal={setShowUpdateClassModal}
+                />
+              )}
+              {showDeleteClassModal && (
+                <ClassesModalDelete
+                  classToDelete={classToDelete}
+                  setShowDeleteClassModal={setShowDeleteClassModal}
+                />
+              )}
             </div>
           </div>
         </div>

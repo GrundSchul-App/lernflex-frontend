@@ -708,13 +708,12 @@ const [onlineHomework, setOnlineHomework] = useState([])
   }
 
   const filteredEvents = useMemo(() => {
-    return(  savedEvents.length > 0 &&  savedEvents.filter((evt) =>
-      labels
-      
+    console.log("saveevent", savedEvents);
+    return (savedEvents.length > 0 && savedEvents.filter((evt) =>
+   labels.length >0 &&   labels
         .filter((lbl) => lbl.checked)
         .map((lbl) => lbl.label)
         .includes(evt.label)
-        
     ));
   }, [savedEvents, labels]);
 
@@ -777,8 +776,9 @@ const [onlineHomework, setOnlineHomework] = useState([])
 
   useEffect(() => {
     setLabels((prevLabels) => {
-      return(   savedEvents.length > 0 && [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
-        const currentLabel = prevLabels.find((lbl) => lbl.label === label);
+      return (  savedEvents.length > 0 && [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
+       
+        const currentLabel = prevLabels.length >0 && prevLabels.find((lbl) => lbl.label === label);
         return {
           label,
           checked: currentLabel ? currentLabel.checked : true,

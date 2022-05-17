@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useContext} from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { RiLogoutBoxRLine } from "react-icons/ri";
@@ -12,13 +12,16 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { RiCalendarEventLine } from "react-icons/ri";
 import { FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { Context} from '../context/context'
 
 const Sidebar = () => {
+  const {BACKEND_URL}=useContext(Context)
   const location = useLocation();
   const handleLogout = () => {
     localStorage.removeItem("user");
     window.location.href = "/";
-    return axios.post("http://localhost:4000/logout").then((response) => {
+
+    return axios.post(`${BACKEND_URL}/logout`).then((response) => {
       return response.data;
     });
   }
