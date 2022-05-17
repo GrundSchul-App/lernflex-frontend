@@ -68,7 +68,8 @@ const Landing = () => {
             const resToken = response?.data.data.token;
             const resAdmin = response?.data?.admin;
             setAuth({ email, password, resAdmin, resToken });
-            window.location.href = "/attendance";
+            // window.location.href = "/attendance";
+            navigate("/attendance");
           },
           { withCredentials: true }
         )
@@ -205,7 +206,7 @@ const Landing = () => {
                 type="submit"
                 className="border-2 p-2 rounded-lg  mt-4 w-full font-bold  bg-gray-300 hover:bg-gray-400"
               >
-                Registerieren
+                Registrieren
               </button>
             </div>
           )}
