@@ -35,7 +35,7 @@ function StudentHomeWorkModal() {
 
   return (
     <div className="absolute inset-0 bg-black bg-opacity-75   flex justify-center items-center ">
-      <div className="w-[900px] h-[500px] bg-white  flex justify-center items-center relative rounded-xl">
+      <div className="min-w-[900px] min-h-[500px] bg-white  flex justify-center items-center relative rounded-xl">
         <button
           onClick={closeHomeworkModale}
           className="absolute top-[10px] right-[10px]"
@@ -44,13 +44,11 @@ function StudentHomeWorkModal() {
           <GrFormClose />
         </button>
         <div className="flex">
-        
-
-          
         <HomeworkTable/>
         </div>
-        
+       
       </div>
+     
     </div>
   )
 }
