@@ -1,27 +1,18 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext} from "react";
 import BodyTable from "./BodyTable";
 
 import { Context } from "../../context/context";
 
 function StudentTable(props) {
-  const { studentsList,openModale,students,refDataBase,setStudents,getAllStudents } = useContext(Context);
+  const {openModale,students } = useContext(Context);
 
-// useEffect(()=>{
 
-//  getAllStudents().then((res) => {
-   
-//       if (res.message === "success") {
-//         setStudents(res.data);
-//         console.log("result", res.data);
-//       }
-//     });
-//   },[]);
 
 
 
 
   return (
-    <div className="rounded-2xl m-4 mt-0 py-4 bg-white ">
+    <div className="rounded-2xl m-4 mt-0 py-4 bg-white max-h-[590px]   overflow-y-auto scrollbar-hide">
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 ">
@@ -32,13 +23,13 @@ function StudentTable(props) {
                   + Student
                 </button>
               </div>
-              <form>
-                <table >
+              <form >
+                <table  >
                   <thead className="bg-white border-b text-left">
                     <tr>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-3 py-4 text-left"
                       >
                         #
                       </th>
@@ -80,7 +71,7 @@ function StudentTable(props) {
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                       >
                         Actions
                       </th>

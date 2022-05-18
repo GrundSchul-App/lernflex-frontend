@@ -11,14 +11,8 @@ import { Context } from "../../../context/context";
 import SelectSubject from "../../AttendanceListStudent/SelectSubject";
 
 import AttendanceListTable from "../../AttendanceListStudent/AttendanceListTable";
-// import { format } from 'date-fns'
 
 function StudentTab() {
-
- 
-
-  // const [classSubjectList, setClassSubjectList] = useState([]);
-
   const [toggleState, setToggleState] = useState(1);
   const {
     getStudentsByClassId,
@@ -26,7 +20,7 @@ function StudentTab() {
     selectValue,
     getAllStudents,
     setStudents,
-    students,
+
     setList,
     selectDate,
     getAttendanceByClassIdAndSubject,
@@ -35,55 +29,40 @@ function StudentTab() {
     openHomeworkModale,
     getAllHomeworks,
     setAllHomeworks,
-    setHomeworks
+    setHomeworks,
   } = useContext(Context);
 
   const date = selectDate ? new Date(selectDate).toLocaleDateString() : "";
 
-  // console.log("date", selectDate);
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
   const onClickHandelStudent = () => {
-    // setStudentsList([]);
-
     if (selectValue === "Klasse") {
-      console.log("selectKlasse", selectValue);
       getStudentsByClassId(classId).then((res) => {
         if (res.message === "success") {
           setStudents(res.data);
-          console.log("*", res.data);
         }
       });
     }
     if (selectValue === "All") {
-      console.log("Value:", selectValue);
-
       getAllStudents().then((res) => {
         if (res.message === "Success") {
           setStudents(res.data);
-          console.log("students2", students);
-
-          console.log("result", res.data);
         }
       });
     }
   };
-  // console.log("anwesenheitlistestate", getAnwiesenheitsListe);
+
   const getAllAttendanceListByClassIdAndSubjectId = () => {
-    // const ghania=format(selectDate, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")
-    // console.log("ghania", ghania)
     const date1 = selectDate ? new Date(selectDate).toLocaleDateString() : "";
     const date = date1.split("/").reverse().join("-");
-    // console.log("dateeeeeeee", date);
-
-    // console.log("subjectId and classID und date", subjectId , classId, date);
 
     getAttendanceByClassIdAndSubject(date, subjectId, classId)
       .then((res) => {
         if (res.message === "success") {
-          //  console.log("result set anwiesent", res.data);
+
           setList(res.data);
         }
       })
@@ -91,60 +70,27 @@ function StudentTab() {
         console.log("err", err);
       });
   };
-  // console.log("mein list", list);
 
-  // const resetButton = () => {
-  //   attendanceList().then((res) => {
-  //     if (res.message === "success") {
-  //       setList(res.data);
-  //       // console.log("anwesenheit", res.data);
-  //     }
-  //   });
-  //   // console.log("list8777", list);
-  // };
+  /// hausaufgaben wählen
 
-
-   /// hausaufgaben wählen 
-
-   const selectHausAufgaben=()=>{
-
-
+  const selectHausAufgaben = () => {
     getAllHomeworks()
-    .then((res) => {
-      if (res.message === "success") {
-        setHomeworks(res.data);
-        setAllHomeworks(res.data);
-         console.log("data allHomeworks modale studenthomework ", res.data);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-    openHomeworkModale()
-
-   }
-
-
-
-
-
-
-
-
-
-  // useEffect(()=>{
-  //   attendanceList().then((res)=>{
-  //     if(res.message === "success"){
-  //       setgetAnwiesenheitsListe(res.data)
-  //        console.log("anwesenheit", res.data);
-
-  //     }
-  //   })
-  // },[])
+      .then((res) => {
+        if (res.message === "success") {
+          setHomeworks(res.data);
+          setAllHomeworks(res.data);
+          console.log("data allHomeworks modale studenthomework ", res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    openHomeworkModale();
+  };
 
   return (
-    <div className="container">
-      <div className="bloc-tabs">
+    <div className="container mb-4 ">
+      <div className="bloc-tabs ">
         <button
           className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(1)}
@@ -157,22 +103,16 @@ function StudentTab() {
         >
           Abwesendheitsliste
         </button>
-        {/* <button
-          className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-          onClick={() => toggleTab(3)}
-        >
-          Tab 3
-        </button> */}
       </div>
 
-      <div className="content-tabs">
+      <div className="content-tabs ">
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
           <div>
             <div className="flex justify-around bg-[#8DD4C3]  items-center h-24 rounded-md ">
-            <SearchStudentBar />
-              
+              <SearchStudentBar />
+
               <SelectClassesStudent />
               <InputSearchStudent />
               <button
@@ -183,8 +123,6 @@ function StudentTab() {
                 {" "}
                 Suche
               </button>
-              {/* <button onClick={onClickHandelStudent} className="flex  px-1 py-1 rounded-2xl 
-         items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"> <GrRefresh/></button> */}
             </div>
           </div>
 
@@ -204,9 +142,6 @@ function StudentTab() {
             >
               Abwesendheitsliste suchen{" "}
             </button>
-            {/* <button className="bg-green-800" onClick={resetButton}>
-              refrech
-            </button> */}
           </div>
           {/* <AttendanceListForm/> */}
           <div className=" border text-lg mt-2 rounded-md p-5 text-center">
@@ -216,25 +151,13 @@ function StudentTab() {
 
           <AttendanceListTable />
 
-          <button onClick={selectHausAufgaben} className="border rounded-md text-blue-600 p-5 text-lg font-bold">
+          <button
+            onClick={selectHausAufgaben}
+            className="border rounded-md text-blue-600 p-5 text-lg font-bold"
+          >
             Hausaufgaben wählen
           </button>
         </div>
-
-        {/* <div
-          className={toggleState === 3 ? "content  active-content" : "content"}
-        >
-          <h2>Content 3</h2>
-          <hr />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos sed
-            nostrum rerum laudantium totam unde adipisci incidunt modi alias!
-            Accusamus in quia odit aspernatur provident et ad vel distinctio
-            recusandae totam quidem repudiandae omnis veritatis nostrum
-            laboriosam architecto optio rem, dignissimos voluptatum beatae
-            aperiam voluptatem atque. Beatae rerum dolores sunt.
-          </p>
-        </div> */}
       </div>
     </div>
   );

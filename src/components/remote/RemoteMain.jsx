@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/context";
 import SearchRemote from "./SearchRemote";
-import FilterRemote from "./FilterRemote";
+
 import RemoteModalCreate from "./RemoteModalCreate";
 import RemoteMainTable from "./RemoteMainTable";
 

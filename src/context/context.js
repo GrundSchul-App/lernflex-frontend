@@ -23,13 +23,6 @@ export const Context = createContext({
   filteredEvents: [],
 });
 
-// function initEvents() {
-
-//   const storageEvents = localStorage.getItem("savedEvents");
-//   const parsedEvents = storageEvents ? JSON.parse(storageEvents) : [];
-//   return parsedEvents;
-// }
-
 const ContextProvider = (props) => {
   const [auth, setAuth] = useState({});
   // Ghania und Blanca Context
@@ -64,9 +57,9 @@ const ContextProvider = (props) => {
   const [students, setStudents] = useState([]);
   const [selectValue, setSelectValue] = useState([]);
   const [studentId, setStudentId] = useState([]);
-  
+
   //setStudentChecked(!studentChecked
-  const [studentChecked, setStudentChecked] = useState(false)
+  const [studentChecked, setStudentChecked] = useState(false);
 
   const [teachers, setTeachers] = useState([]);
 
@@ -83,10 +76,10 @@ const ContextProvider = (props) => {
 
   // Student Anwiesenheitsliste
 
-  const [getAnwiesenheitsListe, setgetAnwiesenheitsListe]=useState([])
-  const [list, setList]=useState([])
+  const [getAnwiesenheitsListe, setgetAnwiesenheitsListe] = useState([]);
+  const [list, setList] = useState([]);
   // const [selectAttendId,setSelectAttendId]=useState('');
-  const [selectAbsentId,setSelectAbsentId]=useState([]);
+  const [selectAbsentId, setSelectAbsentId] = useState([]);
 
   /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([
     { subject: "", teacher: "" },
@@ -100,19 +93,19 @@ const ContextProvider = (props) => {
   const [allHomeworks, setAllHomeworks] = useState([]);
   const [homeworkDescription, setHomeworkDescription] = useState("");
   const [homeworkType, setHomeworkType] = useState("");
-const [onlineHomework, setOnlineHomework] = useState([])
+  const [onlineHomework, setOnlineHomework] = useState([]);
   /*  const [fileHomework, setFileHomework] = useState(""); */
   const [urlHomework, setUrlHomework] = useState("");
   const [fileNameHomework, setFileNameHomework] = useState("");
   const [homeworkUploaded, setHomeworkUploaded] = useState(false);
-  const [homeWorkId,setHomeWorkId]=useState("");
+  const [homeWorkId, setHomeWorkId] = useState("");
 
   // Toggle modal teacher
   const [toggleModale, setToggleModale] = useState(false);
   const [editToggleModale, setEditToggleModale] = useState(false);
   const [toggleAddSubClassModale, setToggleAddSubClassModale] = useState(false);
-  const [toggleHomeworModal,setToggleHomeworModale]=useState(false);
-  const [eventList,setEventList]=useState([]);
+  const [toggleHomeworModal, setToggleHomeworModale] = useState(false);
+  const [eventList, setEventList] = useState([]);
 
   const closeModale = () => {
     setToggleModale(false);
@@ -121,12 +114,12 @@ const [onlineHomework, setOnlineHomework] = useState([])
     //  console.log("hello modal")
     setToggleModale(true);
   };
-  const closeHomeworkModale=()=>{
-    setToggleHomeworModale(false)
-  }
-  const openHomeworkModale=()=>{
-    setToggleHomeworModale(true)
-  }
+  const closeHomeworkModale = () => {
+    setToggleHomeworModale(false);
+  };
+  const openHomeworkModale = () => {
+    setToggleHomeworModale(true);
+  };
   // Toggle modal edit teacher modal
 
   const closeEditModale = () => {
@@ -144,12 +137,6 @@ const [onlineHomework, setOnlineHomework] = useState([])
   const activeFilterArow = () => {
     setActive(active);
   };
-  // Zaki Context + Hooks Events
-  // const initEvents = {
-  //   loading: true,
-  //   events: [],
-  //   error: ''
-  // }
 
   function savedEventsReducer(state, { type, payload }) {
     switch (type) {
@@ -179,8 +166,6 @@ const [onlineHomework, setOnlineHomework] = useState([])
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [labels, setLabels] = useState([]);
   const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, []);
-
-  // zaki hooks end
 
   // FUNCTIONS BACKEND
 
@@ -281,17 +266,17 @@ const [onlineHomework, setOnlineHomework] = useState([])
     const body = await res.json();
     return body;
   }
-  async function getAllEventByDate(date){
-    const res= await fetch(`${BACKEND_URL}/calendar/date/${date}`,{
-      header:{
+  async function getAllEventByDate(date) {
+    const res = await fetch(`${BACKEND_URL}/calendar/date/${date}`, {
+      header: {
         Accept: "application/json",
       },
     });
-    
-    const body=await res.json();
+
+    const body = await res.json();
     console.log("body", body);
-    
-    return body
+
+    return body;
   }
 
   async function getAllTeachers() {
@@ -348,21 +333,6 @@ const [onlineHomework, setOnlineHomework] = useState([])
 
     return body;
   }
-
-  /*   async function getAllHomeworks() {
-    const res = await fetch(
-      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1`,
-      {
-        headers: {
-          Accept: "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const body = await res.json();
-
-    return body;
-  } */
 
   async function getAllHomeworks() {
     const res = await fetch(`${BACKEND_URL}/homeworks`, {
@@ -425,53 +395,21 @@ const [onlineHomework, setOnlineHomework] = useState([])
     return body;
   }
 
-  /*  async function  getHomeworksBySubjectId(subjectId) {
-    const res = await fetch(
-      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/subject/${subjectId}`,     
-      {
-        headers: {
-          Accept: "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const body = await res.json();
-
-    return body;
-  } */
-
   async function getHomeworksBySubjectId(subjectId) {
     const res = await fetch(`${BACKEND_URL}/homeworks/subject/${subjectId}`, {
       headers: {
         Accept: "application/json",
-        // Authorization: `Bearer ${token}`,
       },
     });
     const body = await res.json();
 
     return body;
   }
-
-  /*   async function  getHomeworksByType(type) {
-    const res = await fetch(
-      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/type/${type}`,     
-      {
-        headers: {
-          Accept: "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const body = await res.json();
-
-    return body;
-  } */
 
   async function getHomeworksByType(type) {
     const res = await fetch(`${BACKEND_URL}/homeworks/type/${type}`, {
       headers: {
         Accept: "application/json",
-        // Authorization: `Bearer ${token}`,
       },
     });
     const body = await res.json();
@@ -479,21 +417,6 @@ const [onlineHomework, setOnlineHomework] = useState([])
     return body;
   }
 
-  /*   async function addHomeworkToDatabase(data) {
-    const res = await fetch(
-      `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/add`,
-      {console.log(object);
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    );
-    const body = await res.json();
-    return body;
-  } */
   async function addHomeworkToDatabase(data) {
     const res = await fetch(`${BACKEND_URL}/homeworks`, {
       method: "POST",
@@ -555,7 +478,6 @@ const [onlineHomework, setOnlineHomework] = useState([])
   }
 
   async function getAttendanceByClassIdAndSubject(date, subjectId, classId) {
-    //  console.log("date async",date)
     const res = await fetch(
       `${BACKEND_URL}/attendanceList/
     ${date}/${subjectId}/${classId}`,
@@ -709,12 +631,17 @@ const [onlineHomework, setOnlineHomework] = useState([])
 
   const filteredEvents = useMemo(() => {
     console.log("saveevent", savedEvents);
-    return (savedEvents.length > 0 && savedEvents.filter((evt) =>
-   labels.length >0 &&   labels
-        .filter((lbl) => lbl.checked)
-        .map((lbl) => lbl.label)
-        .includes(evt.label)
-    ));
+    return (
+      savedEvents.length > 0 &&
+      savedEvents.filter(
+        (evt) =>
+          labels.length > 0 &&
+          labels
+            .filter((lbl) => lbl.checked)
+            .map((lbl) => lbl.label)
+            .includes(evt.label)
+      )
+    );
   }, [savedEvents, labels]);
 
   // neu Fach und klasse zu teacher hinzufügen
@@ -724,33 +651,22 @@ const [onlineHomework, setOnlineHomework] = useState([])
     openModaleAdd();
   }
 
-  function editHomeWorkStudent(id){
-    setHomeWorkId(id)
-   
-
+  function editHomeWorkStudent(id) {
+    setHomeWorkId(id);
   }
 
-  //select id list and id absent 
-  function selectAbsentAndAttendance(id){
-    
-    console.log("select id",id)
+  //select id list and id absent
+  function selectAbsentAndAttendance(id) {
+    console.log("select id", id);
     // setSelectAttendId(id1)
-    if (!(selectAbsentId.find((item)=>item===id))){
-      
-      const newArray=[...selectAbsentId,id]
-      // setStudentChecked(!studentChecked)
-      setSelectAbsentId(newArray)
+    if (!selectAbsentId.find((item) => item === id)) {
+      const newArray = [...selectAbsentId, id];
+
+      setSelectAbsentId(newArray);
       console.log("newArray", newArray);
-
-    }else {
-    
-     
-     console.log("student existiert schon"); 
+    } else {
+      console.log("student existiert schon");
     }
-
-
-    
-    // console.log("result id", selectAbsentId);
   }
   // edit Teacher modale open
   function editExistTeacher(teacher, id) {
@@ -765,25 +681,20 @@ const [onlineHomework, setOnlineHomework] = useState([])
     openEditModale();
   }
 
-  // function updateLabel(label) {
-  //   setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
-  // }
-
-  // useEffect(() => {
-  //   localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
-  // }, [savedEvents]);
-
-
   useEffect(() => {
     setLabels((prevLabels) => {
-      return (  savedEvents.length > 0 && [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
-       
-        const currentLabel = prevLabels.length >0 && prevLabels.find((lbl) => lbl.label === label);
-        return {
-          label,
-          checked: currentLabel ? currentLabel.checked : true,
-        };
-      }));
+      return (
+        savedEvents.length > 0 &&
+        [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
+          const currentLabel =
+            prevLabels.length > 0 &&
+            prevLabels.find((lbl) => lbl.label === label);
+          return {
+            label,
+            checked: currentLabel ? currentLabel.checked : true,
+          };
+        })
+      );
     });
   }, [savedEvents]);
 
@@ -828,7 +739,6 @@ const [onlineHomework, setOnlineHomework] = useState([])
 
         deleteAttendanceById,
 
-
         /*  getTeacherAndSubjectsByClassId, */
         getAllHomeworks,
         addHomeworkToDatabase,
@@ -845,8 +755,6 @@ const [onlineHomework, setOnlineHomework] = useState([])
 
         editHomeWorkStudent,
         getAllEventByDate,
-
-
 
         //URL
         BACKEND_URL,
@@ -895,9 +803,9 @@ const [onlineHomework, setOnlineHomework] = useState([])
         getAnwiesenheitsListe,
         setList,
         list,
-        studentChecked, 
+        studentChecked,
         setStudentChecked,
-        // setSelectAttendId,
+
         setSelectAbsentId,
         homeWorkId,
         selectAbsentId,
@@ -941,9 +849,8 @@ const [onlineHomework, setOnlineHomework] = useState([])
         homeworkType,
         setHomeworkType,
         onlineHomework,
-         setOnlineHomework,
-        /*  fileHomework,
-        setFileHomework, */
+        setOnlineHomework,
+
         urlHomework,
         setUrlHomework,
         fileNameHomework,
@@ -978,7 +885,8 @@ const [onlineHomework, setOnlineHomework] = useState([])
         setThursday,
         friday,
         setFriday,
-       showDay, setShowDay,
+        showDay,
+        setShowDay,
 
         // Events
         monthIndex,
@@ -992,12 +900,11 @@ const [onlineHomework, setOnlineHomework] = useState([])
         setSelectedEvent,
         savedEvents,
         labels,
-        // updateLabel,
+
         filteredEvents,
         updateEvent,
         deleteEvent,
         eventToDB,
-        // getAllEvents
       }}
     >
       {props.children}

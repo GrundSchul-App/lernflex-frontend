@@ -9,7 +9,7 @@ import StudentHomeWorkModal from "../../components/Student/selectStudentHomeWork
 import StudentTab from "../../components/Student/studentTab/StudentTab";
 import { Context } from "../../context/context";
 
-function Students(props) {
+function Students() {
   const {
     toggleModale,
     editToggleModale,
@@ -17,7 +17,6 @@ function Students(props) {
     setStudents,
     refDataBase,
     attendanceList,
-    setgetAnwiesenheitsListe,
     setList,
     toggleHomeworModal,
     
@@ -27,7 +26,7 @@ function Students(props) {
     getAllStudents().then((res) => {
       if (res.message === "Success") {
         setStudents(res.data);
-        // console.log("result", res.data);
+        
       }
     });
   }, [refDataBase]);
@@ -36,13 +35,13 @@ function Students(props) {
     attendanceList().then((res) => {
       if (res.message === "success") {
         setList(res.data);
-        // console.log("anwesenheit", res.data);
+        
       }
     });
   }, [refDataBase]);
 
   return (
-    <div className=" font-family-karla w-full  flex mx-4 ">
+    <div className=" font-family-karla w-full  flex mx-4  ">
       <StudentTab />
       <div className="hidden flex-col xl:flex xl:w-1/4  ml-4">
         <CalendarComponent />

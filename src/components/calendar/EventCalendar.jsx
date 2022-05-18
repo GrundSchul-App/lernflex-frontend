@@ -21,14 +21,14 @@ function EventCalendar() {
   return (
     <React.Fragment>
       {showEventModal && <EventModal />}
-      <div className="flex mr-4">
-        <div className="h-fit flex flex-col bg-white m-4 rounded-xl flex-auto ">
+      <div className="flex mr-4 ">
+        <div className="max-h-[824px] flex flex-col bg-white mx-4 mt-4 rounded-xl flex-auto ">
           <CalendarHeader />
           <div className="flex flex-1">
             <Month month={currenMonth} />
           </div>
         </div>
-        <div className=" md:w-1/4 w-1/4">
+        <div className=" md:w-1/4 w-1/4 overflow-y-scroll scrollbar-hide">
           <CalendarComponents />
           <InfosOnlineCurse />
         </div>

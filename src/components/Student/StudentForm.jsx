@@ -1,69 +1,71 @@
-import React , {useContext,useState} from 'react'
-import {Context} from '../../context/context';
+import React, { useContext, useState } from "react";
+import { Context } from "../../context/context";
 import { IoIosPeople } from "react-icons/io";
 
- function StudentForm(props) {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [birthDate, setBirthDate] = useState("");
+function StudentForm(props) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthDate, setBirthDate] = useState("");
 
-  const [gender, setGender]=useState("");
- 
+  const [gender, setGender] = useState("");
 
+  const {
+    setClassId,
+    classId,
+    setClassName,
+    classes,
+    BACKEND_URL,
+    students,
+    setStudents,
+    closeModale,
+    setRefDataBase,
+    refDataBase,
+    messageBackend,
+    setStudentsList,
+    studentsList,
+  } = useContext(Context);
 
-    const {setClassId,classId,setClassName,classes,BACKEND_URL,students,setStudents,closeModale,setRefDataBase,refDataBase,messageBackend,setStudentsList,studentsList}=useContext(Context);
+  const getClassIdWithName = (e) => {
+    setClassId(e.target.value);
+    console.log(e.target.value);
+    setClassName(e.target.options[e.target.selectedIndex].text);
+  };
 
+  const getSelectGender = (e) => {
+    setGender(e.target.value);
+  };
 
-    const getClassIdWithName = (e) => {
-        setClassId(e.target.value);
-         console.log(e.target.value);
-        setClassName(e.target.options[e.target.selectedIndex].text);
-        // console.log(e.target.options[e.target.selectedIndex].text);
-      };
+  async function addStudent(e) {
+    e.preventDefault();
 
+    const response = await fetch(`${BACKEND_URL}/students`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        birthDate: birthDate,
+        gender: gender,
+        classId: classId,
+      }),
+    });
+    const content = await response.json();
 
+    setStudents([...students, content.data]);
+    setStudentsList([...studentsList, content.data]);
 
-      const getSelectGender=(e)=>{
-   setGender(e.target.value)
-   console.log("Gender", e.target.value);
-
-      }
-
-  async function addStudent(e){
-  e.preventDefault();
-  console.log("fetch classid", classId);
-  const response = await fetch(`${BACKEND_URL}/students`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      birthDate: birthDate,
-      gender: gender,
-      classId:classId,
-      
-    }),
-    
-
- });
- const content= await response.json()
- console.log("content student:", content);
- setStudents([...students, content.data]);
- setStudentsList([...studentsList,content.data]);
- console.log('data Students:', content.data);
- closeModale();
- setRefDataBase(!refDataBase)
+    closeModale();
+    setRefDataBase(!refDataBase);
   }
 
-
-    return (
-        <div className="flex flex-col justify-center mt-4 border-solid border-2 w-[90%] h-[80%]">
-      <form >
+  return (
+    <div className="flex flex-col justify-center mt-4 border-solid border-2 w-[90%] h-[80%]">
+      <form>
         <h1 className="text-3xl m-5"> Schüler/in hinzufügen</h1>
         <div className="m-4 flex">
           <div className="flex grow  p-2 rounded-2xl bg-white  h-[75px] items-center justify-center">
@@ -88,14 +90,11 @@ import { IoIosPeople } from "react-icons/io";
       m-0
       focus:text-gray-700 focus:bg-white focus:border-green-600
        focus:outline-none"
-              /*  aria-label="Default select example" */
               name=""
               id=""
-              /*  value="state.classId" */
               onChange={getClassIdWithName}
               defaultValue={"default"}
             >
-              {/* <option selected>Klassen...</option> */}
               <option value={"default"} disabled>
                 ...
               </option>
@@ -107,15 +106,13 @@ import { IoIosPeople } from "react-icons/io";
                 );
               })}
             </select>
-            {/* select gender  */}
-            <div className="flex  p-[1%] rounded-xl bg-white max-w-[30%] mx-8   justify-center">
-    
-  
-    <h3 className="my-2 m-2">Geschlecht</h3>
 
-    <select
-    onChange={getSelectGender}
-      className="form-select 
+            <div className="flex  p-[1%] rounded-xl bg-white max-w-[30%] mx-8   justify-center">
+              <h3 className="my-2 m-2">Geschlecht</h3>
+
+              <select
+                onChange={getSelectGender}
+                className="form-select 
     block
     
     px-3
@@ -132,34 +129,19 @@ import { IoIosPeople } from "react-icons/io";
     m-0
     focus:text-gray-700 focus:bg-white focus:border-green-600
      focus:outline-none"
-      name=""
-      id=""
-      defaultValue={"default"}
-    
-    >
-      <option value={"default"} disabled>
-        ...
-      </option>
-      <option value="W">Weiblich</option>
-      <option value="M">Männlich</option>
-      
-    </select>
-
-    
-    </div>
-
-
-            {/* select gender  */}
+                name=""
+                id=""
+                defaultValue={"default"}
+              >
+                <option value={"default"} disabled>
+                  ...
+                </option>
+                <option value="W">Weiblich</option>
+                <option value="M">Männlich</option>
+              </select>
+            </div>
           </div>
-
-          {/* <SelectClasses /> */}
-          {/* <SelectSubjects /> */}
-
-         
-
-
         </div>
-
 
         <div className="m-4 ">
           <label className="mr-5">Vorname</label>
@@ -206,15 +188,6 @@ import { IoIosPeople } from "react-icons/io";
           />
         </div>
 
-        
-
-       
-
-
-
-
-
-
         <div className="flex justify-center">
           <button
             onClick={addStudent}
@@ -225,10 +198,7 @@ import { IoIosPeople } from "react-icons/io";
         </div>
       </form>
       <p className=" m-4 text-orange-500">{messageBackend}</p>
-        
-      
     </div>
-    )
+  );
 }
-export default StudentForm
-
+export default StudentForm;
