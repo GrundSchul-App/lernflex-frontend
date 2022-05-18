@@ -13,7 +13,6 @@ const Landing = () => {
   const [ lastName, setLastName ] = useState("");
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
-  // const [ role, setRole ] = useState("admin");
   const [userLogIn, setUserLogIn] = useState(false);
   const navigate = useNavigate();
 
@@ -30,7 +29,7 @@ const Landing = () => {
       }),
       {
         headers: { "Content-Type": "application/json" },
-        // withCredentials: true,
+      
       }
     );
     setFirstName("");
@@ -68,7 +67,6 @@ const Landing = () => {
             const resToken = response?.data.data.token;
             const resAdmin = response?.data?.admin;
             setAuth({ email, password, resAdmin, resToken });
-            // window.location.href = "/attendance";
             navigate("/attendance");
           },
           { withCredentials: true }
@@ -76,26 +74,7 @@ const Landing = () => {
     } catch(error) {
       console.log(error);
     };
-    // setLoading(true);
-    // if (!email || !password) return;
-    // axios
-    //   .post(`${BACKEND_URL}/landing`, {
-    //     email,
-    //     password,
-    //   })
-    //   .then(
-    //     function (response) {
-    //       const user = response?.data.data;
-    //       console.log('this is my user', user);
-    //       localStorage.setItem("user", JSON.stringify(user));
-          
-    //       const resToken = response?.data.data.token;
-    //       const resAdmin = response?.data?.admin;
-    //       setAuth({ email, password, resAdmin, resToken });
-    //       window.location.href = "/attendance";
-    //     },
-    //     { withCredentials: true }
-    //   )
+    
       
   }
 

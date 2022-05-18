@@ -1,37 +1,10 @@
-import React ,{useContext,useEffect} from 'react'
+import React, { useContext } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { Context } from "../../../context/context";
-import HomeworkTable from '../../Student/selectStudentHomeWorks/HomeWorkTable';
+import HomeworkTable from "../../Student/selectStudentHomeWorks/HomeWorkTable";
 
 function StudentHomeWorkModal() {
- const { closeHomeworkModale } = useContext(Context);
-
-
-
-
-
-
-
-
-
-//  useEffect(() => {
-
-//     getAllHomeworks()
-//     .then((res) => {
-//       if (res.message === "success") {
-       
-//         setAllHomeworks(res.data);
-//          console.log("data allHomeworks modale studenthomework ", res.data);
-//       }
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// }, []);
-
-
-
-
+  const { closeHomeworkModale } = useContext(Context);
 
   return (
     <div className="absolute inset-0 bg-black bg-opacity-75   flex justify-center items-center ">
@@ -44,12 +17,10 @@ function StudentHomeWorkModal() {
           <GrFormClose />
         </button>
         <div className="flex">
-        <HomeworkTable/>
+          <HomeworkTable />
         </div>
-       
       </div>
-     
     </div>
-  )
+  );
 }
-export default StudentHomeWorkModal
+export default StudentHomeWorkModal;

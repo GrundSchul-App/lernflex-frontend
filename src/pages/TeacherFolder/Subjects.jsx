@@ -1,28 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import EventsList from "../../components/Attendance/EventsList";
 import SubjectsMain from "../../components/subjects/SubjectsMain";
 import CalendarComponent from "../../components/CalendarComponent";
-import { Context } from "../../context/context";
-
 
 const Subjects = () => {
-  const {setMessageBackend,  getAllStudents,setStudents } = useContext(Context);
- 
-
-  // useEffect(()=>{
-
-  //   getAllStudents().then((res) => {
-       
-  //         if (res.message === "success") {
-  //           setStudents(res.data);
-  //           console.log("result", res.data);
-  //         }
-  //       });
-  //     },[]); 
-
-
-
-
   return (
     <div className="flex flex-row w-full justify-between mr-4">
       <SubjectsMain />

@@ -25,21 +25,8 @@ const SubjectsMainTable = () => {
   };
 
   return (
-    <div className="rounded-2xl m-4 p-4 bg-white w-full mr-4">
-      {/* <div className="flex justify-end">
-        <button
-          className="flex  px-4 py-2 rounded-2xl bg-green-200 
-           items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"
-          onClick={() => setShowCreateSubjectModal(true)}
-        >
-          + Fach
-        </button>
-        {showCreateSubjectModal && (
-          <SubjectModalCreate
-            setShowCreateSubjectModal={setShowCreateSubjectModal}
-          />
-        )}
-      </div> */}
+    <div className="rounded-2xl m-4 p-4 bg-white w-full mr-4 max-h-[590px]   overflow-y-auto scrollbar-hide">
+     
 
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">

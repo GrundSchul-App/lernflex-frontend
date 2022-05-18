@@ -5,7 +5,7 @@ import {AiOutlineMinusCircle} from "react-icons/ai"
 import { Context } from "../../context/context";
 
 function TeacherTable(props) {
-  const { teachers, BACKEND_URL, openModaleAdd,classId,subjectId,editTeacherModules , editExistTeacher,setTeachers,setRefDataBase,refDataBase} =
+  const { teachers, BACKEND_URL,editTeacherModules , editExistTeacher,setRefDataBase,refDataBase} =
     useContext(Context);
 
     
@@ -24,15 +24,14 @@ function TeacherTable(props) {
         console.log("Success", result);
       }
       const body = await result.json();
-      console.log(body);
-      // setTeachers(body)
+    
     }
-    // window.location.reload();
+   
     setRefDataBase(!refDataBase)
   }
 
   return (
-    <div className="rounded-2xl m-4 mt-0 py-4 bg-white ">
+    <div className="rounded-2xl m-4 mt-0 py-4 bg-white max-h-[675px]  overflow-y-auto scrollbar-hide ">
       <div className="flex flex-col items-center">
         <div className="overflow-x-auto sm:-mx-4 lg:-mx-4">
           <div className="py-2 inline-block min-w-full sm:px-4 lg:px-4 ">

@@ -3,23 +3,7 @@ import { Context } from "../../context/context";
 import AttendanceBodyTable from "./AttendanceBodyTable";
 
 function AttendanceListTable() {
-  const {
-    
-   
-    list,
-    studentChecked,
-    setStudentChecked,selectAbsentAndAttendance
-  } = useContext(Context);
-  // console.log("getAnwiesenheitsListe****", getAnwiesenheitsListe );
-  // console.log("listeeeeeeeeeeee", list);
-  // console.log("55555", classListSubj);
-
-  // const checked = () => {
-  //   setStudentChecked(!studentChecked);
-  //   console.log("checked", studentChecked);
-   
-
-  // };
+  const { list } = useContext(Context);
 
   return (
     <div className="rounded-2xl m-4 mt-0 py-4 bg-white ">
@@ -83,27 +67,20 @@ function AttendanceListTable() {
                       </th>
 
                       <th>
-                       <input type="checkbox" />
+                        <input type="checkbox" />
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     {list.length !== 0 &&
                       list[0].absent.map((item, index) => {
-
-                        console.log('listeeee', list);
-                        
-                        console.log("liste[index]absent id", item._id);
-
-
-                        
                         return (
                           <AttendanceBodyTable
                             key={index}
                             list={list}
                             index={index}
                             item={item}
-                            // check={checked}
+                            
                           />
                         );
                       })}

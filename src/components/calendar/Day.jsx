@@ -29,7 +29,7 @@ export default function Day({ day, rowIdx }) {
   }, [savedEvents, day]);
 
   return (
-    <div className="border border-gray-200 flex flex-col px-1 h-44">
+    <div className="border border-gray-200 flex flex-col px-1 h-36 ">
       <header className="flex flex-col items-center">
         {rowIdx === 0 && (
           <p className="text-sm mt-1">{day.format("dddd").toUpperCase()}</p>

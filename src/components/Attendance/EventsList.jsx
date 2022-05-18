@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Context } from "../../context/context";
 
 const EventsList = () => {
-  const { selectDate, getAllEventByDate, setEventList, eventList } =
+  const { selectDate,  eventList } =
     useContext(Context);
 
   const date = selectDate ? new Date(selectDate).toLocaleDateString() : "";
@@ -10,18 +10,10 @@ const EventsList = () => {
   const dateSuche = date.split("/").reverse().join("-");
   console.log(dateSuche);
 
-  // useEffect(() => {
-  //   getAllEventByDate(dateSuche).then((res) => {
-  //     if(res.message === "success"){
-  //   setEventList(res.data);
-  //   console.log("eventsList", res.data);
-  //     }
-  //   })
-
-  // },[])
+  
 
   return (
-    <div className="bg-white mt-4 rounded-xl h-[480px] w-full p-[25px] font-medium  text-gray-600">
+    <div className="bg-white mt-4 rounded-xl h-[480px] w-full p-[25px] font-medium  text-gray-600 mb-4">
       <form>
         <fieldset className="border border-black-500   rounded-md w-[10%]  ">
           <legend className="font-semibold text-[#52b69e]">Events Info</legend>
@@ -38,13 +30,7 @@ const EventsList = () => {
                 <div key={index}>
 
 
-                  {/* <div className=" w-[250px]  mt-5">
-                  <p className="m-1">
-                   Eventsdatum {" "}
-                   <span className="w-fit bg-slate-200 text-red-700 bold ">{date}</span>
-                 </p>
-                    
-                  </div> */}
+                  
                   <div className=" w-[250px]  mt-5">
                   <p className="m-1">
                    Titel {" "}
