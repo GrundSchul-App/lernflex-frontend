@@ -3,7 +3,7 @@ import { Context } from "../../context/context";
 import * as AiIcons from "react-icons/ai";
 import RemoteModalDelete from "./RemoteModalDelete";
 import RemoteModalUpdate from "./RemoteModalUpdate";
-import RemoteModalShow from "./RemoteModalShow";
+import RemoteModalShow from "./RemoteModalShowOri";
 
 const RemoteMainTable = () => {
   const { messageBackend, remoteWeeks, getDatum } = useContext(Context);
