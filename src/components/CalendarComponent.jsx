@@ -10,10 +10,11 @@ const {selectDate,setSelectDate,getAllEventByDate, setEventList}=useContext(Cont
 
  
     const dateSuche = date1.split("/").reverse().join("-");
+    console.log("datesuche",dateSuche);
 
   const onChange = (date) => {
     
-    // console.log("date", date);
+    console.log("date", date);
     
     console.log("selectDate", selectDate);
     getAllEventByDate(dateSuche).then((res) => {
