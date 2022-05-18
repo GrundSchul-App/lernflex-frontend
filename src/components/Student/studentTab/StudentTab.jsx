@@ -83,7 +83,7 @@ function StudentTab() {
     getAttendanceByClassIdAndSubject(date, subjectId, classId)
       .then((res) => {
         if (res.message === "success") {
-           console.log("result set anwiesent", res.data);
+          //  console.log("result set anwiesent", res.data);
           setList(res.data);
         }
       })
@@ -155,7 +155,7 @@ function StudentTab() {
           className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(2)}
         >
-          Anwesenheitsliste
+          Abwesendheitsliste
         </button>
         {/* <button
           className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
@@ -202,7 +202,7 @@ function StudentTab() {
               className="flex  px-4 py-2 rounded-2xl bg-green-200 
          items-center justify-center transition-all hover:bg-green-300 hover:shadow-lg"
             >
-              Anwesenheitsliste suchen{" "}
+              Abwesendheitsliste suchen{" "}
             </button>
             {/* <button className="bg-green-800" onClick={resetButton}>
               refrech
