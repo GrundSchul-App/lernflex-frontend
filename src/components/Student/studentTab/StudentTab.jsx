@@ -145,7 +145,9 @@ function StudentTab() {
           {/* <AttendanceListForm/> */}
           <div className=" border text-lg mt-2 rounded-md p-5 text-center">
             Die Liste der abwesenden Schülerinnen und Schüler am{" "}
-            <input defaultValue={date} className="ml-5 text-blue-600  " />{" "}
+
+            <span className="ml-5 text-blue-600  ">{date}</span>
+            {/* <input defaultValue={date} className="ml-5 text-blue-600  " />{" "} */}
           </div>
 
           <AttendanceListTable />

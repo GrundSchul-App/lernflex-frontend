@@ -4,6 +4,7 @@ import AttendanceBodyTable from "./AttendanceBodyTable";
 
 function AttendanceListTable() {
   const { list } = useContext(Context);
+  console.log("list", list);
 
   return (
     <div className="rounded-2xl m-4 mt-0 py-4 bg-white ">
