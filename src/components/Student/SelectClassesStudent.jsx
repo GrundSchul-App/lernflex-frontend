@@ -40,7 +40,7 @@ function SelectClassesStudent(props) {
         <div className="flex flex-col justify-center     ">
         <form>
 
-<div className="flex   p-[1%] rounded-xl bg-white h-19  items-center ">
+<div className="flex   p-2 rounded-xl bg-white h-19  items-center ">
             <IoIosPeople className="w-12 h-10 mr-2 " />
             <span className="mr-2  w-full">Klasse</span>
 

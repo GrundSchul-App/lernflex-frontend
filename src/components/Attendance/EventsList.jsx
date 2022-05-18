@@ -1,65 +1,74 @@
-import React ,{useContext,useEffect} from 'react';
-import {Context} from '../../context/context'
+import React, { useContext, useEffect } from "react";
+import { Context } from "../../context/context";
 
 const EventsList = () => {
-  const {selectDate,getAllEventByDate,setEventList,eventList}=useContext(Context);
+  const { selectDate, getAllEventByDate, setEventList, eventList } =
+    useContext(Context);
 
-  const date= selectDate ? new Date(selectDate).toLocaleDateString() : "";
+  const date = selectDate ? new Date(selectDate).toLocaleDateString() : "";
 
- 
-    const dateSuche = date.split("/").reverse().join("-");
-    console.log(dateSuche);
+  const dateSuche = date.split("/").reverse().join("-");
+  console.log(dateSuche);
 
-    // useEffect(() => {
-    //   getAllEventByDate(dateSuche).then((res) => {
-    //     if(res.message === "success"){
-    //   setEventList(res.data);
-    //   console.log("eventsList", res.data);
-    //     }
-    //   })
+  // useEffect(() => {
+  //   getAllEventByDate(dateSuche).then((res) => {
+  //     if(res.message === "success"){
+  //   setEventList(res.data);
+  //   console.log("eventsList", res.data);
+  //     }
+  //   })
 
-    // },[])
-    
-
-   
-
-
+  // },[])
 
   return (
     <div className="bg-white mt-4 rounded-xl h-[480px] w-full p-[25px] font-medium  text-gray-600">
-    
-    <form >
-  <fieldset className="border border-black-500   rounded-md w-[10%]  ">
-    <legend  >Events Info</legend>
-    {eventList.length !==0 && 
-    eventList.map((event,index)=>{
-      return (
-        <div key={index}>
-    <div className=" w-[250px]  mt-5">
-    <label className="m-1">Eventsdatum:</label>
-    <input className="w-[40%] bg-slate-200 text-red-700 bold " defaultValue={date} type="text "/>
-    </div>
-    <div className=" w-[250px] mt-5">
-    <label className="m-1">Titel:</label>
-    <input className="w-[40%] bg-slate-200 ml-10" defaultValue={event.title}  type="text"/>
-    </div>
-    <div className=" w-[250px] mt-5">
-    <label className="m-1"> beschreibung:</label>
-    <textarea className="w-[80%] bg-slate-200 " type="text" defaultValue={event.description}>
-   
-    </textarea>
-    </div>
-    </div>
-      )
-    })}
-    
+      <form>
+        <fieldset className="border border-black-500   rounded-md w-[10%]  ">
+          <legend className="font-semibold text-[#52b69e]">Events Info</legend>
+          <div className=" w-[250px]  mt-8 border-b-4 border-gray-300  ">
+                  <p className="m-1 font-bold">
+                   Eventsdatum {" "}
+                   <span className="w-fit bg-slate-200 text-red-700 bold ">{date}</span>
+                 </p>
+                    
+                  </div>
+          {eventList.length !== 0 &&
+            eventList.map((event, index) => {
+              return (
+                <div key={index}>
 
-   
-  </fieldset>
-</form>
-    
-    </div>
-  )
-}
 
-export default EventsList
+                  {/* <div className=" w-[250px]  mt-5">
+                  <p className="m-1">
+                   Eventsdatum {" "}
+                   <span className="w-fit bg-slate-200 text-red-700 bold ">{date}</span>
+                 </p>
+                    
+                  </div> */}
+                  <div className=" w-[250px]  mt-5">
+                  <p className="m-1">
+                   Titel {" "}
+                   <span className="w-fit bg-slate-200 text-red-700 bold ">{event.title}</span>
+                 </p>
+                    
+                  </div>
+
+                  <div className=" w-[250px]  mt-5 border-b-2">
+                  <p className="m-1">
+                   Beschreibung {" "}
+                   <span className="w-fit bg-slate-200 text-red-700 bold ">{event.description}</span>
+                 </p>
+                    
+                  </div>
+                  
+                  
+                </div>
+              );
+            })}
+        </fieldset>
+      </form>
+    </div>
+  );
+};
+
+export default EventsList;

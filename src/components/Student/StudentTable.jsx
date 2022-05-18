@@ -27,13 +27,13 @@ function StudentTable(props) {
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 ">
             <div className="overflow-hidden ">
               <div className="flex justify-end ">
-                <button onClick={openModale} className="p-2  bg-red-700 m-4 mt-2 text-gray-100 rounded-xl shadow top-8 font-bold">
+                <button onClick={openModale} className="p-2  bg-green-600 hover:bg-green-800 m-4 mt-2 text-gray-100 rounded-xl shadow top-8 font-bold">
                   {" "}
                   + Student
                 </button>
               </div>
               <form>
-                <table className="">
+                <table >
                   <thead className="bg-white border-b text-left">
                     <tr>
                       <th

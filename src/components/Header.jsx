@@ -31,7 +31,7 @@ const Header = () => {
       >
         <div>
           <a href="">
-            <img className="h-auto -ml-4 object-top" src={logo} />
+            <img className="h-auto -ml-4 object-top" src={logo} alt="" />
           </a>
         </div>
 
@@ -59,7 +59,7 @@ const Header = () => {
             </li>
             <li className="flex self-center">
               <div className="m-1 items-center relative rounded-full bg-gray-500 ">
-                <img src={profile} alt="avatar" className="rounded-full w-10" />
+                <img src={`${profile} || "https://picsum.photos/100" `} alt="avatar" className="rounded-full w-10" />
               </div>
             </li>
             <li className="flex">

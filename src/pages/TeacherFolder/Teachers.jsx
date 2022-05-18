@@ -41,7 +41,7 @@ function Teachers(props) {
   }, [refDataBase]);
 
   return (
-    <div className="flex flex-row w-full justify-between grow">
+    <div className="flex flex-row w-full justify-between mr-4">
       <div className="relative w-full flex-1">
         <div className="flex justify-between ">
           <TeacherMain />
@@ -49,7 +49,7 @@ function Teachers(props) {
 
         <div className="flex justify-end ">
           <button
-            className="p-2  bg-red-700 m-4 mt-9 text-gray-100 rounded-xl shadow top-8 font-bold"
+            className="p-2  bg-green-600 hover:bg-green-800 m-4 mt-9 text-gray-100 rounded-xl shadow top-8 font-bold"
             onClick={openModale}
           >
             {" "}
@@ -61,7 +61,7 @@ function Teachers(props) {
         <TeacherTable />
       </div>
 
-      <div className="hidden flex-col md:flex md:w-1/4 w-1/4">
+      <div className="hidden flex-col md:flex md:w-1/4 w-1/4 ">
         <CalendarComponents />
         <EventsList />
       </div>

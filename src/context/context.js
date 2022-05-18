@@ -85,7 +85,7 @@ const ContextProvider = (props) => {
 
   const [getAnwiesenheitsListe, setgetAnwiesenheitsListe]=useState([])
   const [list, setList]=useState([])
-  const [selectAttendId,setSelectAttendId]=useState('');
+  // const [selectAttendId,setSelectAttendId]=useState('');
   const [selectAbsentId,setSelectAbsentId]=useState([]);
 
   /*  const [moduleSubjectTeacher, setModuleSubjectTeacher] = useState([
@@ -100,6 +100,7 @@ const ContextProvider = (props) => {
   const [allHomeworks, setAllHomeworks] = useState([]);
   const [homeworkDescription, setHomeworkDescription] = useState("");
   const [homeworkType, setHomeworkType] = useState("");
+const [onlineHomework, setOnlineHomework] = useState([])
   /*  const [fileHomework, setFileHomework] = useState(""); */
   const [urlHomework, setUrlHomework] = useState("");
   const [fileNameHomework, setFileNameHomework] = useState("");
@@ -481,7 +482,7 @@ const ContextProvider = (props) => {
   /*   async function addHomeworkToDatabase(data) {
     const res = await fetch(
       `${BACKEND_URL}/homeworks/626c00950c33c059f57b51c1/add`,
-      {
+      {console.log(object);
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -896,7 +897,7 @@ const ContextProvider = (props) => {
         list,
         studentChecked, 
         setStudentChecked,
-        setSelectAttendId,
+        // setSelectAttendId,
         setSelectAbsentId,
         homeWorkId,
         selectAbsentId,
@@ -939,6 +940,8 @@ const ContextProvider = (props) => {
         setHomeworkDescription,
         homeworkType,
         setHomeworkType,
+        onlineHomework,
+         setOnlineHomework,
         /*  fileHomework,
         setFileHomework, */
         urlHomework,
