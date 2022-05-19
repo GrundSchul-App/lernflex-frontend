@@ -25,7 +25,7 @@ function StudentTable(props) {
               </div>
               <form >
                 <table  >
-                  <thead className="bg-white border-b text-left truncate">
+                  <thead className="bg-white border-b text-left">
                     <tr>
                       <th
                         scope="col"
@@ -35,19 +35,19 @@ function StudentTable(props) {
                       </th>
                       <th
                         scope="col"
-                        className="text-left text-sm text-gray-900 px-4 py-4 "
+                        className="text-left text-sm text-gray-900 px-3 py-4 "
                       >
                         Vorname
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-3 py-4 text-left"
                       >
                         NachName
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-3 py-4 text-left"
                       >
                         Klasse
                       </th>
@@ -55,23 +55,23 @@ function StudentTable(props) {
                         scope="col"
                         className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                       >
-                        Gebutsdatum
+                        Geburtsdatum
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-3 py-4 text-left"
                       >
                         Geschlecht
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-3 py-4 text-left"
                       >
                         Email
                       </th>
                       <th
                         scope="col"
-                        className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
+                        className="text-sm font-medium text-gray-900 px-3 py-4 text-left"
                       >
                         Actions
                       </th>
