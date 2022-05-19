@@ -47,12 +47,15 @@ function HomeWorkTable(props) {
   }
 
   return (
-    <div className="rounded-2xl m-4 p-2 bg-white w-full mr-4">
+    <div className="rounded-2xl m-4 p-2 bg-white w-full mr-4 overflow-y-scroll scrollbar-hide max-h-[800px]">
       <div className="flex flex-col">
+
+
 
       <div  className=" bg-cyan-200 border text-lg mt-2 rounded-md p-2 text-center">
 
-          <h1 className="   font-bold text-green"> Die Homeworksliste</h1>
+          <h1 className="font-bold text-green"> Die Homeworksliste</h1>
+
         </div>
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 mt-5">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
