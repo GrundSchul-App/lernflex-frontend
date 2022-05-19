@@ -5,8 +5,8 @@ import {Context} from "../context/context";
 
 
 const Login = () => {
-  const { BACKEND_URL } = useContext(Context);
-  const [email, setEmail] = useState("");
+  const { BACKEND_URL,email,setEmail } = useContext(Context);
+  // const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {

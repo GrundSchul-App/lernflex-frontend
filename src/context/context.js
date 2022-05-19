@@ -106,6 +106,8 @@ const ContextProvider = (props) => {
   const [toggleAddSubClassModale, setToggleAddSubClassModale] = useState(false);
   const [toggleHomeworModal, setToggleHomeworModale] = useState(false);
   const [eventList, setEventList] = useState([]);
+  //login state 
+  const [email, setEmail] = useState("");
 
   const closeModale = () => {
     setToggleModale(false);
@@ -393,6 +395,16 @@ const ContextProvider = (props) => {
     const body = await res.json();
 
     return body;
+  }
+  // get user bei email 
+  async function getUserByEmail(email){
+    const res= await fetch(`${BACKEND_URL}/users/user/${email}`,{
+      headers: {
+        Accept: "application/json",
+      }
+    });
+    const body=await res.json();
+    return body
   }
 
   async function getHomeworksBySubjectId(subjectId) {
@@ -794,6 +806,9 @@ const ContextProvider = (props) => {
         setStudentId,
         eventList,
         setEventList,
+        //state login
+        email, setEmail,
+        getUserByEmail,
 
         databaseUpdated,
         setDatabaseUpdated,

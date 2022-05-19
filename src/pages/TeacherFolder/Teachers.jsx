@@ -53,7 +53,7 @@ function Teachers(props) {
             onClick={openModale}
           >
             {" "}
-            + Teacher
+            + Lehrer/in
           </button>
           
         </div>

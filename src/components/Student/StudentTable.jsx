@@ -20,7 +20,7 @@ function StudentTable(props) {
               <div className="flex justify-end ">
                 <button onClick={openModale} className="p-2  bg-green-600 hover:bg-green-800 m-4 mt-2 text-gray-100 rounded-xl shadow top-8 font-bold">
                   {" "}
-                  + Student
+                  + Schüler/innen
                 </button>
               </div>
               <form >
@@ -55,7 +55,7 @@ function StudentTable(props) {
                         scope="col"
                         className="text-sm font-medium text-gray-900 px-4 py-4 text-left"
                       >
-                        Gebutsdatum
+                        Geburtsdatum
                       </th>
                       <th
                         scope="col"

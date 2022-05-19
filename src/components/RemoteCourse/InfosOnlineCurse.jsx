@@ -79,7 +79,7 @@ function InfosOnlineCurse(props) {
               )}
 
               <div className="card-body">
-                <h6 className="p-2 text-center text-gray-800">
+                <h6 className="p-2 text-center text-gray-800 truncate">
                   {homework.fileName}
                 </h6>
                 <p className="text-left inline text-sm text-gray-700">
