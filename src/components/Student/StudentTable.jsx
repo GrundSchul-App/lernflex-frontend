@@ -25,7 +25,7 @@ function StudentTable(props) {
               </div>
               <form >
                 <table  >
-                  <thead className="bg-white border-b text-left">
+                  <thead className="bg-white border-b text-left truncate">
                     <tr>
                       <th
                         scope="col"
