@@ -62,6 +62,7 @@ function StudentTab() {
     getAttendanceByClassIdAndSubject(date, subjectId, classId)
       .then((res) => {
         if (res.message === "success") {
+
           setList(res.data);
         }
       })
