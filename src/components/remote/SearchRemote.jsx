@@ -9,17 +9,21 @@ function SearchRemote() {
     searchInput,
     setSearchInput,
     setMessageBackend,
+    getDatum
   } = useContext(Context);
 
   function searchAndGetRemotes() {
     const foundArr = allRemotes.filter((remote) => {
       return (
-        JSON.stringify(remote)
+        remote.classId.className.toLowerCase().includes(searchInput.toLowerCase())
+        || getDatum(remote.startWeekDate).includes(searchInput.toLowerCase())
+        
+        /* JSON.stringify(remote)
           .toLowerCase()
-          .search(searchInput.toLowerCase()) !== -1
+          .search(searchInput.toLowerCase()) !== -1 */
       );
     });
-
+  
     setRemoteWeeks(foundArr);
   }
 

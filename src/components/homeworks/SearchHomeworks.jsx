@@ -14,9 +14,14 @@ function SearchHomeworks() {
   function searchAndGetHomeworks() {
     const foundArr = allHomeworks.filter((homework) => {
       return (
-        JSON.stringify(homework)
+        homework.title.toLowerCase().includes(searchInput.toLowerCase())
+        || homework.fileName.toLowerCase().includes(searchInput.toLowerCase())
+        || homework.type.toLowerCase().includes(searchInput.toLowerCase())
+        || homework.subject.subject_code.toLowerCase().includes(searchInput.toLowerCase())
+        || homework.teacher.lastName.toLowerCase().includes(searchInput.toLowerCase())
+        /* JSON.stringify(homework)
           .toLowerCase()
-          .search(searchInput.toLowerCase()) !== -1
+          .search(searchInput.toLowerCase()) !== -1 */
       );
     });
 
