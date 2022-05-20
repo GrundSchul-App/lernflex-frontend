@@ -9,10 +9,8 @@ function Homeworks() {
   }, []);
 
   return (
-    <div className="flex flex-row w-full justify-between mr-4">
-      
+    <div className="flex flex-row w-full justify-between mr-4 min-h-[65vh]">
       <HomeworksMain />
-    
     </div>
   );
 }
