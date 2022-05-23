@@ -57,6 +57,7 @@ const ContextProvider = (props) => {
   const [students, setStudents] = useState([]);
   const [selectValue, setSelectValue] = useState([]);
   const [studentId, setStudentId] = useState([]);
+  const [userSettings, setUserSettings] = useState({});
 
   //setStudentChecked(!studentChecked
   const [studentChecked, setStudentChecked] = useState(false);
