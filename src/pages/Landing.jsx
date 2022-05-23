@@ -87,7 +87,7 @@ const Landing = () => {
       style={backgroundImageStyle}
       className="relative h-screen w-full bg-center bg-no-repeat"
     >
-      <div className="absolute top-8 right-8 w-[30vw] min-h-[380px] h-[30vh] bg-white rounded-xl p-6 min-w-[200px] opacity-100 hover:opacity-100">
+      <div className="absolute top-8 right-8 w-[30vw] min-h-[380px] h-[30vh] bg-white rounded-xl p-6 min-w-[200px] ">
         <form >
           <div>
             <img className="h-12 w-40 -ml-6 " src={logo} alt="logo" />
@@ -136,7 +136,7 @@ const Landing = () => {
           ) : (
             <div className="mx-auto overflow-hidden">
               <h3 className="font-semibold text-center">
-                Registerieren oder{" "}
+                Registrieren oder{" "}
                 <span
                   onClick={() =>
                     setUserLogIn((prevState) => {
