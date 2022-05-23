@@ -13,7 +13,8 @@ function HomeWorkTable(props) {
     BACKEND_URL,
     selectAbsentId,
     check,
-    setCheck
+    setCheck,
+    closeHomeworkModale
   } = useContext(Context);
 
   async function HomeWorkSendButton() {
@@ -170,14 +171,31 @@ function HomeWorkTable(props) {
           </div>
         </div>
       </div>
-
-      <button
+      <div className="flex justify-between ml-8">
+      <div >
+<button
         className="bg-cyan-500 hover:bg-cyan-600  font-bold text-white px-2 py-1 rounded-xl mt-5"
         type="button"
         onClick={HomeWorkSendButton}
       >
         HausAufgaben senden
       </button>
+
+     
+</div>
+<div>
+<button
+        className="bg-transparent hover:bg-red-600  hover:text-white  font-bold text-cyan-500 px-2 py-1 rounded-xl mt-5 mx-20"
+        type="button"
+        onClick={closeHomeworkModale}
+      >
+        Close
+      </button>
+</div>
+
+      </div>
+
+      
 
     </div>
   );
