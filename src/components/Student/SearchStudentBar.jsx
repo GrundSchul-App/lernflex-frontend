@@ -39,10 +39,10 @@ setSelectValue(e.target.value);
 
 
   return (
-    <div className="flex  p-2 rounded-xl bg-white max-w-[30%]   justify-center">
+    <div className="flex  p-2 rounded-xl bg-white w-[200px]  ">
     
-      <BiFilterAlt className="w-6 h-6 mr-3" />
-      <h3 className="mr-[5px]">Filter nach</h3>
+      <BiFilterAlt className="w-6 h-6 mr-1 mt-2 text-gray-400" />
+   
 
       <select
         className="form-select 
@@ -67,9 +67,10 @@ setSelectValue(e.target.value);
         defaultValue={"default"}
         onChange={getFilterStudents}
       >
-        <option value={"default"} disabled>
-          ...
+        <option className="text-gray-800" value={"default"} disabled>
+         Filter nach ...
         </option>
+       
         <option value="All">All</option>
         <option value="Name">Name</option>
         <option value="Klasse">Klasse</option>

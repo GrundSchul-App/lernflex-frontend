@@ -26,7 +26,7 @@ export const Context = createContext({
 const ContextProvider = (props) => {
   const [auth, setAuth] = useState({});
   // Ghania und Blanca Context
-
+const [check,setCheck]=useState([])
   const [remoteWeeks, setRemoteWeeks] = useState([]);
   const [allRemotes, setAllRemotes] = useState([]);
   const [infoDatas, setInfoDatas] = useState([]);
@@ -665,6 +665,8 @@ const ContextProvider = (props) => {
 
   function editHomeWorkStudent(id) {
     setHomeWorkId(id);
+    setCheck([...check,id])
+
   }
 
   //select id list and id absent
@@ -839,6 +841,7 @@ const ContextProvider = (props) => {
         setRefDataBase,
         setJustTeacherId,
         justTeacherId,
+        check,setCheck,
 
         selectDate,
         setSelectDate,

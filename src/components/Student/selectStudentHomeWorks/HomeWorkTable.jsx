@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import { Context } from "../../../context/context";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import {BsCheckLg} from "react-icons/bs"
 
 function HomeWorkTable(props) {
   const {
@@ -11,9 +12,13 @@ function HomeWorkTable(props) {
     homeWorkId,
     BACKEND_URL,
     selectAbsentId,
+    check,
+    setCheck
   } = useContext(Context);
 
   async function HomeWorkSendButton() {
+
+    
     editHomeWorkStudent(homeWorkId);
 
     const homeWorkData = homeworks.find((homeWork) => {
@@ -34,6 +39,7 @@ function HomeWorkTable(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+        
       }
     )
       .then((res) => {
@@ -44,6 +50,7 @@ function HomeWorkTable(props) {
       .catch((err) => {
         console.log(err);
       });
+      setCheck([])
   }
 
   return (
@@ -52,7 +59,7 @@ function HomeWorkTable(props) {
 
 
 
-      <div  className=" bg-cyan-200 border text-lg mt-2 rounded-md p-2 text-center">
+      <div  className=" bg-cyan-200 border text-lg mt-4 rounded-md p-2 text-center">
 
           <h1 className="font-bold text-green"> Die Homeworksliste</h1>
 
@@ -140,16 +147,18 @@ function HomeWorkTable(props) {
                             {homeworkData.type}
                           </td>
 
-                          <td className="text-gray-900  px-4  whitespace-nowrap font-light">
+                          <td className="text-gray-900 items-center  px-4  whitespace-nowrap font-light flex">
                             <button
                               className="m-2"
                               onClick={() =>
-                                editHomeWorkStudent(homeworkData._id)
+                                editHomeWorkStudent(homeworkData._id )
                               }
                               type="button"
                             >
-                              <IoIosAddCircleOutline className="text-green-600 " />
+                              <IoIosAddCircleOutline className="text-green-600 bold" />
                             </button>
+
+                           {check.includes(homeworkData._id) && <BsCheckLg className="text-green-600"/>} 
 
                           </td>
                         </tr>

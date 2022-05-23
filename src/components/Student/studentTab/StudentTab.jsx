@@ -27,8 +27,9 @@ function StudentTab() {
     subjectId,
 
     openHomeworkModale,
-    getAllHomeworks,
+ 
     setAllHomeworks,
+    getHomeworksBySubjectId,
     setHomeworks,
   } = useContext(Context);
 
@@ -74,7 +75,9 @@ function StudentTab() {
   /// hausaufgaben wählen
 
   const selectHausAufgaben = () => {
-    getAllHomeworks()
+    console.log("sub",subjectId);
+    // getAllHomeworks()
+    getHomeworksBySubjectId(subjectId)
       .then((res) => {
         if (res.message === "success") {
           setHomeworks(res.data);
@@ -110,7 +113,7 @@ function StudentTab() {
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
           <div>
-            <div className="flex justify-around bg-[#8DD4C3]  items-center h-24 rounded-md ">
+            <div className="flex justify-around bg-[#8DD4C3]  items-center h-24 rounded-md w-[100%] ">
               <SearchStudentBar />
 
               <SelectClassesStudent />
