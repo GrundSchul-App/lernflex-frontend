@@ -37,12 +37,12 @@ function SelectClassesStudent(props) {
     
 
     return (
-        <div className="flex flex-col justify-center     ">
+        <div className="flex flex-col justify-center  w-[220px]     ">
         <form>
 
 <div className="flex   p-2 rounded-xl bg-white h-19  items-center ">
-            <IoIosPeople className="w-12 h-10 mr-2 " />
-            <span className="mr-2  w-full">Klasse</span>
+            <IoIosPeople className="w-12 h-10 mr-2  " />
+            <span className="mr-2  w-full ">Klassen</span>
 
             <select
               className="form-select 
