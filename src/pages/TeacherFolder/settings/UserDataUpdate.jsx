@@ -1,15 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { Context } from "../../../context/context";
 import ProfileForm from "../settings/ProfileForm";
 
 const UserDataUpdate = () => {
-  const {
-    userSettings,
-    setUserSettings,
-    editToggleModale,
-    setEditToggleModale,
-  } = useContext(Context);
+  const [toggleEditModal, setToggleEditModal] = useState(false);
 
   return (
     <div className="border-2 border-gray-400 w-[45%] my-4 mx-6 rounded-lg relative">
@@ -26,7 +21,7 @@ const UserDataUpdate = () => {
           <p className="text-gray-500">Lehrer</p>
         </div>
         <AiFillEdit
-          onClick={() => setEditToggleModale(!editToggleModale)}
+          onClick={() => setToggleEditModal(!toggleEditModal)}
           className="w-8 h-8 text-gray-500 hover:text-gray-900 hover:cursor-pointer"
         />
       </div>
@@ -35,10 +30,10 @@ const UserDataUpdate = () => {
         <p>Geburtsdatum: 18.02.2010</p>
         <p>Email: max-musterman@gmail.com</p>
         <p>Telefonnummer: 0153 632 634</p>
-        <p>Fach: Deutsch</p>
+        <p>Fächer: Deutsch, Englisch</p>
         <p>Adresse: max-musterman-str. 15, 22155 Hamburg</p>
       </div>
-      {editToggleModale && <ProfileForm />}
+      {toggleEditModal && <ProfileForm />}
     </div>
   );
 };
